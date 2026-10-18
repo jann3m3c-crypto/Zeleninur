@@ -1156,8 +1156,10 @@ def admin():
             existing_task=db.execute("SELECT * FROM tasks WHERE week_number=?",(week_no,)).fetchone() if week_no else None
             if not existing_task:
                 flash("Vybraný týden nebyl nalezen.","error")
-            elif existing_task["published"]:
-                flash("Tento týden už je zveřejněný a uzamčený. Jeho zadání ani řešení už nejde změnit.","error")
+            elif action=="publish_week_task" and existing_task["published"]:
+                flash("Tento úkol už je zveřejněný. Pro opravu použij tlačítko Uložit opravu uzamčeného úkolu.","error")
+            elif existing_task["published"] and request.form.get("edit_published_confirm") != "1":
+                flash("Před úpravou zveřejněného úkolu zaškrtni potvrzení opravy uzamčeného úkolu.","error")
             elif not title or not description or not date_range or not month_title:
                 flash("Vyplň název, termín, měsíc a zadání úkolu.","error")
             elif task_type not in ("text","choice","photo","challenge"):
@@ -1166,7 +1168,7 @@ def admin():
                 flash("Úkol s výběrem musí mít alespoň dvě možnosti, každou na samostatném řádku.","error")
             else:
                 db.execute("""UPDATE tasks SET title=?,month_title=?,date_range=?,story_intro=?,description=?,task_type=?,
-                              options_text=?,correct_answer=?,explanation=?,failure_consequence=? WHERE id=? AND published=0""",
+                              options_text=?,correct_answer=?,explanation=?,failure_consequence=? WHERE id=?""",
                            (title,month_title,date_range,story_intro,description,task_type,
                             "\n".join(x.strip() for x in options_text.splitlines() if x.strip()) if task_type=="choice" else None,
                             correct_answer,explanation,failure_consequence,existing_task["id"]))
@@ -1180,7 +1182,11 @@ def admin():
                         db.commit()
                         flash(f"Týden {week_no} je zveřejněný a uzamčený. Všichni hráči mají stejné zadání a mohou dohánět starší týdny.","success")
                 else:
-                    db.commit(); flash(f"Návrh úkolu pro týden {week_no} byl uložen. Do zveřejnění ho můžeš znovu upravit.","success")
+                    db.commit()
+                    if existing_task["published"]:
+                        flash(f"Oprava zveřejněného úkolu pro týden {week_no} byla uložena. Úkol zůstává zveřejněný; již uložená vyhodnocení odpovědí se zpětně nemění.","success")
+                    else:
+                        flash(f"Návrh úkolu pro týden {week_no} byl uložen. Do zveřejnění ho můžeš znovu upravit.","success")
         elif action=="set_task":
             pos=request.form.get("space_number",type=int)
             title=request.form.get("title","").strip(); description=request.form.get("description","").strip()
