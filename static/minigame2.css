@@ -1,0 +1,32 @@
+/* Slimákova hlídka — druhá mini hra Zeleninuru */
+.minigame2-hero{background:linear-gradient(145deg,#fffbe6 0%,#f4e7be 58%,#dce8b5 100%)}
+.minigame2-board{padding:18px clamp(10px,2vw,22px) 20px;text-align:center}
+.guard-timer-wrap{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;gap:7px;margin:0 auto 9px;max-width:580px;color:#3c5f31;font-weight:1000;font-variant-numeric:tabular-nums}
+.guard-timer-track{flex:1;height:13px;border:2px solid #a66a2a;border-radius:999px;background:#e9d6a4;overflow:hidden;box-shadow:inset 0 2px 3px #6c471c33}
+.guard-timer-bar{height:100%;width:100%;border-radius:999px;background:linear-gradient(90deg,#84b94e,#4d8f41);transition:width .1s linear,background .2s}
+.guard-timer-bar.is-low{background:linear-gradient(90deg,#f0b64f,#d6543c)}
+.guard-timer-wrap strong{min-width:23px;text-align:right;font-size:1.15rem}
+.guard-timer-wrap>span{font-size:.82rem;color:#7d5a2c}
+.guard-grid-wrap{position:relative;z-index:1;width:min(100%,560px);margin:0 auto;padding:10px;border:3px solid #a86b31;border-radius:20px;background:linear-gradient(145deg,#caa267,#8a5228);box-shadow:inset 0 0 0 2px #f7dfa1,0 5px 0 #75461f;touch-action:manipulation}
+.guard-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(7px,1.4vw,12px);width:100%;aspect-ratio:1/1;padding:8px;border-radius:13px;background:radial-gradient(ellipse at top,#adc39b,#74896a 76%,#657a58);box-shadow:inset 0 0 0 2px #61734f;touch-action:manipulation}
+.guard-cell{display:flex;justify-content:center;align-items:center;position:relative;min-width:0;min-height:0;padding:0;border:2px solid #94704a;border-radius:clamp(9px,1.4vw,17px);background:linear-gradient(145deg,#b58a55,#8a633b 63%,#69492c);box-shadow:inset 0 3px 2px #f2d6a277,inset 0 -5px 0 #5a3d27,0 2px 2px #344b2d66;color:#fff2c6;font-size:clamp(1.5rem,4vw,3.2rem);line-height:1;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .09s,border-color .12s,filter .12s}
+.guard-cell:before{content:"";position:absolute;inset:8%;border:1px dashed #e8c68b66;border-radius:10px;pointer-events:none}
+.guard-cell:active{transform:scale(.96)}
+.guard-cell:focus-visible{outline:4px solid #f7d568;outline-offset:2px}
+.guard-soil{filter:drop-shadow(0 2px 0 #523e24aa);opacity:.82;font-size:clamp(1.05rem,3vw,2.25rem)}
+.guard-target{display:inline-block;position:relative;z-index:1;filter:drop-shadow(0 4px 2px #3d2b1688);animation:guard-pop .16s cubic-bezier(.18,.8,.3,1.2) both}
+.guard-cell.has-target{border-color:#e3c16a;box-shadow:inset 0 0 0 3px #ffe8a8,inset 0 -5px 0 #5a3d27,0 0 0 3px #84aa54aa,0 4px 8px #30412055}
+.guard-cell.is-pest{background:radial-gradient(circle at 50% 30%,#d9e0a3,#779951 65%,#4c6d38);border-color:#547c36}
+.guard-cell.is-helper{background:radial-gradient(circle at 50% 30%,#fff0bb,#d2b86b 65%,#a17d42);border-color:#c49a4b}
+.guard-cell.is-hit{background:linear-gradient(145deg,#a7d78c,#5e9b50);animation:guard-hit .22s ease-out}
+.guard-cell.is-penalty{background:linear-gradient(145deg,#f2bb87,#bf6651);animation:guard-penalty .22s ease-out}
+@keyframes guard-pop{from{transform:scale(.58) rotate(-8deg);opacity:.4}to{transform:scale(1) rotate(0);opacity:1}}
+@keyframes guard-hit{50%{transform:scale(.91);filter:brightness(1.22)}}
+@keyframes guard-penalty{50%{transform:scale(.91);filter:brightness(1.17)}}
+.minigame2-over{margin-top:15px}
+.minigame2-over .personal-best-line{margin-top:8px}
+.minigame2-body .round-hint{max-width:75ch;margin-left:auto;margin-right:auto}
+@media(max-width:900px){.minigame2-board{padding:14px 14px 18px}.guard-grid-wrap{max-width:600px}}
+@media(max-width:560px){.minigame2-board{padding:12px 8px 13px}.guard-grid-wrap{padding:6px;border-width:2px;border-radius:13px}.guard-grid{gap:5px;padding:5px}.guard-cell{border-width:1.5px;border-radius:9px;box-shadow:inset 0 2px 1px #f2d6a277,inset 0 -3px 0 #5a3d27,0 1px 2px #344b2d66;font-size:clamp(1.4rem,9vw,2.8rem)}.guard-cell.has-target{box-shadow:inset 0 0 0 2px #ffe8a8,inset 0 -3px 0 #5a3d27,0 0 0 2px #84aa54aa}.guard-soil{font-size:clamp(1rem,6vw,1.8rem)}.guard-timer-wrap{margin-bottom:8px}.guard-timer-track{height:11px}}
+@media(prefers-reduced-motion:reduce){.guard-cell,.guard-target,.guard-timer-bar{transition:none;animation:none}}
+[hidden]{display:none!important}
