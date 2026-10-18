@@ -347,6 +347,13 @@ def init_db():
         except (OSError, ValueError, KeyError, sqlite3.Error) as _seed_error:
             print(f"Upozornění: katalog 29 týdenních úkolů se nepodařilo synchronizovat: {_seed_error}")
 
+    # One-time migration: self-registration no longer requires administrator approval.
+    # Activate existing pending player registrations too, so early testers are not locked out.
+    auto_activate_key = "auto_activate_pending_player_accounts_v1"
+    if not db.execute("SELECT 1 FROM app_meta WHERE key=?", (auto_activate_key,)).fetchone():
+        db.execute("UPDATE users SET account_status='active' WHERE role='player' AND account_status='pending'")
+        db.execute("INSERT INTO app_meta (key,value) VALUES (?,?)", (auto_activate_key, "completed"))
+
     # Backfill weekly movement locks from previously approved tasks. This preserves existing progress.
     approvals = db.execute("""SELECT id,user_id,approved_week,reviewed_at FROM submissions
         WHERE status='approved' AND (approved_week IS NOT NULL OR auto_result IS NULL)""").fetchall()
@@ -781,15 +788,19 @@ def register():
         if password != confirm:
             flash("Hesla se neshodují.", "error"); return render_template("register.html")
         try:
-            db.execute(
+            cursor = db.execute(
                 "INSERT INTO users (username,password_hash,display_name,role,position,coins,account_status,created_at,avatar_id) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP,?)",
-                (username,generate_password_hash(password),display_name,"player",1,0,"pending","avatar-001")
+                (username,generate_password_hash(password),display_name,"player",1,0,"active","avatar-001")
             )
             db.commit()
         except sqlite3.IntegrityError:
             flash("Toto uživatelské jméno už někdo používá. Vyber jiné.", "error")
             return render_template("register.html")
-        return render_template("register.html",submitted=True,submitted_username=username)
+        # Self-registration now creates an active player account and signs the player in immediately.
+        session.clear()
+        session["user_id"] = cursor.lastrowid
+        flash(f"Vítej ve hře, {display_name}! Účet je aktivní.", "success")
+        return redirect(url_for("home"))
     return render_template("register.html")
 
 @app.route("/login", methods=["GET","POST"])
