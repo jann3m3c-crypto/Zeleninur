@@ -12,7 +12,7 @@
   <a href="#registrations">Registrace</a>
 </nav>
 <section class="admin-section" id="taskManagement"><h2>📚 Správa a úpravy všech týdenních úkolů</h2>
-<p class="muted"><strong>Knihovna všech úkolů je přístupná kdykoli, nezávisle na aktuálním datu.</strong> V knihovně je všech 29 úkolů z podkladového dokumentu. Nepublikované návrhy můžeš upravovat včetně názvu, termínu, příběhu, zadání, možností, správné odpovědi, vysvětlení i následku při nesplnění. Dokud úkol nezveřejníš, je upravitelný; po zveřejnění se uzamkne, aby všichni hráči daného týdne měli totožnou verzi. Zveřejňuj týdny postupně — nováček potom může plnit všechny zveřejněné úkoly od začátku až po aktuální týden.</p>
+<p class="muted"><strong>Knihovna všech úkolů je přístupná kdykoli, nezávisle na aktuálním datu.</strong> V knihovně je všech 29 úkolů z podkladového dokumentu. Nepublikované návrhy můžeš upravovat včetně názvu, termínu, příběhu, zadání, možností, správné odpovědi, vysvětlení i následku při nesplnění. Po zveřejnění zůstává úkol běžně uzamčený, ale jako správce ho můžeš opravit i později — například když objevíš chybu v termínu, zadání nebo správné odpovědi. Oprava se projeví ihned pro všechny hráče; již uložená vyhodnocení se zpětně nepřepočítávají. Zveřejňuj týdny postupně — nováček potom může plnit všechny zveřejněné úkoly od začátku až po aktuální týden.</p>
 <div class="weekly-admin-current"><strong>Aktuálně zveřejněno:</strong> {% if latest_week %}týden {{latest_week}}{% else %}zatím žádný týden — hra čeká na zveřejnění týdne 1{% endif %}</div>
 <div class="task-editor-wrap"><form method="post" class="task-editor weekly-task-editor" id="weeklyTaskEditor">
 <div class="form-field"><label for="weekNumber">Týden k úpravě</label><select id="weekNumber" name="week_number" required>{% for wt in weekly_tasks %}<option value="{{wt['week_number']}}">Týden {{wt['week_number']}} · {{wt['title']}}{% if wt['published'] %} — UZAMČENO{% else %} — návrh{% endif %}</option>{% endfor %}</select><p id="weekTaskState" class="tiny"></p></div>
@@ -26,15 +26,16 @@
 <div class="form-field full"><label for="weekCorrectAnswer">Správná odpověď / řešení (jen pro správce, hráč uvidí po vyhodnocení)</label><textarea id="weekCorrectAnswer" name="correct_answer" rows="2"></textarea></div>
 <div class="form-field full"><label for="weekExplanation">Vysvětlení do hry (Reply)</label><textarea id="weekExplanation" name="explanation" rows="5"></textarea></div>
 <div class="form-field full"><label for="weekFailureConsequence">Následek při nesplnění</label><textarea id="weekFailureConsequence" name="failure_consequence" rows="2"></textarea></div>
+<div class="form-field full" id="publishedEditConfirmPanel" hidden><label><input type="checkbox" id="confirmPublishedEdit" name="edit_published_confirm" value="1"> Potvrzuji opravu již zveřejněného úkolu. Změna se projeví všem hráčům, ale již zaznamenaná vyhodnocení zůstanou beze změny.</label></div>
 <div class="form-field full weekly-editor-actions"><button type="submit" name="action" value="save_week_task" id="saveWeekTaskButton">Uložit návrh</button><button type="submit" name="action" value="publish_week_task" id="publishWeekTaskButton" onclick="return confirm('Zveřejnit a uzamknout tento úkol pro všechny hráče? Zadání, odpověď a vysvětlení už pak nepůjde upravit.');">Zveřejnit a uzamknout týden →</button></div>
 </form></div>
 <h3>Všech {{weekly_tasks|length}} úkolů — knihovna nezávislá na aktuálním datu</h3>
 <div class="task-library-tools">
   <label for="taskLibrarySearch">Najít úkol podle čísla týdne, názvu nebo měsíce</label>
   <input id="taskLibrarySearch" type="search" placeholder="Např. česnek, únor, týden 7…">
-  <p class="tiny">Kliknutím na úkol ho otevřeš v editoru. Budoucí i minulá období jsou dostupná kdykoli; pouze zveřejněné úkoly zůstávají uzamčené.</p>
+  <p class="tiny">Kliknutím na úkol ho otevřeš v editoru. Budoucí i minulá období jsou dostupná kdykoli. Zveřejněný úkol lze po výslovném potvrzení opravit.</p>
 </div>
-<div class="weekly-task-admin-list" id="weeklyTaskLibrary">{% for wt in weekly_tasks %}<article class="weekly-task-admin-card" data-search="{{ (wt['week_number'] ~ ' ' ~ wt['title'] ~ ' ' ~ wt['month_title'] ~ ' ' ~ wt['date_range'])|lower }}"><div class="weekly-task-admin-top"><span class="week-number-chip">{{wt['week_number']}}</span><div class="weekly-task-admin-title"><strong>{{wt['title']}}</strong><small>{{wt['month_title']}} · {{wt['date_range']}}</small></div><span class="history-status {% if wt['published'] %}status-done{% else %}status-ready{% endif %}">{% if wt['published'] %}Zveřejněno · uzamčeno{% else %}Návrh{% endif %}</span></div><p>{{wt['story_intro']|truncate(180,True,'…')}}</p><div class="weekly-task-admin-actions"><small>{{wt['submission_count']}} odevzdání · {{wt['task_type']}}</small><button type="button" class="secondary-button small-button" onclick="loadWeekTaskForm({{wt['week_number']}},true)">{% if wt['published'] %}Zobrazit uzamčený úkol{% else %}Upravit návrh{% endif %}</button></div></article>{% endfor %}</div>
+<div class="weekly-task-admin-list" id="weeklyTaskLibrary">{% for wt in weekly_tasks %}<article class="weekly-task-admin-card" data-search="{{ (wt['week_number'] ~ ' ' ~ wt['title'] ~ ' ' ~ wt['month_title'] ~ ' ' ~ wt['date_range'])|lower }}"><div class="weekly-task-admin-top"><span class="week-number-chip">{{wt['week_number']}}</span><div class="weekly-task-admin-title"><strong>{{wt['title']}}</strong><small>{{wt['month_title']}} · {{wt['date_range']}}</small></div><span class="history-status {% if wt['published'] %}status-done{% else %}status-ready{% endif %}">{% if wt['published'] %}Zveřejněno · uzamčeno{% else %}Návrh{% endif %}</span></div><p>{{wt['story_intro']|truncate(180,True,'…')}}</p><div class="weekly-task-admin-actions"><small>{{wt['submission_count']}} odevzdání · {{wt['task_type']}}</small><button type="button" class="secondary-button small-button" onclick="loadWeekTaskForm({{wt['week_number']}},true)">{% if wt['published'] %}Opravit uzamčený úkol{% else %}Upravit návrh{% endif %}</button></div></article>{% endfor %}</div>
 </section>
 
 
@@ -105,20 +106,26 @@ const weekFields={
 const weekState=document.getElementById('weekTaskState');
 const saveWeekButton=document.getElementById('saveWeekTaskButton');
 const publishWeekButton=document.getElementById('publishWeekTaskButton');
+const publishedEditConfirmPanel=document.getElementById('publishedEditConfirmPanel');
+const confirmPublishedEdit=document.getElementById('confirmPublishedEdit');
 const weekOptionsPanel=document.getElementById('weekOptionsPanel');
 function toggleWeekOptions(){weekOptionsPanel.style.display=weekFields.task_type.value==='choice'?'block':'none'}
 function loadWeekTaskForm(weekNumber,scroll){
   weekSelect.value=String(weekNumber);
   const t=weeklyTaskData[String(weekNumber)]; if(!t)return;
-  Object.keys(weekFields).forEach(k=>{weekFields[k].value=t[k]||''; weekFields[k].disabled=!!t.published;});
+  Object.keys(weekFields).forEach(k=>{weekFields[k].value=t[k]||''; weekFields[k].disabled=false;});
   weekState.textContent=t.published
-    ?'Tento týden byl zveřejněn a je uzamčený. Text, správná odpověď i vysvětlení zůstávají pevné pro všechny hráče.'
+    ?'Tento týden je zveřejněný. Můžeš opravit jeho obsah; změnu potvrď zaškrtnutím níže. Úkol zůstane zveřejněný.'
     :'Návrh není zveřejněný. Můžeš upravit celý úkol včetně správné odpovědi, vysvětlení a následku při nesplnění.';
-  saveWeekButton.disabled=!!t.published;
+  saveWeekButton.disabled=false;
+  saveWeekButton.textContent=t.published?'Uložit opravu uzamčeného úkolu':'Uložit návrh';
+  publishedEditConfirmPanel.hidden=!t.published;
+  confirmPublishedEdit.checked=false;
+  confirmPublishedEdit.required=!!t.published;
   const canPublish=!t.published && Number(weekNumber)===latestPublishedWeek+1;
   publishWeekButton.disabled=!canPublish;
-  publishWeekButton.title=canPublish?'Zveřejní úkol a uzamkne jeho obsah.':'Týdny se zveřejňují postupně; nejdřív zveřejni předchozí týden.';
-  publishWeekButton.textContent=t.published?'Týden je uzamčený':(canPublish?'Zveřejnit a uzamknout týden →':'Nejdřív zveřejni předchozí týdny');
+  publishWeekButton.title=canPublish?'Zveřejní úkol a uzamkne jeho obsah.':'Týdny se zveřejňují postupně; již zveřejněný týden nelze znovu publikovat.';
+  publishWeekButton.textContent=t.published?'Již zveřejněno':(canPublish?'Zveřejnit a uzamknout týden →':'Nejdřív zveřejni předchozí týdny');
   toggleWeekOptions();
   if(scroll){document.getElementById('taskManagement').scrollIntoView({behavior:'smooth',block:'start'});weekFields.title.focus({preventScroll:true});}
 }
