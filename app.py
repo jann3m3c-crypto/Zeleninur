@@ -715,10 +715,10 @@ def get_minigame_leaderboard(db, round_number, limit=200):
     for i,row in enumerate(rows, start=1):
         score=int(row["best_score"] or 0)
         if round_number == 2:
-            if score >= 25: status="Postrach slimáků 🛡️"
-            elif score >= 16: status="Zahradní ochránce 🌿"
-            elif score >= 8: status="Lovec škůdců 🐌"
-            else: status="Nováček hlídky 🍃"
+            if score >= 25: status="Mistr sklepní komory 🧺"
+            elif score >= 16: status="Sklepní hospodář 🥕"
+            elif score >= 8: status="Hlídač úrody 🍎"
+            else: status="Nováček skladník 🌱"
         else:
             if score >= 20: status="Elitní skener 👁️"
             elif score >= 12: status="Zkušený hledač 🔍"
