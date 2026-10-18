@@ -66,15 +66,15 @@
 </section>
 
 <section class="task-teaser minigame-unlock-card" id="miniGameRound2">
-  <div class="task-kicker"><span class="task-kicker-icon">🐌</span><div><div class="eyebrow">MINIHRA · 2. KOLO · ZAHRADNÍ HLÍDKA</div><span class="task-kicker-caption">Slimákova hlídka</span></div><span class="task-week-stamp">{% if minigame2_unlocked %}ODEMČENO{% else %}ZAMČENO{% endif %}</span></div>
+  <div class="task-kicker"><span class="task-kicker-icon">🧺</span><div><div class="eyebrow">MINIHRA · 2. TÝDEN · SKLEPNÍ KOMORA</div><span class="task-kicker-caption">Toxické spojenectví ve sklepní kobce</span></div><span class="task-week-stamp">{% if minigame2_unlocked %}ODEMČENO{% else %}ZAMČENO{% endif %}</span></div>
   {% if minigame2_unlocked %}
-    <h2>🛡️ Chraň sazenice před slimáky!</h2>
-    <p class="task-description">Máš 30 sekund. Klikni na slimáky a housenky, ale nech berušky a včelky na pokoji — jsou to pomocníci zahrady. Za škůdce získáš bod, za pomocníka body ztratíš. Rekord se ukládá zvlášť a zlaťáků se hra nedotkne.</p>
-    {% if minigame2_best_score is not none %}<p class="status success">🏆 Tvůj rekord: <strong>{{ minigame2_best_score }} bodů</strong>{% if minigame2_best_level %} · nejdelší série {{ minigame2_best_level }}{% endif %}</p>{% else %}<p class="status">Zatím žádný rekord — staň se prvním ochráncem zahrady!</p>{% endif %}
-    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=2) }}">🐌 Spustit Slimákovu hlídku →</a>
+    <h2>🛡️ Ulož úrodu, než se zkazí!</h2>
+    <p class="task-description">Ve 30 sekundách roztřiď plodiny do správných míst: celer, petržel a mrkev do bedny s pískem; jablka a další plodiny uvolňující etylen stranou od brambor. Rekord se ukládá zvlášť a zlaťáků se hra nedotkne.</p>
+    {% if minigame2_best_score is not none %}<p class="status success">🏆 Tvůj rekord: <strong>{{ minigame2_best_score }} bodů</strong>{% if minigame2_best_level %} · nejdelší série {{ minigame2_best_level }}{% endif %}</p>{% else %}<p class="status">Zatím žádný rekord — staň se prvním mistrem sklepní komory!</p>{% endif %}
+    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=2) }}">🗝️ Otevřít sklepní komoru →</a>
   {% else %}
-    <h2>🔒 Slimákova hlídka čeká na zahájení 2. kola</h2>
-    <p class="task-description">Až odešleš týdenní úkol 2, minihra se otevře bez ohledu na správnost odpovědi nebo čekání na kontrolu. Pak ji můžeš hrát opakovaně; zlaťáky zůstanou beze změny.</p>
+    <h2>🔒 Sklepní komora čeká na zahájení 2. týdne</h2>
+    <p class="task-description">Až odešleš týdenní úkol 2 „Toxické spojenectví ve sklepní kobce“, minihra se otevře bez ohledu na správnost odpovědi nebo čekání na kontrolu. Pak můžeš opakovaně třídit úrodu; zlaťáky zůstanou beze změny.</p>
   {% endif %}
 </section>
 
