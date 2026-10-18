@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 410" role="img" aria-labelledby="title desc">
+<title id="title">Zeleninur – sklepní třídírna úrody</title>
+<desc id="desc">Malovaný sklep s kamennými stěnami, dřevěnými policemi, kořenovou zeleninou, bednou s pískem, ovocem a oddělenou bednou na brambory.</desc>
+<defs>
+ <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#d9c8a1"/><stop offset="1" stop-color="#8f7754"/></linearGradient>
+ <linearGradient id="wood" x2="0" y2="1"><stop stop-color="#b67b3f"/><stop offset=".45" stop-color="#895429"/><stop offset="1" stop-color="#57361f"/></linearGradient>
+ <linearGradient id="woodLite" x2="0" y2="1"><stop stop-color="#d9ad67"/><stop offset="1" stop-color="#98602e"/></linearGradient>
+ <linearGradient id="sand" x2="0" y2="1"><stop stop-color="#e3c78a"/><stop offset="1" stop-color="#b28b4e"/></linearGradient>
+ <linearGradient id="stone" x2="0" y2="1"><stop stop-color="#6f725d"/><stop offset="1" stop-color="#343e30"/></linearGradient>
+ <radialGradient id="lamp"><stop stop-color="#fff2a6" stop-opacity=".8"/><stop offset="1" stop-color="#f2b751" stop-opacity="0"/></radialGradient>
+ <pattern id="grain" width="76" height="22" patternUnits="userSpaceOnUse"><path d="M3 8 Q20 3 43 9 T76 8 M14 18 Q27 14 39 18 T60 17" fill="none" stroke="#4b2d19" stroke-opacity=".24" stroke-width="2"/></pattern>
+ <pattern id="stones" width="140" height="76" patternUnits="userSpaceOnUse"><path d="M0 1 H75 L82 34 H20 L16 75 M76 1 L140 2 M82 34 L140 37 M20 75 H108 L110 38" fill="none" stroke="#f7e6c3" stroke-opacity=".20" stroke-width="3"/></pattern>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#26180c" flood-opacity=".52"/></filter>
+</defs>
+<!-- cellar masonry backdrop -->
+<rect width="1200" height="410" rx="22" fill="url(#wall)"/>
+<rect width="1200" height="410" rx="22" fill="url(#stones)"/>
+<path d="M0 0 H1200 V54 Q850 20 600 45 T0 49Z" fill="#483724" opacity=".9"/>
+<path d="M0 51 H1200" stroke="#d2ab69" stroke-width="8"/>
+<!-- ceiling beams -->
+<g filter="url(#shadow)"><path d="M0 16 L1200 5 V48 L0 61Z" fill="url(#wood)"/><path d="M0 22 L1200 11" stroke="#d8a768" stroke-width="5"/><path d="M0 46 L1200 35" stroke="#3e2818" stroke-width="4"/><path d="M140 0 L185 0 L169 62 L126 62Z M550 0 L595 0 L581 53 L537 56Z M965 0 L1010 0 L999 47 L954 49Z" fill="url(#woodLite)"/></g>
+<!-- arched stone recess -->
+<path d="M432 311 V160 A168 168 0 0 1 768 160 V311Z" fill="#4b4b3c" opacity=".56" stroke="#ead5a4" stroke-width="13"/>
+<path d="M456 311 V166 A144 144 0 0 1 744 166 V311Z" fill="#373b2c" opacity=".74"/>
+<path d="M471 300 V169 A129 129 0 0 1 729 169 V300Z" fill="url(#stone)"/>
+<g opacity=".32" fill="#dbd0af"><path d="M488 178 L557 165 L575 198 L510 212Z"/><path d="M592 164 L655 170 L674 202 L609 205Z"/><path d="M495 231 L560 222 L579 254 L505 265Z"/><path d="M615 225 L690 230 L701 263 L625 260Z"/></g>
+<!-- wall shelves -->
+<g filter="url(#shadow)">
+ <path d="M40 105 H1160 V127 H40Z" fill="url(#woodLite)" stroke="#55351c" stroke-width="5"/>
+ <path d="M56 217 H1144 V239 H56Z" fill="url(#woodLite)" stroke="#55351c" stroke-width="5"/>
+ <path d="M28 333 H1172 V356 H28Z" fill="url(#woodLite)" stroke="#55351c" stroke-width="5"/>
+ <path d="M40 108 H1160 V127 H40Z" fill="url(#grain)" opacity=".85"/>
+ <path d="M56 219 H1144 V239 H56Z" fill="url(#grain)" opacity=".85"/>
+ <path d="M28 335 H1172 V356 H28Z" fill="url(#grain)" opacity=".85"/>
+</g>
+<!-- lantern and warm glow -->
+<circle cx="91" cy="127" r="103" fill="url(#lamp)"/>
+<path d="M73 30 H108 L115 46 L110 86 H72 L66 46Z" fill="#44311f" stroke="#d2a35a" stroke-width="5"/>
+<path d="M80 41 H101 L105 77 H77Z" fill="#ffd46a" stroke="#79522a" stroke-width="4"/>
+<path d="M79 44 L103 44 M79 75 L103 75" stroke="#fff3b6" stroke-width="3"/>
+<path d="M91 30 V9 Q91 0 104 0" fill="none" stroke="#5e4125" stroke-width="6"/>
+<!-- jars on upper shelf -->
+<g filter="url(#shadow)">
+ <g transform="translate(180 57)"><rect x="0" y="17" width="58" height="46" rx="10" fill="#7b9b60" stroke="#4d623d" stroke-width="4"/><rect x="5" y="5" width="48" height="14" rx="4" fill="#c59a53" stroke="#5a3a20" stroke-width="4"/><path d="M10 35 L48 35 M14 46 L44 46" stroke="#d9e7a0" stroke-width="3" opacity=".7"/><path d="M29 23 C13 29 18 39 30 41 C43 40 43 29 29 23Z" fill="#e2b85e"/></g>
+ <g transform="translate(260 67)"><rect x="0" y="13" width="48" height="38" rx="9" fill="#b46c45" stroke="#713e27" stroke-width="4"/><rect x="5" y="3" width="38" height="12" rx="3" fill="#b79459" stroke="#633c22" stroke-width="3"/><circle cx="17" cy="30" r="6" fill="#efbd6b"/><circle cx="31" cy="37" r="5" fill="#ecd58a"/></g>
+ <g transform="translate(920 51)"><rect x="0" y="22" width="57" height="44" rx="8" fill="#8aa66e" stroke="#4b6837" stroke-width="4"/><rect x="5" y="8" width="47" height="16" rx="4" fill="#c99e57" stroke="#58381d" stroke-width="4"/><path d="M10 39 Q28 31 45 40 M10 50 Q28 42 45 51" stroke="#e7efb0" stroke-width="3" fill="none"/></g>
+ <g transform="translate(1000 56)"><rect x="0" y="17" width="49" height="44" rx="9" fill="#c48a52" stroke="#744525" stroke-width="4"/><rect x="4" y="5" width="41" height="15" rx="4" fill="#dfbd77" stroke="#684322" stroke-width="3"/><path d="M9 31 Q25 25 40 32 M9 44 Q25 37 40 44" fill="none" stroke="#f1d799" stroke-width="3"/></g>
+</g>
+<!-- left produce: apples and bananas separate -->
+<g filter="url(#shadow)">
+ <path d="M46 174 L374 174 L392 209 L31 209Z" fill="url(#woodLite)" stroke="#59371d" stroke-width="5"/>
+ <path d="M43 137 L66 116 L351 116 L380 142 L367 184 L52 184Z" fill="url(#wood)" stroke="#4a2e1b" stroke-width="6"/>
+ <path d="M55 142 H365 M57 159 H362 M67 176 H355" stroke="#d49e59" stroke-width="4" opacity=".8"/>
+ <!-- apples -->
+ <g transform="translate(104 124)"><path d="M0 17 C-25 -10 -42 13 -30 36 C-22 59 0 57 5 45 C18 58 39 46 38 24 C38 1 13 0 5 17Z" fill="#b83c2c" stroke="#70281f" stroke-width="4"/><path d="M4 14 Q8 0 16 -4" fill="none" stroke="#5f3b23" stroke-width="5"/><path d="M13 1 Q34 -10 36 2 Q25 12 13 1Z" fill="#719347" stroke="#3d5b2d" stroke-width="3"/><ellipse cx="-13" cy="20" rx="5" ry="10" fill="#f7a16b" opacity=".8"/></g>
+ <g transform="translate(167 131)"><path d="M4 7 C-12 -7 -26 -1 -31 14 C-36 29 -17 46 -5 40 C6 49 26 34 20 18 C17 9 12 9 4 7Z" fill="#d84c32" stroke="#7a2e1f" stroke-width="4"/><path d="M1 7 L4 -5" stroke="#604022" stroke-width="4"/><path d="M5 -2 Q20 -17 27 -5 Q21 5 5 -2Z" fill="#69924a" stroke="#3c5f2f" stroke-width="3"/></g>
+ <!-- bananas -->
+ <g transform="translate(242 123)"><path d="M0 0 Q-2 24 19 37 Q39 49 58 31 Q41 54 19 50 Q-7 44 -7 6Z" fill="#f2ca4f" stroke="#856123" stroke-width="4"/><path d="M13 0 Q10 20 28 30" fill="none" stroke="#fff0a0" stroke-width="5"/><path d="M-3 0 L5 -7 M53 31 L62 25" stroke="#5c3e24" stroke-width="6" stroke-linecap="round"/></g>
+ <g transform="translate(297 122)"><path d="M0 0 Q-2 24 17 37 Q38 48 55 30 Q40 52 17 49 Q-7 43 -7 6Z" fill="#eac347" stroke="#856123" stroke-width="4"/><path d="M9 0 Q10 18 26 29" fill="none" stroke="#fff0a0" stroke-width="5"/><path d="M-3 0 L5 -7 M50 30 L59 24" stroke="#5c3e24" stroke-width="6" stroke-linecap="round"/></g>
+</g>
+<!-- central safe roots crate -->
+<g filter="url(#shadow)">
+ <path d="M414 185 L786 185 L800 217 L399 217Z" fill="url(#woodLite)" stroke="#50301a" stroke-width="6"/>
+ <path d="M407 150 L790 150 L784 198 L414 198Z" fill="url(#wood)" stroke="#4c2c19" stroke-width="6"/>
+ <path d="M420 159 H779 M418 176 H779 M420 190 H776" stroke="#d9a461" stroke-width="4" opacity=".85"/>
+ <path d="M414 147 L425 104 L776 104 L789 147Z" fill="url(#sand)" stroke="#76512d" stroke-width="5"/>
+ <path d="M431 124 Q482 110 529 125 T626 124 T760 125" fill="none" stroke="#f4ddb0" stroke-width="3" opacity=".65"/>
+ <!-- carrot -->
+ <g transform="translate(468 69) rotate(-12)"><path d="M0 20 C20 7 44 18 43 39 L18 100 Q12 109 8 99 L-3 40 Q-4 27 0 20Z" fill="#ed8734" stroke="#924a1f" stroke-width="4"/><path d="M6 34 L17 39 M8 51 L18 55 M11 67 L17 70" stroke="#ffcb71" stroke-width="4" stroke-linecap="round"/><path d="M15 24 Q-1 -4 -12 6 Q-12 22 9 30 M16 24 Q23 -6 38 1 Q38 20 19 30 M13 23 Q15 -11 27 -7 Q34 3 18 28" fill="#5e8c3d" stroke="#345c29" stroke-width="4" stroke-linejoin="round"/></g>
+ <!-- parsley bunch -->
+ <g transform="translate(575 74)"><path d="M14 45 L6 98 M20 44 L35 100 M24 42 L55 86" stroke="#4a7935" stroke-width="5" stroke-linecap="round"/><g fill="#719a4a" stroke="#3f682f" stroke-width="3"><path d="M20 38 Q-3 15 10 7 Q21 1 24 18 Q33 0 42 10 Q51 21 31 35 Q49 26 52 42 Q50 55 31 47 Q26 64 15 55 Q4 49 20 38Z"/><path d="M-2 29 Q-24 9 -18 0 Q-9 -6 -4 9 Q9 -3 15 8 Q19 19 3 30Z"/></g></g>
+ <!-- celery stalks -->
+ <g transform="translate(662 80)"><path d="M0 102 Q-9 54 -3 4 M16 103 Q14 55 30 4 M29 102 Q39 60 57 22 M8 101 Q4 72 -16 43" fill="none" stroke="#7ca951" stroke-width="13" stroke-linecap="round"/><path d="M0 102 Q-9 54 -3 4 M16 103 Q14 55 30 4 M29 102 Q39 60 57 22 M8 101 Q4 72 -16 43" fill="none" stroke="#c4db85" stroke-width="4" stroke-linecap="round"/><g fill="#4d8036" stroke="#315c2c" stroke-width="3"><path d="M-3 11 Q-34 -17 -47 0 Q-42 22 -11 25Z"/><path d="M4 13 Q13 -20 32 -8 Q37 7 10 27Z"/><path d="M27 24 Q52 -5 67 9 Q70 25 34 38Z"/></g></g>
+</g>
+<!-- dark potato box right -->
+<g filter="url(#shadow)">
+ <path d="M833 180 L1154 180 L1174 215 L816 215Z" fill="url(#woodLite)" stroke="#52331d" stroke-width="6"/>
+ <path d="M829 134 L1155 134 L1150 194 L838 194Z" fill="#6b4426" stroke="#3f2b1c" stroke-width="6"/>
+ <path d="M844 148 H1144 M842 165 H1142 M840 181 H1140" stroke="#b78349" stroke-width="4" opacity=".7"/>
+ <g fill="#a18a62" stroke="#5a4935" stroke-width="4">
+  <path d="M865 146 C847 130 864 114 882 120 C897 101 920 123 908 141 C919 155 898 164 881 154Z"/>
+  <path d="M926 145 C909 132 924 112 943 121 C962 106 977 127 965 143 C976 161 953 165 940 155Z"/>
+  <path d="M1000 146 C981 132 997 114 1014 120 C1035 103 1051 127 1037 142 C1049 159 1029 164 1012 154Z"/>
+  <path d="M1070 145 C1052 132 1069 114 1088 122 C1106 105 1120 128 1107 144 C1117 158 1095 165 1082 155Z"/>
+ </g>
+ <g fill="#d0ba8b" opacity=".8"><circle cx="881" cy="134" r="3"/><circle cx="944" cy="138" r="3"/><circle cx="1015" cy="134" r="3"/><circle cx="1087" cy="139" r="3"/></g>
+</g>
+<!-- foreground stone floor -->
+<path d="M0 365 Q270 342 520 371 T1200 362 V410 H0Z" fill="#594a35"/>
+<path d="M0 383 Q290 371 520 391 T1200 379" fill="none" stroke="#a89268" stroke-width="7" opacity=".65"/>
+<g fill="#9d8b68" stroke="#59462e" stroke-width="3"><ellipse cx="90" cy="384" rx="29" ry="9"/><ellipse cx="355" cy="394" rx="41" ry="8"/><ellipse cx="854" cy="389" rx="32" ry="8"/><ellipse cx="1090" cy="387" rx="39" ry="8"/></g>
+<!-- tiny garden touches -->
+<g stroke-linecap="round"><path d="M28 286 Q19 265 9 258 M30 294 Q47 269 57 270" stroke="#386b32" stroke-width="5" fill="none"/><g fill="#729a4b" stroke="#416e31" stroke-width="3"><ellipse cx="11" cy="256" rx="12" ry="7" transform="rotate(35 11 256)"/><ellipse cx="57" cy="268" rx="13" ry="7" transform="rotate(-35 57 268)"/></g><path d="M1174 286 Q1165 260 1156 253 M1174 295 Q1190 275 1198 279" stroke="#386b32" stroke-width="5" fill="none"/><g fill="#729a4b" stroke="#416e31" stroke-width="3"><ellipse cx="1157" cy="253" rx="12" ry="7" transform="rotate(35 1157 253)"/><ellipse cx="1193" cy="278" rx="13" ry="7" transform="rotate(-35 1193 278)"/></g></g>
+<!-- cobweb and cellar texture -->
+<g stroke="#fff0ca" stroke-width="2" opacity=".32" fill="none"><path d="M1121 63 L1195 132 M1195 63 L1121 132 M1138 79 Q1160 103 1182 125 M1178 79 Q1157 104 1137 125 M1121 85 Q1159 99 1195 85"/><path d="M6 72 L51 106 M51 72 L6 106 M16 83 Q29 94 42 105 M42 83 Q28 94 16 105"/></g>
+</svg>
