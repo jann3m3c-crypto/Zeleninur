@@ -354,6 +354,17 @@ def init_db():
         db.execute("UPDATE users SET account_status='active' WHERE role='player' AND account_status='pending'")
         db.execute("INSERT INTO app_meta (key,value) VALUES (?,?)", (auto_activate_key, "completed"))
 
+    # One-time requested restart of the weekly-task journey.
+    # Preserve player accounts, passwords, avatars, gold coins, and minigame scores;
+    # clear only task answers/progress and restart player markers at square 1.
+    progress_reset_key = "weekly_task_progress_reset_start_over_v1"
+    if not db.execute("SELECT 1 FROM app_meta WHERE key=?", (progress_reset_key,)).fetchone():
+        db.execute("DELETE FROM submissions WHERE user_id IN (SELECT id FROM users WHERE role='player')")
+        db.execute("DELETE FROM task_advances WHERE user_id IN (SELECT id FROM users WHERE role='player')")
+        db.execute("DELETE FROM player_advances WHERE user_id IN (SELECT id FROM users WHERE role='player')")
+        db.execute("UPDATE users SET position=1 WHERE role='player'")
+        db.execute("INSERT INTO app_meta (key,value) VALUES (?,?)", (progress_reset_key, "completed"))
+
     # Backfill weekly movement locks from previously approved tasks. This preserves existing progress.
     approvals = db.execute("""SELECT id,user_id,approved_week,reviewed_at FROM submissions
         WHERE status='approved' AND (approved_week IS NOT NULL OR auto_result IS NULL)""").fetchall()
@@ -539,8 +550,9 @@ def get_weekly_task_progress(db, user_id):
         if eligible:
             next_id = task["id"]
         can_submit = eligible and status in ("not_started", "needs_changes")
+        buy_cost = 1 if status == "rejected" else current_cost
         can_buy = bool(eligible and submission and status in ("approved", "rejected")
-                       and from_pos < 29 and current_cost > 0)
+                       and from_pos < 29 and (status == "rejected" or current_cost > 0))
         solution_visible = bool(submission and (status in ("approved", "rejected", "skipped")
                                 or submission.get("auto_result")))
         items.append({
@@ -552,6 +564,7 @@ def get_weekly_task_progress(db, user_id):
             "solution_visible": solution_visible,
             "advance": dict(advance) if advance else None,
             "skip_cost": current_cost,
+            "buy_cost": buy_cost,
         })
     return items, next_id, current_week
 
@@ -674,17 +687,17 @@ def home():
     )
 
 def minigame_round_unlocked(db, user_id, round_number):
-    """A minigame opens after its weekly task has actually been approved/completed."""
+    """The minigame stays available after a player submits the first task, regardless of the answer or review status."""
     if round_number != 1:
         return False
     task = db.execute("SELECT id FROM tasks WHERE week_number=1 AND published=1 ORDER BY id LIMIT 1").fetchone()
     if not task:
         return False
     submission = db.execute(
-        "SELECT status,auto_result FROM submissions WHERE user_id=? AND task_id=? ORDER BY id DESC LIMIT 1",
+        "SELECT id FROM submissions WHERE user_id=? AND task_id=? ORDER BY id DESC LIMIT 1",
         (user_id, task["id"])
     ).fetchone()
-    return bool(submission and submission["status"] == "approved" and submission["auto_result"] != "incorrect")
+    return submission is not None
 
 
 def get_minigame_leaderboard(db, round_number, limit=200):
@@ -943,11 +956,14 @@ def buy_advance():
         if from_pos>=29:
             db.rollback(); flash("Už jsi na posledním políčku.","error"); return redirect(url_for("home"))
         setting=db.execute("SELECT skip_cost FROM space_settings WHERE space_number=?",(from_pos,)).fetchone()
-        cost=int(setting["skip_cost"] or 0) if setting else 0
+        configured_cost=int(setting["skip_cost"] or 0) if setting else 0
+        # A rejected answer can always be bypassed for exactly one gold coin.
+        # Approved answers keep the administrator-configured field price.
+        cost=1 if sub["status"]=="rejected" else configured_cost
         if cost<=0:
             db.rollback(); flash("Správce zatím nenastavil cenu postupu z tohoto políčka.","error"); return redirect(url_for("home"))
         if int(fresh["coins"] or 0)<cost:
-            db.rollback(); flash(f"Nemáš dost zlaťáků. Postup stojí {cost}, máš {fresh['coins']}.","error"); return redirect(url_for("home"))
+            db.rollback(); flash(f"Nemáš dost zlaťáků. Potřebuješ {cost}, máš {fresh['coins']}.","error"); return redirect(url_for("home"))
         moved=record_task_advance(db,fresh["id"],task,"coins",cost)
         if not moved:
             raise sqlite3.IntegrityError("Postup už existuje nebo se změnil zůstatek hráče")
