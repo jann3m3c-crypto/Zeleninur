@@ -1,0 +1,177 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zeleninur</title><link rel="stylesheet" href="{{url_for('static',filename='style.css',v='avatars-woodrim-v34')}}"></head>
+<body class="game-body">
+<header class="game-header">
+ <a class="brand-link" href="{{url_for('home')}}" aria-label="Zeleninur – domů"><img src="{{url_for('static',filename='zeleninur-logo.png')}}" alt="Zeleninur" class="header-logo"></a>
+ <div class="header-right header-right-minimal"><a class="logout-link" href="{{url_for('logout')}}">Odhlásit <span aria-hidden="true">↗</span></a></div>
+</header>
+
+<main class="game-layout real-board-layout">
+<section class="board-panel" id="gameBoard" aria-label="Herní plán">
+ <div class="board-frame">
+  <div class="board-wrap">
+   <img class="board-art" src="{{url_for('static',filename='herni-plan.webp')}}" alt="Původní herní plán Zeleninuru">
+   {% for group in groups %}
+   <button class="player-cluster {% if group.players %}has-players{% else %}empty-space{% endif %}" type="button" style="left:{{group.x}}%;top:{{group.y}}%" onclick="openSpaceModal({{group.position}})" aria-label="Políčko {{group.position}}, hráčů: {{group.players|length}}" title="Políčko {{group.position}} · {% if group.players %}{% for p in group.players %}{{p.name}} ({{p.avatar_name}}){% if not loop.last %}, {% endif %}{% endfor %}{% else %}zatím bez hráčů{% endif %}">
+    {% if group.players %}<span class="cluster-faces">{% for p in group.players[:3] %}<img class="cluster-face {% if p.current %}current-face{% endif %}" src="{{p.avatar_src}}" alt="{{p.name}} – {{p.avatar_name}}" title="{{p.name}} · {{p.avatar_name}}">{% endfor %}{% if group.players|length > 3 %}<span class="cluster-more">+{{group.players|length-3}}</span>{% endif %}</span>{% else %}<span class="space-hotspot" aria-hidden="true"></span>{% endif %}
+   </button>
+   {% endfor %}
+   {% if user_message %}<div class="speech-bubble-own" style="left:{{groups|selectattr('position','equalto',user['position'])|map(attribute='x')|first|default(50)}}%;top:{{groups|selectattr('position','equalto',user['position'])|map(attribute='y')|first|default(50)}}%">💬 {{user_message}}</div>{% endif %}
+  </div>
+ </div>
+</section>
+
+<aside class="player-card" id="playerCard">
+ <div class="player-card-top"><div class="large-avatar-display"><img src="{{current_avatar_url}}" alt="Tvůj avatar"></div><div class="player-heading"><div class="card-eyebrow-row"><div class="eyebrow">MOJE KARTA</div><button type="button" class="avatar-edit-link" onclick="openAvatarModal()" title="Změnit avatara" aria-label="Změnit avatara">✎ Upravit</button></div><h1>{{user["display_name"]}}</h1><p class="player-subtitle" title="Tvoje avatarová přezdívka">{{current_avatar_name}}</p></div></div>
+ <div class="player-card-content">
+ <div class="player-position">
+  <div class="player-stat position-stat"><span class="stat-icon">🌱</span><span class="stat-copy"><small>Políčko</small><strong>{{user["position"]}} <i>/ 29</i></strong></span></div>
+  <div class="player-stat coins-stat"><span class="stat-icon">🪙</span><span class="stat-copy"><small>Zlaťáky</small><strong>{{user["coins"]}}</strong></span></div>
+ </div>
+ <div class="coin-actions">
+  <button type="button" class="add-coins-button" onclick="openModal('coinsModal')">🪙 Přidat zlaťáky</button>
+ </div>
+ <div class="player-progress"><span style="width:{{(user['position']/29*100)|round(0)}}%"></span></div>
+ <div class="progress-caption"><span>🌿 Tvoje cesta zahradou</span><strong>{{(user['position']/29*100)|round(0)}} %</strong></div>
+ {% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="flash {{category}}">{{message}}</div>{% endfor %}{% endwith %}
+ <section class="task-teaser current-weekly-task">
+  {% if task %}
+  <div class="task-kicker"><span class="task-kicker-icon">🌿</span><div><div class="eyebrow">{% if task["month_title"] %}{{task["month_title"]}} · {% endif %}TÝDEN {{task["week_number"]}}</div><span class="task-kicker-caption">{{task["date_range"]}}</span></div><span class="task-week-stamp">{% if featured_item and featured_item["complete"] %}SPLNĚNO{% elif featured_item and featured_item["can_buy"] %}POSTUP ZA ZLAŤÁK{% elif submission and submission["status"]=="pending" %}KE KONTROLE{% else %}ÚKOL {{task["week_number"]}}{% endif %}</span></div>
+  <h2>{{task["title"]}}</h2>
+  {% if task["story_intro"] %}<p class="task-story-intro">{{task["story_intro"]}}</p>{% endif %}
+  <p class="task-description">{{task["description"]}}</p>
+    {% if submission and submission["status"]=="pending" %}<div class="status">⏳ Odpověď čeká na kontrolu.</div>
+    {% elif featured_item and featured_item["can_buy"] %}<div class="status">Vyhodnocení je uložené. Použij zlaťáky a postoupíš o jedno políčko; cena se odvíjí od aktuálního políčka.</div>
+    {% elif submission and submission["status"]=="approved" %}<div class="status success">✓ Úkol splněn. Najdeš ho v historii úkolů.</div>
+    {% elif submission and submission["status"]=="needs_changes" %}<div class="status needs-changes">✎ Správce žádá doplnění.</div>
+    {% elif submission and submission["status"]=="rejected" %}<div class="status">Odpověď nebyla vyhodnocena jako správná. Zobraz si řešení a můžeš použít zlaťák a postoupit.</div>
+    {% elif submission and submission["status"]=="skipped" %}<div class="status">⏭ Úkol byl přeskočen za zlaťáky.</div>
+    {% elif featured_item and featured_item["eligible"] %}<div class="status">Toto je tvůj nejstarší nevyřízený úkol. Až ho dokončíš, otevře se další.</div>
+    {% endif %}
+    <button class="primary-button" type="button" onclick="openTaskModal({{task['id']}})">{% if featured_item and featured_item["can_buy"] %}Vyhodnocení a postup →{% elif submission and submission["status"]=="pending" %}Zobrazit odevzdanou odpověď{% elif submission and submission["status"]=="approved" %}Prohlédnout splněný úkol{% else %}Otevřít zadání úkolu{% endif %}</button>
+    {% if minigame_unlocked %}<a class="secondary-button minigame-quicklink" href="{{ url_for('minigame',round_number=1) }}">🔎 Hrát Záhonový skener · osobní rekord {{ minigame_best_score if minigame_best_score is not none else 'zatím žádný' }}</a>{% endif %}
+  {% else %}<h2>Úkol se připravuje</h2><p class="task-description">Správce zatím nezveřejnil první týdenní úkol. Jakmile ho aktivuje, objeví se zde a všichni hráči dostanou stejné zadání.</p>{% endif %}
+</section>
+
+<section class="task-teaser minigame-unlock-card" id="miniGameRound1">
+  <div class="task-kicker"><span class="task-kicker-icon">🔎</span><div><div class="eyebrow">MINIHRA · 1. KOLO · LISTOPAD</div><span class="task-kicker-caption">Záhonový skener</span></div><span class="task-week-stamp">{% if minigame_unlocked %}ODEMČENO{% else %}ZAMČENO{% endif %}</span></div>
+  {% if minigame_unlocked %}
+    <h2>🌫️ Mlha přichází. Zapamatuješ si záhony?</h2>
+    <p class="task-description">První minihra je odemčená. Najdi všechny zelené záhony, než tě mlha přelstí. Můžeš hrát opakovaně; do žebříčku se počítá pouze tvůj osobní rekord a zlaťáky zůstávají beze změny.</p>
+    {% if minigame_best_score is not none %}<p class="status success">🏆 Tvůj rekord: <strong>{{ minigame_best_score }} bodů</strong>{% if minigame_best_level %} · nejlepší úroveň {{ minigame_best_level }}{% endif %}</p>{% else %}<p class="status">Zatím žádný rekord — budeš první?</p>{% endif %}
+    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=1) }}">🔎 Otevřít Záhonový skener →</a>
+  {% else %}
+    <h2>🔒 Záhonový skener čeká na splnění úkolu</h2>
+    <p class="task-description">Po dokončení prvního týdenního úkolu se otevře minihra Záhonový skener. Můžeš ji pak opakovat bez vlivu na zlaťáky a soutěžit jen o nejlepší skóre.</p>
+  {% endif %}
+</section>
+
+<section class="task-history-panel" id="taskHistory">
+  <div class="task-history-head"><div><h2>Úkoly a historie</h2><p>Starší úkoly můžeš postupně dohánět od začátku. Historická odpověď se zapíše do kvízu; postup na další políčko stojí zlaťák podle nastavené ceny.</p></div><span class="task-history-count">{{weekly_task_items|length}} / {{29}} zveřejněných</span></div>
+  {% if weekly_task_items %}<div class="task-history-list">
+  {% for item in weekly_task_items %}{% set wt=item["task"] %}{% set ws=item["submission"] %}
+    <article class="task-history-row {% if item['eligible'] %}task-history-current{% endif %}">
+      <div class="task-history-number">{{wt["week_number"]}}</div>
+      <div class="task-history-copy"><span class="task-history-date">{{wt["month_title"]}} · {{wt["date_range"]}}</span><strong>{{wt["title"]}}</strong>{% if ws and ws["answer"] %}<small>Odpověď: {{ws["answer"]|truncate(110,True,"…")}}</small>{% endif %}</div>
+      <div class="task-history-state">{% if item["complete"] and (item["status"]=="skipped" or (item["advance"] and item["advance"].get("source")=="coins")) %}<span class="history-status status-skipped">✓ Postoupeno za zlaťák</span>{% elif item["complete"] %}<span class="history-status status-done">✓ Splněno a započítáno</span>{% elif item["eligible"] and item["can_buy"] and item["status"]=="approved" %}<span class="history-status status-ready">Správně / schváleno · zaplať postup</span>{% elif item["eligible"] and item["can_buy"] and item["status"]=="rejected" %}<span class="history-status status-rejected">Nesprávně · můžeš zaplatit postup</span>{% elif item["status"]=="pending" %}<span class="history-status status-pending">⏳ Ke kontrole</span>{% elif item["status"]=="needs_changes" %}<span class="history-status status-changes">Doplnit</span>{% elif item["status"]=="rejected" %}<span class="history-status status-rejected">Vyhodnoceno</span>{% elif item["eligible"] %}<span class="history-status status-ready">Další v pořadí</span>{% else %}<span class="history-status status-locked">Čeká na předchozí</span>{% endif %}
+      <button type="button" class="secondary-button small-button" onclick="openTaskModal({{wt['id']}})">Zobrazit</button></div>
+    </article>
+  {% endfor %}
+  </div>{% else %}<p class="muted">Zatím nebyl zveřejněn žádný úkol.</p>{% endif %}
+  {% if legacy_history %}<details class="legacy-history"><summary>Starší historie úkolů z předchozí verze ({{legacy_history|length}})</summary><div class="legacy-history-list">{% for lh in legacy_history %}<article><strong>{{lh["task_title"]}}</strong><span>{% if lh["status"]=="approved" %}Schváleno{% elif lh["status"]=="skipped" %}Přeskočeno{% elif lh["status"]=="rejected" %}Nesplněno{% elif lh["status"]=="needs_changes" %}Vráceno k doplnění{% else %}{{lh["status"]}}{% endif %}</span><p>{{lh["answer"] or "Bez textové odpovědi"}}</p></article>{% endfor %}</div></details>{% endif %}
+</section>
+ <section class="task-teaser work-rewards" id="workRewards"><div class="task-kicker"><span class="task-kicker-icon">🪵</span><div><div class="eyebrow">ZLAŤÁKY ZA PRÁCI</div><span class="task-kicker-caption">Práce pro každého — i bez peněz</span></div></div><p class="task-description">Vyber si práci, kterou můžeš udělat. Správce potvrdí splnění a připíše odměnu.</p>
+ {% if work_offers %}{% for offer in work_offers %}<article class="work-offer"><div><h3>{{offer["title"]}}</h3><p>{{offer["description"]}}</p><strong>🪙 {{offer["reward"]}} zlaťáků</strong></div>{% if offer["my_status"]=="pending" %}<span class="status">Čeká na kontrolu</span>{% elif offer["my_status"]=="approved" %}<span class="status success">Schváleno</span>{% elif offer["my_status"]=="rejected" %}<span class="status">Zamítnuto — můžeš požádat znovu</span>{% else %}<form method="post" action="{{url_for('work_claim')}}" class="work-claim-form"><input type="hidden" name="offer_id" value="{{offer['id']}}"><input name="note" maxlength="500" placeholder="Co jsi udělal/a? (volitelné)"><button class="primary-button" type="submit">Odevzdat práci</button></form>{% endif %}</article>{% endfor %}{% else %}<p class="muted">Správce zatím žádné pracovní odměny nenastavil.</p>{% endif %}</section>
+ <section class="my-message" id="myMessage"><span class="message-symbol">{% if user_message %}💌{% else %}📬{% endif %}</span><div><strong>{% if user_message %}Zpráva od správce{% else %}Tvoje schránka{% endif %}</strong><p>{% if user_message %}{{user_message}}{% else %}Až ti správce pošle osobní vzkaz, najdeš ho tady.{% endif %}</p></div><span class="message-leaf" aria-hidden="true">🌿</span></section>
+ <section class="how-box" id="howBox"><span>🌼</span><div><strong>Jak to funguje?</strong><p>Plň úkoly, sbírej zlaťáky a postupuj po zahradní cestě. O postupu rozhoduje správce hry.</p></div></section>
+ <section class="gardeners-strip" aria-label="Další hráči na cestě"><div class="gardeners-heading"><span>🌿</span><strong>Spolu na cestě</strong><small>{{player_count}} {% if player_count == 1 %}hráč{% elif player_count in [2,3,4] %}hráči{% else %}hráčů{% endif %}</small></div><div class="mini-player-list">
+ {% for p in player_cards %}<a class="mini-player {% if p.current %}is-you{% endif %}" href="#gameBoard" title="{{p.name}} · {{p.avatar_name}} · políčko {{p.position}} · {{p.coins}} zlaťáků"><img src="{{p.avatar_src}}" alt="{{p.avatar_name}}"><span class="mini-player-copy"><strong>{{p.name}}</strong><small class="mini-player-epithet">{{p.avatar_name}}</small><small>Políčko {{p.position}}</small></span><span class="mini-player-coins">🪙 {{p.coins}}</span></a>{% endfor %}
+ {% if player_cards_more %}<span class="mini-player-more">+ {{player_cards_more}} dalších</span>{% endif %}
+ </div></section>
+ </div><!-- /.player-card-content: independently scrollable content -->
+</aside>
+</main>
+
+<!-- Add-coins placeholder: the actual payment QR code will be added later. -->
+<div class="modal-backdrop" id="coinsModal" aria-hidden="true">
+ <section class="dialog coins-dialog" role="dialog" aria-modal="true" aria-labelledby="coinsModalTitle">
+  <button class="modal-close" type="button" onclick="closeModal('coinsModal')" aria-label="Zavřít">×</button>
+  <div class="eyebrow">ZELENINUR · ZLAŤÁKY</div>
+  <h2 id="coinsModalTitle">Přidat zlaťáky</h2>
+  <p class="modal-description">Chceš získat další zlaťáky do hry? Platební údaje doplníme později.</p>
+  <div class="coins-qr-placeholder" aria-label="Místo pro budoucí platební QR kód">QR KÓD</div>
+  <p class="coins-modal-note">Až bude platba připravená, správce ověří její přijetí a zlaťáky ti připíše ručně.</p>
+  <div class="dialog-actions"><button type="button" class="secondary-button" onclick="closeModal('coinsModal')">Zavřít</button></div>
+ </section>
+</div>
+
+<!-- Tile click modal: publicly visible player names, avatar and coin balances on this field -->
+<div class="modal-backdrop" id="spaceModal" aria-hidden="true"><section class="dialog space-dialog" role="dialog" aria-modal="true" aria-labelledby="spaceModalTitle"><button class="modal-close" type="button" onclick="closeModal('spaceModal')" aria-label="Zavřít">×</button><div class="eyebrow">ZELENINUR · HERNÍ POLÍČKO</div><h2 id="spaceModalTitle">Políčko</h2><p id="spaceModalSubtitle" class="muted"></p><div id="spacePlayersList" class="space-player-list"></div></section></div>
+
+<!-- Avatar selector. 100 original circular portraits extracted from the supplied avatar sheet. -->
+<div class="modal-backdrop" id="avatarModal" aria-hidden="true"><section class="dialog avatar-dialog" role="dialog" aria-modal="true" aria-labelledby="avatarModalTitle"><button class="modal-close" type="button" onclick="closeModal('avatarModal')" aria-label="Zavřít">×</button><div class="eyebrow">ZELENINUR · TVŮJ VZHLED</div><h2 id="avatarModalTitle">Vyber si avatara</h2><p class="muted">Můžeš ho kdykoli změnit. Na výběr je 100 jedinečných zahradních postaviček.</p><div class="avatar-grid">
+{% for av in avatars %}<form method="post" action="{{url_for('set_avatar')}}" class="avatar-option"><input type="hidden" name="avatar_id" value="{{av.id}}"><button type="submit" class="avatar-choice {% if av.id==current_avatar %}selected{% endif %}" title="{{av.label}}"><img src="{{url_for('static',filename=av.src,v='avatars-woodrim-v34')}}" alt=""><span>{{av.label}}</span></button></form>{% endfor %}
+</div></section></div>
+
+<!-- One detail window per published week, including history and review explanation. -->
+{% for item in weekly_task_items %}{% set wt=item["task"] %}{% set ws=item["submission"] %}
+<div class="modal-backdrop" id="taskModal-{{wt['id']}}" aria-hidden="true"><section class="dialog task-dialog weekly-task-dialog" role="dialog" aria-modal="true" aria-labelledby="taskModalTitle-{{wt['id']}}"><button class="modal-close" type="button" onclick="closeModal('taskModal-{{wt['id']}}')" aria-label="Zavřít">×</button>
+<div class="eyebrow">{{wt["month_title"]}} · TÝDEN {{wt["week_number"]}} · {{wt["date_range"]}}</div><h2 id="taskModalTitle-{{wt['id']}}">{{wt["title"]}}</h2>
+{% if wt["story_intro"] %}<div class="task-story-intro modal-story-intro">{{wt["story_intro"]}}</div>{% endif %}
+<div class="modal-description">{{wt["description"]}}</div>
+{% if wt["task_type"]=="choice" and wt["options_text"] %}<div class="published-options"><strong>Možnosti:</strong><ul>{% for option in wt["options_text"].splitlines() %}{% if option.strip() %}<li>{{option.strip()}}</li>{% endif %}{% endfor %}</ul></div>{% endif %}
+{% if ws and ws["status"]=="pending" %}<div class="status">⏳ Tvoje odpověď čeká na kontrolu správce.</div><h3>Odeslaná odpověď</h3><div class="saved-answer">{{ws["answer"] or "Bez textové odpovědi – přiložená fotografie."}}</div>{% if ws["attachment_path"] %}<img class="submitted-image" src="{{url_for('static',filename=ws['attachment_path'])}}" alt="Odevzdaná fotografie">{% endif %}
+{% elif ws and ws["status"]=="needs_changes" %}<div class="status needs-changes">Správce žádá doplnění: {{ws["review_note"] or "Doplň prosím odpověď."}}</div><h3>Předchozí odpověď</h3><div class="saved-answer">{{ws["answer"] or "Bez textové odpovědi"}}</div>{% if ws["attachment_path"] %}<img class="submitted-image" src="{{url_for('static',filename=ws['attachment_path'])}}" alt="Odevzdaná fotografie">{% endif %}
+{% elif ws and ws["status"]=="approved" and item["complete"] %}<div class="status success">✓ Úkol splněn a započítán do postupu.</div><h3>Tvoje odpověď</h3>
+{% elif ws and ws["status"]=="approved" %}<div class="status success">✓ Správná odpověď / úkol schválen.{% if not item["complete"] %} Protože doháníš historický týden, další políčko se otevře po použití zlaťáku.{% endif %}</div>{% if ws.get("review_note") and ws.get("auto_result")!="correct" %}<p><strong>Poznámka správce:</strong> {{ws["review_note"]}}</p>{% endif %}<h3>Tvoje odpověď</h3><div class="saved-answer">{{ws["answer"] or "Úkol byl splněn fotografií."}}</div>{% if ws["attachment_path"] %}<img class="submitted-image" src="{{url_for('static',filename=ws['attachment_path'])}}" alt="Odevzdaná fotografie">{% endif %}
+{% elif ws and ws["status"]=="rejected" %}<div class="status">{% if ws.get("auto_result")=="incorrect" %}Automatická kontrola: odpověď není správná.{% else %}Úkol byl vyhodnocen jako nesplněný.{% endif %}{% if ws["review_note"] %}<p>{{ws["review_note"]}}</p>{% endif %}</div><h3>Tvoje odpověď</h3><div class="saved-answer">{{ws["answer"] or "Bez textové odpovědi"}}</div>{% if ws["attachment_path"] %}<img class="submitted-image" src="{{url_for('static',filename=ws['attachment_path'])}}" alt="Odevzdaná fotografie">{% endif %}
+{% elif ws and ws["status"]=="skipped" %}<div class="status">⏭ Tento úkol byl přeskočen za zlaťáky.</div><div class="saved-answer">{{ws["review_note"] or "Úkol byl přeskočen."}}</div>{% endif %}
+{% if item["solution_visible"] %}<section class="task-solution"><h3>Správná odpověď / řešení</h3><p>{{wt["correct_answer"] or "Řešení posuzuje správce podle zadání."}}</p>{% if wt["explanation"] %}<h3>Vysvětlení</h3><p>{{wt["explanation"]}}</p>{% endif %}{% if wt["failure_consequence"] and ws and ws["status"] in ["rejected","skipped"] %}<p class="task-consequence"><strong>Následek při nesplnění:</strong> {{wt["failure_consequence"]}}</p>{% endif %}</section>{% endif %}
+{% if item["can_submit"] %}<form method="post" action="{{url_for('submit')}}" enctype="multipart/form-data" class="weekly-submit-form"><input type="hidden" name="task_id" value="{{wt['id']}}">
+{% if wt["task_type"]=="choice" %}<fieldset class="choice-list"><legend>Vyber jednu odpověď</legend>{% for option in (wt["options_text"] or "").splitlines() %}{% if option.strip() %}<label class="choice-option"><input type="radio" name="answer" value="{{option.strip()}}" required><span>{{option.strip()}}</span></label>{% endif %}{% endfor %}</fieldset>
+{% elif wt["task_type"]=="text" %}<label for="answer-{{wt['id']}}">Tvoje odpověď</label><textarea id="answer-{{wt['id']}}" name="answer" rows="5" required placeholder="Napiš svou odpověď…">{{ws["answer"] if ws and ws["status"]=="needs_changes" else ""}}</textarea>
+{% elif wt["task_type"]=="photo" %}<label for="photo-{{wt['id']}}">Přilož fotografii (JPG, PNG nebo WEBP, max. 8 MB)</label><input id="photo-{{wt['id']}}" type="file" name="attachment" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" {% if not (ws and ws["status"]=="needs_changes" and ws["attachment_path"]) %}required{% endif %}><label for="comment-{{wt['id']}}">Komentář (nepovinný)</label><textarea id="comment-{{wt['id']}}" name="answer" rows="3" placeholder="Napiš krátký komentář…">{{ws["answer"] if ws and ws["status"]=="needs_changes" else ""}}</textarea>
+{% else %}<label for="answer-{{wt['id']}}">Tvoje odpověď nebo popis výzvy</label><textarea id="answer-{{wt['id']}}" name="answer" rows="4" placeholder="Napiš, co jsi udělal…">{{ws["answer"] if ws and ws["status"]=="needs_changes" else ""}}</textarea><label for="photo-{{wt['id']}}">Fotografie (nepovinná, JPG/PNG/WEBP do 8 MB)</label><input id="photo-{{wt['id']}}" type="file" name="attachment" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"><p class="tiny">U výzvy můžeš napsat odpověď, přiložit fotografii nebo obojí.</p>{% endif %}
+<div class="dialog-actions"><button class="secondary-button" type="button" onclick="closeModal('taskModal-{{wt['id']}}')">Zavřít</button><button class="primary-button" type="submit">{% if ws and ws["status"]=="needs_changes" %}Doplnit a znovu odeslat{% else %}Odeslat ke kontrole →{% endif %}</button></div></form>
+{% elif item["eligible"] and ws and ws["status"]=="pending" %}<p class="status">Další úkol se otevře po vyhodnocení tohoto odevzdání.</p>
+{% elif not item["eligible"] and not item["complete"] and ws and ws["status"] not in ["approved","skipped"] %}<p class="status">Nejdřív dokonči starší úkoly v pořadí. Potom se k tomuto zadání dostaneš.</p>{% endif %}
+{% if item["can_buy"] %}<div class="pay-advance"><h3>Použít zlaťák a postoupit</h3><p>Další políčko stojí <strong>{{item["skip_cost"]}} zlaťáků</strong>. Máš {{user["coins"]}}. Odpověď i vyhodnocení zůstanou zachované v historii.</p>{% if user["coins"]>=item["skip_cost"] %}<form method="post" action="{{url_for('buy_advance')}}" onsubmit="return confirm('Použít {{item["skip_cost"]}} zlaťáků a postoupit o jedno políčko?');"><input type="hidden" name="task_id" value="{{wt['id']}}"><button type="submit" class="buy-button">Použít zlaťáky a postoupit →</button></form>{% else %}<div class="status">Chybí ti {{item["skip_cost"]-user["coins"]}} zlaťáků. Můžeš požádat správce o pracovní odměnu.</div>{% endif %}</div>
+{% elif item["eligible"] and ws and ws["status"] in ["approved","rejected"] and user["position"]<29 and item["skip_cost"]==0 %}<div class="pay-advance"><p class="muted">Správce zatím nenastavil cenu postupu z aktuálního políčka. Úkol i odpověď jsou zachovány.</p></div>{% endif %}
+<div class="dialog-actions"><button class="secondary-button" type="button" onclick="closeModal('taskModal-{{wt['id']}}')">Zavřít</button></div>
+</section></div>
+{% endfor %}
+
+<script>
+const SPACE_PLAYERS = {{spaces_data|tojson}};
+function openModal(id){const m=document.getElementById(id);if(!m)return;m.classList.add('is-open');m.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');}
+function closeModal(id){const m=document.getElementById(id);if(!m)return;m.classList.remove('is-open');m.setAttribute('aria-hidden','true');if(!document.querySelector('.modal-backdrop.is-open'))document.body.classList.remove('modal-open');}
+function openTaskModal(taskId){openModal('taskModal-'+taskId);}
+function openAvatarModal(){openModal('avatarModal');}
+function openSpaceModal(position){
+  const modal=document.getElementById('spaceModal');if(!modal)return;
+  document.getElementById('spaceModalTitle').textContent='Políčko '+position;
+  const players=SPACE_PLAYERS[String(position)]||[];
+  document.getElementById('spaceModalSubtitle').textContent=players.length+' '+(players.length===1?'hráč':(players.length>=2&&players.length<=4?'hráči':'hráčů'))+' na tomto políčku';
+  const list=document.getElementById('spacePlayersList');list.replaceChildren();
+  if(!players.length){const p=document.createElement('p');p.textContent='Na tomto políčku zatím nikdo nestojí.';list.appendChild(p);}
+  players.forEach(function(player){
+    const row=document.createElement('div');row.className='space-player-row';
+    const img=document.createElement('img');img.src=player.avatar_src;img.alt='Avatar '+player.name;img.className='space-player-avatar';
+    const info=document.createElement('div');info.className='space-player-info';
+    const name=document.createElement('strong');name.textContent=player.name;
+    const username=document.createElement('span');username.textContent='@'+player.username;
+    const epithet=document.createElement('span');epithet.className='space-player-epithet';epithet.textContent=player.avatar_name||'';
+    info.appendChild(name);info.appendChild(username);if(epithet.textContent)info.appendChild(epithet);
+    const coins=document.createElement('strong');coins.className='space-player-coins';coins.textContent='🪙 '+player.coins+' zlaťáků';
+    row.appendChild(img);row.appendChild(info);row.appendChild(coins);list.appendChild(row);
+  });
+  openModal('spaceModal');
+}
+document.querySelectorAll('.filter-chip').forEach(function(button){button.addEventListener('click',function(){
+  document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));button.classList.add('active');
+  const category=button.dataset.filter;
+  document.querySelectorAll('.avatar-option').forEach(function(option){option.hidden=category!=='all'&&option.dataset.category!==category;});
+});});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-backdrop.is-open').forEach(m=>closeModal(m.id));}});
+document.querySelectorAll('.modal-backdrop').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)closeModal(m.id);});});
+</script>
+</body></html>

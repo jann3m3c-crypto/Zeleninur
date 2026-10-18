@@ -1,0 +1,139 @@
+<!doctype html><html lang="cs" class="admin-document"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zeleninur – správa</title><link rel="stylesheet" href="{{url_for('static',filename='style.css',v='avatars-woodrim-v34')}}"></head><body class="admin-body">
+<header class="admin-header"><img src="{{url_for('static',filename='zeleninur-logo.png')}}" alt="Zeleninur" class="admin-logo"><div class="admin-header-right"><span>{{active_count}} aktivních · {{all_count}} / {{capacity}} obsazených účtů</span><a href="{{url_for('logout')}}">Odhlásit</a></div></header>
+<main class="admin-layout" id="adminTop">
+{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="flash {{category}}">{{message}}</div>{% endfor %}{% endwith %}
+<section class="admin-section"><div class="section-heading"><div><p class="eyebrow">PŘEHLED</p><h1>Správa Zeleninuru</h1></div><div class="capacity-meter"><strong>{{all_count}} / {{capacity}}</strong><span>hráčských účtů</span><div class="capacity-bar"><i style="width:{{(all_count/capacity*100)|round(0)}}%"></i></div></div></div><p class="muted">Hesla hráčů se nezobrazují. Administrace dovoluje měnit postup, zlaťáky, úkoly i soukromé bubliny zpráv.</p></section>
+
+<nav class="admin-quick-nav" aria-label="Rychlý přístup k administraci">
+  <a class="admin-quick-primary" href="#taskManagement">📚 Spravovat všech {{weekly_tasks|length}} úkolů</a>
+  <a href="#userAccounts">Uživatelské účty</a>
+  <a href="#submissions">Odevzdané odpovědi</a>
+  <a href="#players">Hráči a zlaťáky</a>
+  <a href="#registrations">Registrace</a>
+</nav>
+<section class="admin-section" id="taskManagement"><h2>📚 Správa a úpravy všech týdenních úkolů</h2>
+<p class="muted"><strong>Knihovna všech úkolů je přístupná kdykoli, nezávisle na aktuálním datu.</strong> V knihovně je všech 29 úkolů z podkladového dokumentu. Nepublikované návrhy můžeš upravovat včetně názvu, termínu, příběhu, zadání, možností, správné odpovědi, vysvětlení i následku při nesplnění. Dokud úkol nezveřejníš, je upravitelný; po zveřejnění se uzamkne, aby všichni hráči daného týdne měli totožnou verzi. Zveřejňuj týdny postupně — nováček potom může plnit všechny zveřejněné úkoly od začátku až po aktuální týden.</p>
+<div class="weekly-admin-current"><strong>Aktuálně zveřejněno:</strong> {% if latest_week %}týden {{latest_week}}{% else %}zatím žádný týden — hra čeká na zveřejnění týdne 1{% endif %}</div>
+<div class="task-editor-wrap"><form method="post" class="task-editor weekly-task-editor" id="weeklyTaskEditor">
+<div class="form-field"><label for="weekNumber">Týden k úpravě</label><select id="weekNumber" name="week_number" required>{% for wt in weekly_tasks %}<option value="{{wt['week_number']}}">Týden {{wt['week_number']}} · {{wt['title']}}{% if wt['published'] %} — UZAMČENO{% else %} — návrh{% endif %}</option>{% endfor %}</select><p id="weekTaskState" class="tiny"></p></div>
+<div class="form-field"><label for="weekMonthTitle">Měsíc / kapitola</label><input id="weekMonthTitle" name="month_title" maxlength="150" required></div>
+<div class="form-field"><label for="weekDateRange">Termín týdne</label><input id="weekDateRange" name="date_range" maxlength="80" required></div>
+<div class="form-field full"><label for="weekTitle">Název úkolu</label><input id="weekTitle" name="title" maxlength="200" required></div>
+<div class="form-field full"><label for="weekStoryIntro">Příběhový úvod</label><textarea id="weekStoryIntro" name="story_intro" rows="5" placeholder="Příběhový úvod úkolu…"></textarea></div>
+<div class="form-field full"><label for="weekDescription">Zadání pro hráče</label><textarea id="weekDescription" name="description" rows="5" required placeholder="Otázka nebo konkrétní úkol…"></textarea></div>
+<div class="form-field"><label for="weekTaskType">Typ odpovědi</label><select id="weekTaskType" name="task_type"><option value="text">Písemná odpověď</option><option value="choice">Výběr z možností</option><option value="photo">Povinná fotografie</option><option value="challenge">Výzva – text a/nebo fotografie</option></select></div>
+<div class="form-field" id="weekOptionsPanel"><label for="weekOptions">Možnosti odpovědi (každá na samostatném řádku)</label><textarea id="weekOptions" name="options_text" rows="4" placeholder="(A) První možnost&#10;(B) Druhá možnost&#10;(C) Třetí možnost"></textarea></div>
+<div class="form-field full"><label for="weekCorrectAnswer">Správná odpověď / řešení (jen pro správce, hráč uvidí po vyhodnocení)</label><textarea id="weekCorrectAnswer" name="correct_answer" rows="2"></textarea></div>
+<div class="form-field full"><label for="weekExplanation">Vysvětlení do hry (Reply)</label><textarea id="weekExplanation" name="explanation" rows="5"></textarea></div>
+<div class="form-field full"><label for="weekFailureConsequence">Následek při nesplnění</label><textarea id="weekFailureConsequence" name="failure_consequence" rows="2"></textarea></div>
+<div class="form-field full weekly-editor-actions"><button type="submit" name="action" value="save_week_task" id="saveWeekTaskButton">Uložit návrh</button><button type="submit" name="action" value="publish_week_task" id="publishWeekTaskButton" onclick="return confirm('Zveřejnit a uzamknout tento úkol pro všechny hráče? Zadání, odpověď a vysvětlení už pak nepůjde upravit.');">Zveřejnit a uzamknout týden →</button></div>
+</form></div>
+<h3>Všech {{weekly_tasks|length}} úkolů — knihovna nezávislá na aktuálním datu</h3>
+<div class="task-library-tools">
+  <label for="taskLibrarySearch">Najít úkol podle čísla týdne, názvu nebo měsíce</label>
+  <input id="taskLibrarySearch" type="search" placeholder="Např. česnek, únor, týden 7…">
+  <p class="tiny">Kliknutím na úkol ho otevřeš v editoru. Budoucí i minulá období jsou dostupná kdykoli; pouze zveřejněné úkoly zůstávají uzamčené.</p>
+</div>
+<div class="weekly-task-admin-list" id="weeklyTaskLibrary">{% for wt in weekly_tasks %}<article class="weekly-task-admin-card" data-search="{{ (wt['week_number'] ~ ' ' ~ wt['title'] ~ ' ' ~ wt['month_title'] ~ ' ' ~ wt['date_range'])|lower }}"><div class="weekly-task-admin-top"><span class="week-number-chip">{{wt['week_number']}}</span><div class="weekly-task-admin-title"><strong>{{wt['title']}}</strong><small>{{wt['month_title']}} · {{wt['date_range']}}</small></div><span class="history-status {% if wt['published'] %}status-done{% else %}status-ready{% endif %}">{% if wt['published'] %}Zveřejněno · uzamčeno{% else %}Návrh{% endif %}</span></div><p>{{wt['story_intro']|truncate(180,True,'…')}}</p><div class="weekly-task-admin-actions"><small>{{wt['submission_count']}} odevzdání · {{wt['task_type']}}</small><button type="button" class="secondary-button small-button" onclick="loadWeekTaskForm({{wt['week_number']}},true)">{% if wt['published'] %}Zobrazit uzamčený úkol{% else %}Upravit návrh{% endif %}</button></div></article>{% endfor %}</div>
+</section>
+
+
+
+<section class="admin-section" id="registrations"><h2>Nové registrace <span class="count">{{registrations|length}}</span></h2>{% if registrations %}<div class="registration-grid">{% for r in registrations %}<article class="registration-item"><h3>{{r["display_name"]}}</h3><p class="admin-avatar-epithet">{{r["avatar_name"]}}</p><p>@{{r["username"]}} · {{r["created_at"] or "datum nezjištěno"}}</p><p class="muted">Po schválení začne na políčku 1 s 0 zlaťáky.</p><form method="post" class="button-row"><input type="hidden" name="player_id" value="{{r['id']}}"><button name="action" value="approve_registration">Schválit účet</button><button class="danger" name="action" value="reject_registration">Zamítnout</button></form></article>{% endfor %}</div>{% else %}<p>Žádné nové registrace nečekají na schválení.</p>{% endif %}</section>
+
+<section class="admin-section" id="userAccounts">
+<h2>Uživatelské účty a reset hesla <span class="count">{{user_accounts|length}}</span></h2>
+<p class="muted">Zde můžeš změnit přihlašovací jméno, zobrazované jméno a stav každého účtu včetně čekajících registrací. Zapomenuté heslo nastavíš znovu — původní heslo se nikde nezobrazuje ani neukládá v čitelné podobě. Po nastavení nového hesla ho hráči předej bezpečným způsobem. Vlastní administrátorský účet nelze touto tabulkou deaktivovat.</p>
+<div class="table-wrap account-table-wrap"><table class="account-management-table"><thead><tr><th>Účet</th><th>Upravit účet</th><th>Nastavit nové heslo</th></tr></thead><tbody>
+{% for ua in user_accounts %}
+<tr>
+<td class="account-identity"><strong>{{ua["display_name"]}}</strong><small>@{{ua["username"]}}</small><span class="account-role">{% if ua["role"]=="admin" %}Správce{% else %}Hráč{% endif %} · vytvořeno {{ua["created_at"] or "datum neuvedeno"}}</span></td>
+<td><form method="post" class="account-edit-form"><input type="hidden" name="action" value="edit_user_account"><input type="hidden" name="user_id" value="{{ua['id']}}">
+<label>Přihlašovací jméno<input name="username" value="{{ua['username']}}" minlength="3" maxlength="30" required autocomplete="off"></label>
+<label>Zobrazované jméno<input name="display_name" value="{{ua['display_name']}}" minlength="2" maxlength="50" required></label>
+<label>Stav účtu<select name="account_status" {% if ua['id']==current_admin_id %}disabled{% endif %}>
+<option value="active" {% if ua['account_status']=="active" %}selected{% endif %}>Aktivní</option>
+<option value="pending" {% if ua['account_status']=="pending" %}selected{% endif %}>Čeká na schválení</option>
+<option value="rejected" {% if ua['account_status']=="rejected" %}selected{% endif %}>Zamítnutý</option>
+<option value="disabled" {% if ua['account_status']=="disabled" %}selected{% endif %}>Deaktivovaný</option>
+</select></label>
+{% if ua['id']==current_admin_id %}<input type="hidden" name="account_status" value="active"><small class="tiny">Vlastní účet musí zůstat aktivní.</small>{% endif %}
+<button type="submit">Uložit změny účtu</button></form></td>
+<td><form method="post" class="account-password-form" onsubmit="return confirm('Nastavit nové heslo tomuto účtu?');"><input type="hidden" name="action" value="reset_user_password"><input type="hidden" name="user_id" value="{{ua['id']}}">
+<label>Nové heslo<input type="password" name="new_password" minlength="8" maxlength="128" required autocomplete="new-password" placeholder="Min. 8 znaků"></label>
+<label>Potvrdit nové heslo<input type="password" name="confirm_password" minlength="8" maxlength="128" required autocomplete="new-password" placeholder="Zadat znovu"></label>
+<button type="submit" class="secondary">Nastavit nové heslo</button></form></td>
+</tr>
+{% endfor %}
+</tbody></table></div>
+</section>
+
+<section class="admin-section" id="submissions"><h2>Odevzdané úkoly <span class="count">{{pending|length}}</span></h2>{% if pending %}{% for s in pending %}<article class="submission"><div class="submission-heading"><div><h3>{{s["display_name"]}} <span class="muted">(@{{s["username"]}})</span></h3><p class="admin-avatar-epithet">{{s["avatar_name"]}}</p><p>{{s["task_title"]}} · {% if s["week_number"] %}týden {{s["week_number"]}} · {{s["date_range"]}}{% else %}starší úkol / políčko {{s["space_number"]}}{% endif %} · {{s["submitted_at"] or "datum neuvedeno"}}</p></div><span class="status-pill">Čeká na kontrolu</span></div><div class="answer">{{s["answer"] or "Bez textové odpovědi – podívej se na přílohu."}}</div>{% if s["attachment_path"] %}<a href="{{url_for('static',filename=s['attachment_path'])}}" target="_blank" rel="noopener">Otevřít fotografii</a><img class="admin-submission-image" src="{{url_for('static',filename=s['attachment_path'])}}" alt="Odevzdaná fotografie">{% endif %}{% if s["week_number"] %}<details class="admin-task-solution"><summary>Správná odpověď a vysvětlení</summary><p><strong>Správná odpověď:</strong> {{s["correct_answer"] or "Posuď podle fotografie a zadání."}}</p><p><strong>Vysvětlení:</strong> {{s["explanation"] or "—"}}</p><p><strong>Následek při nesplnění:</strong> {{s["failure_consequence"] or "—"}}</p></details>{% endif %}<form method="post" class="review-form"><input type="hidden" name="submission_id" value="{{s['id']}}"><input name="note" placeholder="Poznámka pro hráče (volitelně)"><div class="button-row"><button name="action" value="approve">Schválit úkol</button><button class="secondary" name="action" value="return">Vrátit k doplnění</button><button class="danger" name="action" value="reject">Zamítnout / nesplněno</button></div></form></article>{% endfor %}{% else %}<p>Žádné úkoly nečekají na kontrolu.</p>{% endif %}<p class="tiny">Automaticky správně zodpovězený aktuální úkol a schválený otevřený úkol v aktuálním týdnu posunou hráče zdarma. U historických týdnů se hráč po zaznamenání odpovědi posune až po použití zlaťáku. Každý placený postup je veden samostatně podle úkolu; omezení na jeden postup za kalendářní týden už neplatí.</p></section>
+
+<section class="admin-section" id="players"><h2>Hráči <span class="count">{{players|length}}</span></h2><p class="muted">Tabulka má vodorovný posuv, aby bylo možné spravovat všechny hráče bez roztažení celé stránky.</p><div class="table-wrap"><table class="players-table"><thead><tr><th>Hráč</th><th>Pozice</th><th>Zlaťáky</th><th>Upravit jméno</th><th>Ručně nastavit políčko</th><th>Ručně přidělit / upravit zlaťáky</th><th>Nesplněný úkol</th><th>Soukromá bublina</th></tr></thead><tbody>{% for p in players %}<tr><td><div class="admin-player"><img src="{{url_for('static',filename='avatars/portrait-' + (p['avatar_id'][7:] if p['avatar_id'] else '001') + '.png',v='avatars-woodrim-v34')}}" alt=""><div><strong>{{p["display_name"]}}</strong><small class="admin-avatar-epithet">{{p["avatar_name"]}}</small><small>@{{p["username"]}}</small></div></div></td><td>{{p["position"]}} / 29</td><td>🪙 {{p["coins"]}}</td>
+<td><form method="post" class="compact-form"><input type="hidden" name="action" value="edit_player"><input type="hidden" name="player_id" value="{{p['id']}}"><input name="display_name" value="{{p['display_name']}}" aria-label="Zobrazované jméno" required><button>Uložit</button></form></td>
+<td><form method="post" class="compact-form"><input type="hidden" name="action" value="set_position"><input type="hidden" name="player_id" value="{{p['id']}}"><input type="number" name="position" min="1" max="29" value="{{p['position']}}" aria-label="Pozice" required><button>Nastavit</button></form></td>
+<td><form method="post" class="compact-form"><input type="hidden" name="action" value="add_coins"><input type="hidden" name="player_id" value="{{p['id']}}"><input type="number" name="amount" value="1" aria-label="Počet zlaťáků k přidání nebo odečtení" required><button>Připsat / upravit</button><small class="tiny">Kladné číslo přidá zlaťáky, záporné je odebere.</small></form></td>
+<td><form method="post"><input type="hidden" name="action" value="mark_incomplete"><input type="hidden" name="player_id" value="{{p['id']}}"><button class="secondary small-button">Označit nesplnění</button></form></td>
+<td><form method="post" class="message-form"><input type="hidden" name="player_id" value="{{p['id']}}"><textarea name="message" rows="2" maxlength="240" placeholder="Zpráva pro tohoto hráče…">{{p["active_message"] or ""}}</textarea><div class="message-actions"><button name="action" value="add_message">Zobrazit bublinu</button><button name="action" value="clear_message" class="secondary">Smazat</button></div></form></td>
+</tr>{% endfor %}</tbody></table></div>
+<h3>Přidat hráče ručně</h3><form method="post" class="add-player"><input type="hidden" name="action" value="add_player"><input name="username" placeholder="Přihlašovací jméno" required><input name="display_name" placeholder="Zobrazované jméno" required><input name="password" type="password" minlength="8" placeholder="Dočasné heslo (min. 8 znaků)" required autocomplete="new-password"><button>Přidat hráče</button></form></section>
+
+<section class="admin-section" id="spaceCostManagement"><h2>Cena placeného postupu podle políčka</h2><p class="muted">Cena se vztahuje na pohyb z aktuálního políčka na následující. Nabídka se zobrazí po vyhodnocení prvního úkolu, který hráč ještě nemá započítaný v postupu — i když je historická odpověď správná nebo schválená. Platba zlaťáky odečte jednou a původní odpověď i vyhodnocení zůstanou v historii.</p><div class="space-settings-grid">{% for space in space_rows %}{% if space.number<29 %}<article class="space-setting-card"><div class="space-setting-title"><strong>Políčko {{space.number}} → {{space.target}}</strong></div><form method="post" class="cost-form"><input type="hidden" name="action" value="set_cost"><input type="hidden" name="space_number" value="{{space.number}}"><label>Cena postupu</label><div class="cost-input-row"><input name="skip_cost" type="number" min="0" max="1000000" value="{{space.cost}}" required><span>zlaťáků</span><button type="submit">Uložit cenu</button></div><small class="tiny">0 = placený postup vypnutý</small></form></article>{% endif %}{% endfor %}</div></section>
+
+<section class="admin-section"><h2>Pracovní odměny za zlaťáky</h2><p class="muted">Hráč odevzdá práci ke kontrole. Zlaťáky se připíšou až po schválení správcem.</p><form method="post" class="task-editor"><input type="hidden" name="action" value="add_work_offer"><div class="form-field"><label>Název práce</label><input name="work_title" placeholder="Naštípat dřevo" required maxlength="100"></div><div class="form-field"><label>Odměna ve zlaťácích</label><input type="number" name="work_reward" min="1" max="10000" value="1" required></div><div class="form-field full"><label>Popis práce</label><textarea name="work_description" rows="2" placeholder="Co má hráč udělat a jak doloží splnění…" required></textarea></div><div class="form-field full"><button type="submit">Přidat pracovní odměnu</button></div></form>
+{% if work_offers %}<div class="table-wrap"><table><thead><tr><th>Práce</th><th>Odměna</th><th>Stav</th><th>Akce</th></tr></thead><tbody>{% for o in work_offers %}<tr><td><strong>{{o["title"]}}</strong><br>{{o["description"]}}</td><td>🪙 {{o["reward"]}}</td><td>{% if o["active"] %}Aktivní{% else %}Skrytá{% endif %}</td><td><form method="post"><input type="hidden" name="action" value="toggle_work_offer"><input type="hidden" name="offer_id" value="{{o['id']}}"><button class="secondary">{% if o["active"] %}Skrýt{% else %}Znovu aktivovat{% endif %}</button></form></td></tr>{% endfor %}</tbody></table></div>{% endif %}
+<h3>Práce čekající na schválení <span class="count">{{work_claims|length}}</span></h3>{% if work_claims %}<div class="table-wrap"><table><thead><tr><th>Hráč</th><th>Práce</th><th>Odměna</th><th>Poznámka hráče</th><th>Rozhodnutí</th></tr></thead><tbody>{% for c in work_claims %}<tr><td>{{c["display_name"]}} (@{{c["username"]}})</td><td>{{c["offer_title"]}}</td><td>🪙 {{c["reward"]}}</td><td>{{c["note"] or "—"}}</td><td><form method="post" class="button-row"><input type="hidden" name="claim_id" value="{{c['id']}}"><button name="action" value="approve_work">Schválit a připsat</button><button class="danger" name="action" value="reject_work">Zamítnout</button></form></td></tr>{% endfor %}</tbody></table></div>{% else %}<p>Žádné pracovní odměny nečekají na kontrolu.</p>{% endif %}</section>
+
+<section class="admin-section"><h2>Historie postupů</h2>{% if advance_history %}<div class="table-wrap"><table><thead><tr><th>Hráč</th><th>Z</th><th>Na</th><th>Důvod</th><th>Cena</th><th>Týden</th><th>Čas</th></tr></thead><tbody>{% for a in advance_history %}<tr><td>{{a["display_name"]}} <span class="muted">(@{{a["username"]}})</span></td><td>{{a["from_position"]}}</td><td>{{a["to_position"]}}</td><td>{% if a["source"]=="task" %}Starší schválený úkol{% elif a["source"]=="auto_correct" %}Správná automatická odpověď{% elif a["source"]=="manual_approved" %}Schválení správce{% elif a["source"]=="coins" %}Placený postup{% elif a["source"]=="migration" %}Zachovaná historie{% else %}Ruční zásah správce{% endif %}</td><td>{{a["cost"]}}</td><td>{{a.get("week_key", "Týden " ~ a.get("week_number", "—"))}}</td><td>{{a["created_at"]}}</td></tr>{% endfor %}</tbody></table></div>{% else %}<p>Historie postupů se objeví po prvním pohybu hráče.</p>{% endif %}</section>
+
+<section class="admin-section"><h2>Historie vyhodnocených úkolů</h2>{% if history %}<div class="table-wrap"><table><thead><tr><th>Hráč</th><th>Úkol / políčko</th><th>Odevzdáno</th><th>Rozhodnutí</th><th>Poznámka správce</th></tr></thead><tbody>{% for h in history %}<tr><td>{{h["display_name"]}} <span class="muted">(@{{h["username"]}})</span></td><td>{{h["task_title"]}} / {% if h["week_number"] %}týden {{h["week_number"]}}{% else %}starší políčko {{h["space_number"]}}{% endif %}</td><td>{{h["submitted_at"] or "—"}}</td><td>{% if h["status"]=="approved" %}Schváleno{% elif h["status"]=="needs_changes" %}Vráceno k doplnění{% elif h["status"]=="rejected" %}Zamítnuto / nesplněno{% else %}{{h["status"]}}{% endif %}</td><td>{{h["review_note"] or "—"}}</td></tr>{% endfor %}</tbody></table></div>{% else %}<p>Zatím nejsou vyhodnocené úkoly.</p>{% endif %}</section>
+<p class="tiny">Hra je v tuto chvíli lokální prototyp. Před zveřejněním na internetu pro 200 hráčů je potřeba doplnit ochranu formulářů, omezení pokusů o přihlášení, bezpečný produkční server a zálohy.</p>
+</main>
+<a class="admin-back-to-top" href="#adminTop" aria-label="Zpět na přehled administrace">↑ Zpět na přehled</a>
+<script>
+const weeklyTaskData={{weekly_tasks_data|tojson}};
+const latestPublishedWeek={{latest_week|int}};
+const weekSelect=document.getElementById('weekNumber');
+const weekFields={
+  month_title:document.getElementById('weekMonthTitle'), date_range:document.getElementById('weekDateRange'),
+  title:document.getElementById('weekTitle'), story_intro:document.getElementById('weekStoryIntro'),
+  description:document.getElementById('weekDescription'), task_type:document.getElementById('weekTaskType'),
+  options_text:document.getElementById('weekOptions'), correct_answer:document.getElementById('weekCorrectAnswer'),
+  explanation:document.getElementById('weekExplanation'), failure_consequence:document.getElementById('weekFailureConsequence')
+};
+const weekState=document.getElementById('weekTaskState');
+const saveWeekButton=document.getElementById('saveWeekTaskButton');
+const publishWeekButton=document.getElementById('publishWeekTaskButton');
+const weekOptionsPanel=document.getElementById('weekOptionsPanel');
+function toggleWeekOptions(){weekOptionsPanel.style.display=weekFields.task_type.value==='choice'?'block':'none'}
+function loadWeekTaskForm(weekNumber,scroll){
+  weekSelect.value=String(weekNumber);
+  const t=weeklyTaskData[String(weekNumber)]; if(!t)return;
+  Object.keys(weekFields).forEach(k=>{weekFields[k].value=t[k]||''; weekFields[k].disabled=!!t.published;});
+  weekState.textContent=t.published
+    ?'Tento týden byl zveřejněn a je uzamčený. Text, správná odpověď i vysvětlení zůstávají pevné pro všechny hráče.'
+    :'Návrh není zveřejněný. Můžeš upravit celý úkol včetně správné odpovědi, vysvětlení a následku při nesplnění.';
+  saveWeekButton.disabled=!!t.published;
+  const canPublish=!t.published && Number(weekNumber)===latestPublishedWeek+1;
+  publishWeekButton.disabled=!canPublish;
+  publishWeekButton.title=canPublish?'Zveřejní úkol a uzamkne jeho obsah.':'Týdny se zveřejňují postupně; nejdřív zveřejni předchozí týden.';
+  publishWeekButton.textContent=t.published?'Týden je uzamčený':(canPublish?'Zveřejnit a uzamknout týden →':'Nejdřív zveřejni předchozí týdny');
+  toggleWeekOptions();
+  if(scroll){document.getElementById('taskManagement').scrollIntoView({behavior:'smooth',block:'start'});weekFields.title.focus({preventScroll:true});}
+}
+
+const taskLibrarySearch=document.getElementById('taskLibrarySearch');
+if(taskLibrarySearch){
+  const libraryCards=[...document.querySelectorAll('#weeklyTaskLibrary .weekly-task-admin-card')];
+  taskLibrarySearch.addEventListener('input',()=>{
+    const q=taskLibrarySearch.value.trim().toLocaleLowerCase('cs');
+    libraryCards.forEach(card=>{
+      card.hidden=!!q && !((card.dataset.search||card.textContent).toLocaleLowerCase('cs').includes(q));
+    });
+  });
+}
+weekSelect.addEventListener('change',()=>loadWeekTaskForm(Number(weekSelect.value),false));
+weekFields.task_type.addEventListener('change',toggleWeekOptions);
+if(weekSelect.options.length)loadWeekTaskForm(Number(weekSelect.value),false);
+</script></body></html>

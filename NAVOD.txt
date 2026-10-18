@@ -1,0 +1,211 @@
+ZELENINUR – BOARDWORLD V2 (NOVÝ GRAFICKÝ DESIGN)
+
+Toto je výrazně přepracovaná verze vzhledu, ne jen změna barev. Rozhraní nyní používá styl zahradní deskové hry: dřevěné okraje, kreslené lístky, pergamenové panely, herní záložky v horní liště, výraznější zelená tlačítka, kartu hráče s oddělenými statistikami a stručný přehled spoluhráčů.
+
+Herní plán je stále původní soubor static/herni-plan.webp. Obrázek nebyl překreslen ani upraven a jeho poměr stran 1536 × 1405 je zachován. Souřadnice figurek, klikací přehled hráčů na políčku, úkoly, soukromé zprávy, výběr ze 100 avatarů a administrace zůstávají součástí aplikace.
+
+HLAVNÍ ZMĚNY V ROZHRANÍ
+- Horní navigační lišta ve stylu herních záložek: Herní plán, Moje karta, Úkoly a Zprávy.
+- Výrazný dřevěný rám kolem originálního herního plánu.
+- Přepracovaná karta hráče: avatar, políčko, zlaťáky, ukazatel postupu a týdenní výzva.
+- Přehled dalších hráčů s avatary, pozicí a zlaťáky.
+- Sjednocený vzhled modálních oken, výběru avatarů, přihlášení, registrace i administrace.
+- Aktualizovaná verze CSS v odkazech, aby se při načtení nepoužil starý styl z mezipaměti prohlížeče.
+
+INSTALACE
+1. Zastav spuštěnou aplikaci v PowerShellu pomocí Ctrl+C.
+2. Rozbal obsah ZIPu do složky C:\Zeleninur a potvrď přepsání souborů.
+3. Soubor zeleninur.db nemaž ani nepřepisuj. Tento ZIP databázi neobsahuje; uložené účty, pozice, zlaťáky, úkoly a historie se tak zachovají.
+4. Spusť aplikaci příkazem: .venv\Scripts\python app.py
+5. V prohlížeči stiskni Ctrl+F5.
+
+DŮLEŽITÉ
+Toto je stále lokální prototyp. Balíček hru nezveřejňuje na internetu. Před veřejným provozem je nutné doplnit produkční zabezpečení a zálohování databáze.
+
+
+MAPOVÁNÍ 29 POLÍČEK (aktualizace 17. 10. 2026)
+- Všech 29 políček má vlastní klikací oblast, ale čísla políček se hráčům na obrázku nezobrazují.
+- Pozice značek jsou procentuální souřadnice vůči originálnímu obrázku, takže se mění spolu s velikostí herního plánu.
+- Obrázek herního plánu se nijak neupravuje. Souřadnice se dál dolaďují podle screenshotů z reálného zobrazení.
+- Databáze zeleninur.db není součástí ZIPu a musí zůstat zachována.
+
+
+AKTUALIZACE AVATARŮ (2026-10-17)
+- Používá se přesně 100 portrétů vyříznutých z dodaného obrázku v mřížce 10 × 10.
+- Každý portrét je samostatný kulatý PNG soubor v static/avatars/portrait-001.png až portrait-100.png.
+- Stejný soubor se používá ve výběru, kartě hráče, na herním plánu i v administraci.
+- Identifikátory avatar-001 až avatar-100 v databázi zůstávají beze změny.
+- Databázi zeleninur.db při aktualizaci nepřepisujte.
+
+
+AKTUALIZACE MECHANIKY – ZLAŤÁKY A POSTUP (2026-10-17)
+- Zlaťáky se hráčům automaticky nepřidělují za splnění běžných úkolů; správce je upravuje ručně v tabulce Hráči. Kladné číslo je přidá, záporné odebere.
+- Správce nastavuje cenu postupu z každého políčka na následující zvlášť. Cena 0 znamená, že placený postup není k dispozici.
+- Aktuální pravidla nabídky placeného postupu jsou popsána v poslední části tohoto návodu: nabídka se objeví po vyhodnocení prvního úkolu, který ještě není započítaný do postupu, včetně správně zodpovězených historických úkolů. Vrácení otevřené odpovědi k doplnění umožňuje odpověď opravit a znovu odeslat.
+- Potvrzením nákupu se v jedné databázové transakci odečtou zlaťáky i posune hráč o jedno políčko. Aktuální verze eviduje postup samostatně pro každý úkol, takže lze v jednom týdnu postupně platit za více historických kroků.
+- V administraci lze postupně zadávat úkoly pro jednotlivá políčka. Pro políčko bez úkolu vyplň název, zadání a typ odpovědi a ulož. Výběrem políčka s existujícím úkolem se jeho údaje načtou do formuláře. Uložení vytvoří novou aktivní verzi a zachová původní odevzdání/historii.
+- Není nutné mít připravené úkoly pro všech 29 políček hned od začátku.
+
+
+Grafický vzhled Garden Board (17. 10. 2026):
+- Sjednocené dřevěné rámy, pergamenová pozadí, zlaté lemy a zelená tlačítka napříč hrou i administrací.
+- Po přepsání souborů proveďte tvrdé obnovení prohlížeče Ctrl+F5.
+- Databázi zeleninur.db tento ZIP neobsahuje; při aktualizaci ji zachovejte.
+
+
+Grafická aktualizace – lesní svět Zeleninuru (17. 10. 2026)
+- Nové jednotné logo je static/zeleninur-logo.png a používají ho herní obrazovka, přihlášení, registrace i administrace.
+- Hlavní herní obrazovka má ilustrované lesní okolí; přihlášení a administrace používají jemnější rozostřenou lesní atmosféru.
+- Tato aktualizace mění pouze vizuální soubory a odkazy na CSS; soubor app.py zůstal beze změny.
+- Databáze zeleninur.db není součástí ZIPu. Při aktualizaci ji zachovejte.
+
+
+Oprava grafiky podle schváleného lesního návrhu (17. 10. 2026):
+- Pozadí hlavní hry používá samostatnou ilustraci zahradního lesa bez zdvojeného hracího plánu, textů a vesnice.
+- Horní lišta zobrazuje dřevěnou lištu pouze za navigací; oficiální logo je samostatný PNG obrázek.
+- Logo PNG se používá v herní obrazovce, přihlášení, registraci a administraci.
+- Aktualizace mění pouze CSS, grafické soubory a verzi CSS v šablonách. Herní engine zůstal beze změny.
+- Databáze zeleninur.db není součástí ZIPu. Zachovejte ji při aktualizaci.
+
+
+Logo update – průhledný znak (17. 10. 2026):
+- Jediné používané logo je static/zeleninur-logo.png: nápis, klobouk, listy, beruška a mrkev; vnější plocha je transparentní, bez dřevěné tabule.
+- Stejný soubor se používá na herní stránce, přihlášení, registraci i v administraci.
+- Databáze zeleninur.db není součástí ZIPu a musí zůstat zachována.
+
+
+PŘIHLAŠOVÁNÍ A HESLA (aktualizace 17. 10. 2026)
+- Minimální délka hesla při nové registraci je 6 znaků; kontroluje ji formulář i server.
+- Testovací správce: uživatelské jméno admin, heslo admin123.
+- Testovací hráč: uživatelské jméno hrac, heslo hrac123.
+- Při prvním spuštění po této aktualizaci se hesla těchto dvou demo účtů jednorázově nastaví na uvedené hodnoty; postup, zlaťáky, avatary a historie účtů zůstávají zachovány. Další spuštění již hesla znovu nepřepisuje.
+- Jde o testovací údaje pro lokální prototyp. Před zpřístupněním hry přes internet je nutné změnit testovací hesla nebo odstranit demo účty.
+- Databáze zeleninur.db není součástí ZIPu a nesmí se při aktualizaci přepsat.
+
+
+Graficka uprava horni casti (17. 10. 2026):
+- Na herni obrazovce zustava vlevo pouze logo a vpravo samostatne tlacitko Odhlasit.
+- Horni navigacni deska a tlacitka Herni plan / Moje karta / Ukoly / Zpravy byly z hlavni hlavicky odstraneny.
+- Herni logika, databaze a ostatni ovladani v obsahu stranky se nemeni.
+
+
+Oprava poměru vnějšího rámu herního plánu (17. 10. 2026):
+- Šířka sloupce i samotný dřevěný rám se řídí skutečnou dostupnou výškou a poměrem původního obrázku 1536 × 1405.
+- Vnitřní obrázek je přizpůsoben otvoru rámu bez deformace; prázdné boční pruhy byly odstraněny.
+- Herní logika a databáze se nemění; databáze zeleninur.db není v ZIPu.
+
+
+Oprava rámu přesně podle hracího plánu (17. 10. 2026):
+- Vnější panel i vnitřní otvor mají poměr stran 1536 × 1405 jako originální hrací plán.
+- Šířka levého sloupce počítá s reálnou dostupnou výškou pod hlavičkou; karta hráče zůstává v pravém sloupci.
+- Herní logika, souřadnice políček a avatary zůstávají beze změny. zeleninur.db se v ZIPu nenachází.
+
+
+SYSTÉM TÝDENNÍCH ÚKOLŮ A HISTORIE (aktualizace 17. 10. 2026)
+- Přiložených 29 týdenních úkolů (listopad až květen) je při prvním spuštění této verze vloženo do databáze jako návrhy; nic se samo nezveřejní.
+- Správce je najde v administraci v části „Týdenní úkoly a jejich zveřejnění“. Může měnit název, měsíc, termín, příběhový úvod, zadání, typ úkolu, možnosti odpovědi, správnou odpověď, vysvětlení i následek při nesplnění.
+- Týdny se zveřejňují postupně od 1. týdne. Zveřejněný týden se uzamkne, aby všichni hráči pracovali se stejným zadáním i řešením; publikovaný obsah nelze změnit přes formulář ani přímým odesláním POST.
+- Hráč vidí chronologický seznam všech zveřejněných týdnů, své odpovědi a rozhodnutí správce; může otevřít i starší úkoly. Nový hráč může postupovat od prvního zveřejněného úkolu po aktuálně zveřejněný týden.
+- Správná odpověď a vysvětlení se hráči ukáží až po vyhodnocení (schválení, označení jako nesplněné nebo přeskočení). Administrátor je vidí při kontrole odevzdání.
+- Původní odevzdání ze starší verze zůstávají zachována a jsou zobrazena v archivu historie.
+- Prvním spuštěním se do databáze přidají nové sloupce a pokud ještě neexistují týdenní úkoly, synchronizuje se 29 úkolů ze souboru weekly_tasks_seed.json. Před instalací doporučujeme udělat kopii zeleninur.db.
+- Soubor zeleninur.db není součástí ZIPu a při aktualizaci se nesmí přepisovat.
+
+
+Aktualizace správy úkolů (17. 10. 2026):
+- Sekce „Správa a úpravy všech týdenních úkolů“ je hned pod úvodním přehledem administrace.
+- Knihovna zobrazuje všechny úkoly ze souboru weekly_tasks_seed.json; vyhledávání funguje podle čísla týdne, názvu a měsíce.
+- Úkol lze upravovat nezávisle na dnešním datu, dokud není zveřejněn. Zveřejněné úkoly zůstávají uzamčené, aby všichni hráči měli stejnou verzi.
+- Při startu aplikace se doplní pouze chybějící týdny; existující návrhy, zveřejněné úkoly a odevzdání nepřepisují.
+- Historie hráčských úkolů je dostupná v části „Úkoly a historie“ na hráčské obrazovce.
+- Soubor zeleninur.db není v ZIPu. Před aktualizací jej zálohujte a ponechte.
+
+
+Oprava rolování administrace (17. 10. 2026):
+- Administrátorské stránky mají běžné svislé rolování od začátku až po poslední sekci.
+- Pevné skrytí přetékajícího obsahu se ponechává jen pro obrazovku hry; omylem zamykalo také celý kořenový HTML dokument.
+- Tabulka hráčů si zachovává vlastní vodorovný posuv.
+- Soubor zeleninur.db není součástí ZIPu; zachovejte jej.
+
+
+Navigace v administraci (17. 10. 2026):
+- Administrace je jedna dlouhá stránka. Nová pevná záložka „↑ Zpět na přehled“ vpravo dole vždy vrátí uživatele na její začátek.
+- Rychlé odkazy v navigačním pruhu umožňují přeskočit na správu úkolů, odevzdané odpovědi, hráče a registrace.
+
+
+Oprava pořadí políček herního plánu (17. 10. 2026):
+- 1–8: spodní řada odspodu, zleva doprava.
+- 9–16: druhá řada odspodu, zprava doleva.
+- 17–24: třetí řada odspodu, zleva doprava.
+- 25–29: horní řada, zleva doprava.
+- Souřadnice dlaždic se nepřekreslují; mění se pouze pořadí přiřazení pozic.
+- Databáze zeleninur.db není součástí aktualizace; před instalací vytvořte zálohu a databázi zachovejte.
+
+
+Aktualizace tlačítka Přidat zlaťáky (17. 10. 2026):
+- Na kartě hráče je tlačítko Přidat zlaťáky, které otevře informační okno.
+- V okně je zatím jen textový zástupný prvek QR KÓD, žádný skutečný QR kód ani platební údaje.
+- Zlaťáky se nepřipisují automaticky; správce nadále ověřuje platby a připisuje zlaťáky ručně.
+- Databáze zeleninur.db není v ZIPu; zachovejte ji.
+
+
+Aktualizace katalogu úkolů na 29 políček (18. 10. 2026):
+- Zdrojový soubor weekly_tasks_seed.json obsahuje všech 29 týdenních úkolů podle posledního dodaného seznamu.
+- Při prvním spuštění této verze se chybějící týdny doplní. Nepublikované návrhy bez odevzdání se jednorázově srovnají podle dodaného seznamu.
+- Zveřejněné úkoly se nepřepisují, aby hráči, kteří už je plní, měli stejnou verzi zadání.
+- Po první synchronizaci lze návrhy znovu upravovat v administraci; při dalších spuštěních se nepřepisují.
+- Hráčská historie nyní uvádí 29 týdnů. Databáze zeleninur.db není v ZIPu a musí zůstat zachována.
+
+
+AKTUALIZACE POSTUPU A KONTROLY ODPOVĚDÍ (18. 10. 2026)
+- Úkoly se stále zveřejňují po jednom týdně a hráč musí postupovat v pořadí od nejstaršího dosud nezapočítaného úkolu.
+- Aktuální zveřejněný týden: správná odpověď u výběru A/B/C nebo krátké textové odpovědi se zkontroluje automaticky. Při správné odpovědi se úkol uloží do historie a hráč okamžitě postoupí o jedno políčko bez zlaťáků. Nesprávná odpověď se také uloží, zobrazí se správné řešení a hráč může použít zlaťáky k postupu.
+- Fotografie, otevřené odpovědi a výzvy posuzuje správce. Schválení úkolu v aktuálním zveřejněném týdnu posune hráče o jedno políčko zdarma; správné řešení, vysvětlení a případná poznámka správce se zobrazí u úkolu.
+- Nový nebo opožděný hráč může dohánět zveřejněné historické týdny od začátku. Odpovědi se vyhodnotí a zaznamenají, ale za každý historický úkol se posune na další políčko až po kliknutí na „Použít zlaťáky a postoupit“. To platí i pro správnou automatickou odpověď nebo schválenou fotografii.
+- Cena placeného postupu se nastavuje v administraci samostatně pro každé políčko. Při každém postupu se cena odečte jednou. Hráč může během jednoho týdne zaplatit za více historických kroků, dokud nedožene aktuálně zveřejněný týden. Ochrana proti opakovanému kliknutí brání dvojitému účtování stejného úkolu.
+- Odpovědi a jejich vyhodnocení se při placeném postupu nemažou ani nemění na „přeskočeno“ — zůstávají v historii jako správné nebo nesprávné / schválené či zamítnuté. Samotný placený pohyb je evidován odděleně pro konkrétní úkol.
+- Aktualizace přidává do stávající databáze nové technické záznamy postupu a sloupec výsledku automatické kontroly. Zachová účty, zlaťáky, avatar, publikované úkoly a historii; při prvním spuštění dosavadní schválené a přeskočené týdenní úkoly označí jako již dokončené, aby se po aktualizaci zbytečně neodevzdávaly znovu.
+- Instalace: zastav aplikaci pomocí Ctrl+C, rozbal ZIP do C:\Zeleninur a potvrď přepsání souborů. Soubor zeleninur.db nepřepisuj ani nemaž. Poté spusť .venv\Scripts\python app.py a v prohlížeči proveď Ctrl+F5.
+- ZIP záměrně neobsahuje zeleninur.db ani uživatelská data.
+
+MINIHRA 1 – ZÁHONOVÝ SKENER
+
+Po schválení/splnění prvního zveřejněného týdenního úkolu se na hlavní stránce hráče objeví vstup do minihry „Záhonový skener“. Pro přístup se používá stávající účet Zeleninuru; hráč nezadává přezdívku podruhé.
+
+Průběh:
+- 1. úroveň: mřížka 3×3 a 3 zelené záhony, které se zobrazí na 2 sekundy.
+- 2. úroveň: 4×4 a 4 záhony; 3. úroveň: 5×5 a 5 záhonů; od 4. úrovně je mřížka 6×6 a záhony postupně přibývají.
+- Za každý správně nalezený záhon je okamžitě 1 bod. Jediný chybný výběr ukončí pokus.
+- Hráč může minihru opakovat bez omezení. Zlaťáky ani pozice na hlavním herním plánu se při hraní nemění.
+- Do sdíleného žebříčku se u každého hráče a kola ukládá jen jeho nejvyšší skóre. Nižší pozdější pokus rekord nepřepíše. Žebříček se obnovuje každých 5 sekund.
+- Skóre je v oddělené tabulce databáze `minigame_scores`; ostatní data účtů a hlavní hry se tím nemění.
+
+Technická poznámka k nejvyšším úrovním: na mřížce 6×6 se počet záhonů zastropuje na 35, aby na desce zůstalo alespoň jedno prázdné políčko a chybné kliknutí zůstalo možné. Zatím je připraveno pouze 1. kolo; další minihry se budou přidávat samostatně.
+
+Aktualizace instalace zůstává stejná: zastav aplikaci Ctrl+C, rozbal celý ZIP do `C:\Zeleninur` a přepiš soubory aplikace. Soubor `zeleninur.db` nikdy nemaž ani nepřepisuj. Potom spusť `.venv\Scripts\python app.py` a v prohlížeči proveď Ctrl+F5.
+
+AKTUALIZACE – VTIPNÁ JMÉNA AVATARŮ (18. 10. 2026)
+- Všech 100 skutečných kulatých avatarů má vlastní vtipnou přezdívku, například „Záhonový podvodníček“, „Mrkvový pašerák“, „Rajčatový Rambo“ nebo „Šnečí someliér“.
+- Na kartě hráče se místo obecného textu „Zahradní dobrodruh“ zobrazuje jméno právě zvoleného avataru. Osobní zobrazované jméno hráče se nemění.
+- Výběr avatarů zobrazuje vtipná jména přímo pod portréty; při změně avataru se název automaticky změní také na hráčské kartě.
+- Jména se zobrazují také v podrobnostech herního políčka, v přehledu hráčů v administraci a v žebříčku Záhonového skeneru.
+- Mapování jmen je v souboru `avatar_epithets.json` a je svázáno s identifikátory `avatar-001` až `avatar-100`. Tato změna nemění identifikátory ani obrázky avatarů.
+- ZIP neobsahuje soubor `zeleninur.db`. Při aktualizaci zachovejte existující databázi, účty, zlaťáky, pozice, úkoly a historii.
+
+
+AKTUALIZACE AVATARŮ – CELÉ DŘEVĚNÉ MEDAILONY (18. 10. 2026)
+- V adresáři static/avatars je nových 100 samostatných PNG avatarů převzatých z poslední schválené kruhové mřížky.
+- Každý portrét má průhledné okolí a zachovaný celý kruhový dřevěný rámeček; původní pořadí 001–100 a identifikátory avatarů se nemění.
+- Aktualizace se projeví ve výběru avatarů, na kartě hráče, na herním plánu, v přehledu spoluhráčů, v administraci i v minihře.
+- URL avatarů a stylů mají novou verzi, aby prohlížeč nenačetl staré obrázky z mezipaměti. Po instalaci přesto doporučujeme Ctrl+F5.
+- ZIP neobsahuje zeleninur.db. Při aktualizaci ponechte databázi beze změny; tím se zachovají účty, zlaťáky, pozice, vybrané avatary a historie.
+
+SPRÁVA UŽIVATELSKÝCH ÚČTŮ A RESET HESLA (18. 10. 2026)
+- V administraci je nová sekce „Uživatelské účty a reset hesla“. Zobrazuje účty správců i hráčů, včetně čekajících, zamítnutých a deaktivovaných účtů.
+- Správce může změnit přihlašovací jméno, zobrazované jméno a stav účtu. Přihlašovací jména musí být jedinečná; povolené znaky jsou písmena, číslice, pomlčka a podtržítko.
+- Zapomenuté heslo lze nahradit novým o délce 8 až 128 znaků. Hesla se neukládají ani nezobrazují v čitelné podobě; aplikace ukládá pouze zabezpečený hash. Nové heslo je potřeba hráči předat bezpečným způsobem.
+- Po resetu hesla se při dalším požadavku zneplatní dřívější přihlášení daného účtu. Pokud správce resetuje heslo vlastnímu účtu, bude se muset znovu přihlásit novým heslem.
+- Pro vlastní ochranu nelze přes tabulku deaktivovat aktuálně přihlášený administrátorský účet.
+- Opravena také akce „Přidat hráče ručně“: vytvoří aktivní hráčský účet; dočasné heslo musí mít nejméně 8 znaků.
+- Aktualizace přidává do existující tabulky users technický sloupec session_version. Stávající účty, pozice, zlaťáky, avatary, úkoly i historie zůstávají zachovány. Soubor zeleninur.db není v ZIPu.
+- Instalace: zastav aplikaci pomocí Ctrl+C, zálohuj zeleninur.db a rozbal obsah ZIPu do C:\Zeleninur s přepsáním souborů aplikace. Databázi nepřepisuj ani nemaž. Poté spusť .venv\Scripts\python app.py a v prohlížeči proveď Ctrl+F5.

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#20492d">
+  <title>Záhonový skener · Zeleninur</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css',v='avatars-woodrim-v34') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='minigame.css',v='avatar-epithets-v2') }}">
+</head>
+<body class="game-body minigame-body">
+<header class="game-header minigame-header">
+  <a class="brand-link" href="{{ url_for('home') }}" aria-label="Zeleninur – zpět na herní plán"><img src="{{ url_for('static',filename='zeleninur-logo.png') }}" alt="Zeleninur" class="header-logo"></a>
+  <div class="minigame-header-title"><span>ZAHRADNÍ VÝZVA · 1. KOLO</span><strong>🍂 Záhonový skener</strong></div>
+  <div class="header-right header-right-minimal"><a class="logout-link minigame-back" href="{{ url_for('home') }}">← Herní plán</a></div>
+</header>
+<main class="minigame-layout" id="minigameApp" data-leaderboard-url="{{ url_for('minigame_leaderboard_api',round_number=round_number) }}" data-score-url="{{ url_for('minigame_score_api',round_number=round_number) }}">
+  <section class="minigame-main-column">
+    <section class="minigame-hero wood-card">
+      <div class="minigame-eyebrow">TÝDEN 1 · LISTOPAD</div>
+      <h1>🔎 Záhonový skener</h1>
+      <p>Zapamatuj si, kde se pod mlhou ukrývají záhony. Každý nalezený záhon přidá bod. Jediný chybný dotyk ukončí pokus.</p>
+      <div class="mini-rules-strip"><span>⏱️ 2 sekundy na zapamatování</span><span>🟩 +1 bod za nalezený záhon</span><span>🪙 Bez zlaťáků — jen rekord a žebříček</span></div>
+    </section>
+    <section class="minigame-welcome wood-card" id="welcomePanel">
+      <div class="welcome-emblem" aria-hidden="true">🌱</div>
+      <div class="welcome-copy">
+        <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div><div class="avatar-epithet-chip">🌿 {{current_avatar_name}}</div>
+        <h2>Mlha přichází…</h2>
+        <p>Na začátku uvidíš zelené záhony. Máš přesně dvě sekundy, aby sis zapamatoval/a jejich polohu. Potom zmizí v mlze. Klikni jen tam, kde záhon opravdu byl.</p>
+        {% if best_score is not none %}<p class="personal-best-line">Tvůj osobní rekord: <strong>{{ best_score }} bodů</strong> · nejlepší úroveň {{ best_level }}</p>{% else %}<p class="personal-best-line">Zatím nemáš žádný zaznamenaný pokus. Pojď vytvořit první rekord!</p>{% endif %}
+        <button class="primary-button minigame-start-button" id="startButton" type="button">🌿 Spustit skener</button>
+      </div>
+    </section>
+    <section class="minigame-board wood-card" id="gamePanel" hidden aria-live="polite">
+      <div class="game-scorebar"><div class="score-pill"><small>NALEZENO</small><strong id="scoreValue">0</strong></div><div class="level-pill"><small>ÚROVEŇ</small><strong id="levelValue">1</strong></div><div class="phase-pill" id="phaseMessage">Připrav se…</div></div>
+      <p class="board-instruction" id="boardInstruction">Pozorně si zapamatuj polohu záhonů!</p>
+      <div class="skanner-grid-wrap"><div class="skanner-grid" id="skannerGrid" role="group" aria-label="Mřížka záhonů"></div></div>
+      <div class="game-over-panel" id="gameOverPanel" hidden><div class="game-over-icon" aria-hidden="true">🌫️</div><div><div class="minigame-eyebrow">KONEC POKUSU</div><h2 id="gameOverTitle">Mlha tě přelstila!</h2><p id="gameOverCopy">Výsledek se ukládá do žebříčku.</p><p class="personal-best-line" id="gameOverBest"></p><button class="primary-button minigame-start-button" id="replayButton" type="button">↻ Hrát znovu</button></div></div>
+      <div class="round-hint">💡 Tip: správně nalezené záhony zůstávají zelené. Jakmile ťukneš vedle, pokus končí.</div>
+    </section>
+  </section>
+  <aside class="minigame-sidebar">
+    <section class="leaderboard-card wood-card" aria-live="polite">
+      <div class="leaderboard-heading"><div><div class="minigame-eyebrow">SPOLEČNÝ ŽEBŘÍČEK</div><h2>🏆 Vládci skeneru</h2></div><span class="live-dot" title="Žebříček se obnovuje každých 5 sekund">● ŽIVĚ</span></div>
+      <p class="leaderboard-intro">Započítá se jen tvůj nejlepší výsledek v tomto kole. Hraj opakovaně a zkus překonat vlastní rekord i ostatní.</p>
+      <div class="leaderboard-table-wrap"><table class="minigame-leaderboard"><thead><tr><th>#</th><th>Hráč</th><th>Rekord</th></tr></thead><tbody id="leaderboardBody">
+        {% for row in leaderboard %}<tr {% if row['username']==user['username'] %}class="my-leaderboard-row"{% endif %}><td class="rank-cell">{% if loop.index==1 %}🥇{% elif loop.index==2 %}🥈{% elif loop.index==3 %}🥉{% else %}{{ loop.index }}.{% endif %}</td><td><div class="leader-player"><img src="{{ row['avatar_src'] }}" alt=""><span><strong>{{ row['name'] }}</strong><small class="leader-avatar-epithet">{{ row['avatar_name'] }}</small><small>{{ row['status'] }}</small></span></div></td><td class="leader-score">{{ row['score'] }} <small>b.</small></td></tr>{% else %}<tr class="leaderboard-empty"><td colspan="3">Zatím nikdo neskóroval. Buď první! 🌱</td></tr>{% endfor %}
+      </tbody></table></div>
+      <p class="leaderboard-refresh-note"><span>↻</span> Automatická aktualizace každých 5 sekund</p>
+    </section>
+    <section class="wood-card leaderboard-rules-card"><h3>🌿 Pravidla žebříčku</h3><p><strong>Elitní skener 👁️</strong><br>20+ bodů</p><p><strong>Zkušený hledač 🔍</strong><br>12–19 bodů</p><p><strong>Vidí skrz mlhu 🌫️</strong><br>7–11 bodů</p><p><strong>Začínající farmář 🌱</strong><br>0–6 bodů</p></section>
+  </aside>
+</main>
+<footer class="minigame-footer">ZELENINUR · Zahradní dobrodružství · Rekordy se ukládají jen pro toto kolo</footer>
+<script>
+(function(){
+  'use strict';
+  const root=document.getElementById('minigameApp'), leaderboardUrl=root.dataset.leaderboardUrl, scoreUrl=root.dataset.scoreUrl;
+  const welcomePanel=document.getElementById('welcomePanel'), gamePanel=document.getElementById('gamePanel'), grid=document.getElementById('skannerGrid');
+  const scoreValue=document.getElementById('scoreValue'), levelValue=document.getElementById('levelValue'), phaseMessage=document.getElementById('phaseMessage'), boardInstruction=document.getElementById('boardInstruction');
+  const gameOverPanel=document.getElementById('gameOverPanel'), gameOverCopy=document.getElementById('gameOverCopy'), gameOverBest=document.getElementById('gameOverBest');
+  const startButton=document.getElementById('startButton'), replayButton=document.getElementById('replayButton');
+  let level=1, score=0, beds=new Set(), found=new Set(), phase='idle', timers=[];
+  function later(fn,ms){const id=window.setTimeout(fn,ms);timers.push(id);return id;}
+  function clearTimers(){timers.forEach(window.clearTimeout);timers=[];}
+  function gridSizeFor(n){return Math.min(n+2,6);}
+  function bedCountFor(n,size){return Math.min(n+2,size*size-1);}
+  function shufflePositions(total,count){const a=Array.from({length:total},(_,i)=>i);for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return new Set(a.slice(0,count));}
+  function setStatus(text,mode){phaseMessage.textContent=text;phaseMessage.className='phase-pill'+(mode?' '+mode:'');}
+  function renderGrid(size,showBeds){grid.replaceChildren();grid.style.setProperty('--grid-size',size);for(let i=0;i<size*size;i++){const cell=document.createElement('button');cell.type='button';cell.className='skanner-cell';cell.setAttribute('aria-label','Zahalené políčko '+(i+1));if(showBeds&&beds.has(i)){cell.classList.add('is-bed');cell.textContent='🟩';cell.setAttribute('aria-label','Skrytý záhon');}if(found.has(i)){cell.classList.add('is-found');cell.textContent='🟩';cell.setAttribute('aria-label','Nalezený záhon');cell.disabled=true;}if(phase==='memory'||phase==='transition'||phase==='over')cell.disabled=true;cell.addEventListener('click',()=>chooseCell(i,cell));grid.appendChild(cell);}}
+  function startGame(){clearTimers();score=0;level=1;found=new Set();beds=new Set();phase='transition';welcomePanel.hidden=true;gamePanel.hidden=false;gameOverPanel.hidden=true;scoreValue.textContent='0';startLevel(level);}
+  function startLevel(nextLevel){level=nextLevel;found=new Set();phase='memory';const size=gridSizeFor(level);beds=shufflePositions(size*size,bedCountFor(level,size));levelValue.textContent=String(level);scoreValue.textContent=String(score);boardInstruction.textContent='Zapamatuj si zelené záhony. Mlha přijde za chvilku…';setStatus('👁️ Zapamatuj si!','phase-memory');renderGrid(size,true);later(()=>{if(phase!=='memory')return;phase='scan';boardInstruction.textContent='Teď skenuj mlhu. Ťukni jen na místa, kde byly záhony.';setStatus('🔎 Hledej záhony','phase-scan');renderGrid(size,false);},2000);}
+  function chooseCell(index,cell){if(phase!=='scan'||found.has(index)||cell.disabled)return;if(beds.has(index)){found.add(index);score++;scoreValue.textContent=String(score);cell.classList.add('is-found');cell.textContent='🟩';cell.setAttribute('aria-label','Nalezený záhon');cell.disabled=true;if(found.size===beds.size){phase='transition';const next=level+1;setStatus('🌱 Úroveň splněna!','phase-success');boardInstruction.textContent='Skvěle! Všechny záhony nalezeny. Další mlha přichází…';later(()=>startLevel(next),950);}else{setStatus('✅ Správně · '+found.size+'/'+beds.size,'phase-scan');}}else{phase='over';cell.classList.add('is-wrong');cell.textContent='🟥';cell.setAttribute('aria-label','Chybný výběr');grid.querySelectorAll('button').forEach(b=>b.disabled=true);setStatus('🌫️ Mlha tě přelstila','phase-error');boardInstruction.textContent='Jedna chybná volba ukončila pokus.';endGame();}}
+  async function endGame(){phase='over';gameOverPanel.hidden=false;gameOverCopy.textContent='Tvůj výsledek: '+score+' bodů. Ukládám rekord…';gameOverBest.textContent='';try{const response=await fetch(scoreUrl,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({jmeno:{{ user['display_name']|tojson }},skore:score,uroven:level})});const data=await response.json();if(!response.ok)throw new Error(data.error||'Výsledek se nepodařilo uložit.');gameOverCopy.textContent=data.new_record?'Nový osobní rekord! Výsledek '+score+' bodů je uložen v žebříčku.':'Výsledek '+score+' bodů je uložen. Tvůj nejlepší výsledek zůstává '+data.best_score+' bodů.';gameOverBest.textContent='Tvůj rekord: '+data.best_score+' bodů · nejlepší úroveň '+data.best_level+'. Minigra neodečítá ani nepřidává zlaťáky.';renderLeaderboard(data.leaderboard||[]);}catch(err){gameOverCopy.textContent='Výsledek: '+score+' bodů. Uložení se nezdařilo — zkontroluj připojení a zkus hru spustit znovu.';gameOverBest.textContent=err.message||'';}}
+  function renderLeaderboard(rows){const tbody=document.getElementById('leaderboardBody');tbody.replaceChildren();if(!rows.length){const tr=document.createElement('tr');tr.className='leaderboard-empty';const td=document.createElement('td');td.colSpan=3;td.textContent='Zatím nikdo neskóroval. Buď první! 🌱';tr.appendChild(td);tbody.appendChild(tr);return;}rows.forEach((row,index)=>{const tr=document.createElement('tr');if(row.username=== {{ user['username']|tojson }})tr.className='my-leaderboard-row';const rank=document.createElement('td');rank.className='rank-cell';rank.textContent=index===0?'🥇':index===1?'🥈':index===2?'🥉':(index+1)+'.';const player=document.createElement('td');const wrap=document.createElement('div');wrap.className='leader-player';const avatar=document.createElement('img');avatar.src=row.avatar_src||'';avatar.alt='';const info=document.createElement('span');const name=document.createElement('strong');name.textContent=row.name||row.username;const epithet=document.createElement('small');epithet.className='leader-avatar-epithet';epithet.textContent=row.avatar_name||'';const status=document.createElement('small');status.textContent=row.status||'';info.append(name,epithet,status);wrap.append(avatar,info);player.appendChild(wrap);const scoreCell=document.createElement('td');scoreCell.className='leader-score';scoreCell.textContent=String(row.score)+' ';const unit=document.createElement('small');unit.textContent='b.';scoreCell.appendChild(unit);tr.append(rank,player,scoreCell);tbody.appendChild(tr);});}
+  async function refreshLeaderboard(){try{const r=await fetch(leaderboardUrl,{headers:{'Accept':'application/json'},cache:'no-store'});if(!r.ok)return;const d=await r.json();renderLeaderboard(d.leaderboard||[]);}catch(_e){}}
+  startButton.addEventListener('click',startGame);replayButton.addEventListener('click',startGame);window.setInterval(refreshLeaderboard,5000);
+})();
+</script>
+</body>
+</html>

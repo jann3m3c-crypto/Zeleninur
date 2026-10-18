@@ -1,0 +1,16 @@
+# Local secrets and runtime data
+.env
+*.db
+*.sqlite
+*.sqlite3
+instance/
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS/editor files
+.DS_Store
+Thumbs.db

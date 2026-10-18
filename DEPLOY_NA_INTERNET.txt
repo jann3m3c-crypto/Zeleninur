@@ -1,0 +1,22 @@
+ZELENINUR — NASAZENÍ NA INTERNET (TESTOVACÍ VERZE)
+
+Doporučená cesta: Railway + persistent volume.
+
+1) Nahrajte obsah této složky do soukromého GitHub repozitáře nebo jej použijte v propojeném Railway projektu.
+2) V Railway přidejte Volume a připojte ho do /data.
+3) Nastavte soukromé Variables:
+   ZELENINUR_DATA_DIR=/data
+   ZELENINUR_DB_PATH=/data/zeleninur.db
+   ZELENINUR_SECRET=<unikátní náhodná hodnota; nevkládejte do kódu>
+   ZELENINUR_ALLOW_DEMO_USERS=false
+   ZELENINUR_ADMIN_USERNAME=<zvolené admin přihlašovací jméno>
+   ZELENINUR_ADMIN_PASSWORD=<unikátní silné heslo>
+4) Deploy command je definován v railway.toml a Procfile.
+5) Nechte jednu repliku aplikace: SQLite není konfigurované pro souběžné více-replikové nasazení.
+6) Po dokončení otevřete přidělenou veřejnou URL a přihlaste se údaji z Variables.
+
+DŮLEŽITÉ:
+- Nevystavujte veřejně účet admin/admin123. V hostovaném režimu jsou demo účty vypnuté.
+- ZELENINUR_SECRET i heslo administrátora musí být soukromé hodnoty nastavené přímo v hostingu.
+- Persistent volume /data uchovává databázi i uploady při restartu/nasazení.
+- Toto je testovací nasazení. Před otevřením veřejnosti projděte bezpečnost, zálohování a náklady hostingu.

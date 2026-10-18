@@ -1,0 +1,502 @@
+[
+  {
+    "avatar_id": 1,
+    "filename": "portrait-001.png",
+    "name": "Záhonový podvodníček"
+  },
+  {
+    "avatar_id": 2,
+    "filename": "portrait-002.png",
+    "name": "Hráškový mafián"
+  },
+  {
+    "avatar_id": 3,
+    "filename": "portrait-003.png",
+    "name": "Mrkvový pašerák"
+  },
+  {
+    "avatar_id": 4,
+    "filename": "portrait-004.png",
+    "name": "Okurkový povaleč"
+  },
+  {
+    "avatar_id": 5,
+    "filename": "portrait-005.png",
+    "name": "Rajčatový Rambo"
+  },
+  {
+    "avatar_id": 6,
+    "filename": "portrait-006.png",
+    "name": "Brokolicový basák"
+  },
+  {
+    "avatar_id": 7,
+    "filename": "portrait-007.png",
+    "name": "Bramborový zmrzlík"
+  },
+  {
+    "avatar_id": 8,
+    "filename": "portrait-008.png",
+    "name": "Muchomůrková potížistka"
+  },
+  {
+    "avatar_id": 9,
+    "filename": "portrait-009.png",
+    "name": "Česnekový bodyguard"
+  },
+  {
+    "avatar_id": 10,
+    "filename": "portrait-010.png",
+    "name": "Cibulový slzopán"
+  },
+  {
+    "avatar_id": 11,
+    "filename": "portrait-011.png",
+    "name": "Kukuřičný kaskadér"
+  },
+  {
+    "avatar_id": 12,
+    "filename": "portrait-012.png",
+    "name": "Pálivý mariachi"
+  },
+  {
+    "avatar_id": 13,
+    "filename": "portrait-013.png",
+    "name": "Okurkový optimista"
+  },
+  {
+    "avatar_id": 14,
+    "filename": "portrait-014.png",
+    "name": "Řepová diva"
+  },
+  {
+    "avatar_id": 15,
+    "filename": "portrait-015.png",
+    "name": "Dýňový playboy"
+  },
+  {
+    "avatar_id": 16,
+    "filename": "portrait-016.png",
+    "name": "Lilek černokněžník"
+  },
+  {
+    "avatar_id": 17,
+    "filename": "portrait-017.png",
+    "name": "Slunečnicový sluníčkář"
+  },
+  {
+    "avatar_id": 18,
+    "filename": "portrait-018.png",
+    "name": "Hrášková mafie"
+  },
+  {
+    "avatar_id": 19,
+    "filename": "portrait-019.png",
+    "name": "Ředkvičkový účetní"
+  },
+  {
+    "avatar_id": 20,
+    "filename": "portrait-020.png",
+    "name": "Korunovaný škrobák"
+  },
+  {
+    "avatar_id": 21,
+    "filename": "portrait-021.png",
+    "name": "Pěnivý mudrlant"
+  },
+  {
+    "avatar_id": 22,
+    "filename": "portrait-022.png",
+    "name": "Zakletý bručoun"
+  },
+  {
+    "avatar_id": 23,
+    "filename": "portrait-023.png",
+    "name": "Rohatý rambič"
+  },
+  {
+    "avatar_id": 24,
+    "filename": "portrait-024.png",
+    "name": "Jednooký průšvihář"
+  },
+  {
+    "avatar_id": 25,
+    "filename": "portrait-025.png",
+    "name": "Korunovaný chvástal"
+  },
+  {
+    "avatar_id": 26,
+    "filename": "portrait-026.png",
+    "name": "Bublinkový panikář"
+  },
+  {
+    "avatar_id": 27,
+    "filename": "portrait-027.png",
+    "name": "Kosmický trouba"
+  },
+  {
+    "avatar_id": 28,
+    "filename": "portrait-028.png",
+    "name": "Galaktický flákač"
+  },
+  {
+    "avatar_id": 29,
+    "filename": "portrait-029.png",
+    "name": "Plechový mudrlant"
+  },
+  {
+    "avatar_id": 30,
+    "filename": "portrait-030.png",
+    "name": "Kostnatý tanečník"
+  },
+  {
+    "avatar_id": 31,
+    "filename": "portrait-031.png",
+    "name": "Pichlavý frajírek"
+  },
+  {
+    "avatar_id": 32,
+    "filename": "portrait-032.png",
+    "name": "Liščí šejdíř"
+  },
+  {
+    "avatar_id": 33,
+    "filename": "portrait-033.png",
+    "name": "Popelnicový detektiv"
+  },
+  {
+    "avatar_id": 34,
+    "filename": "portrait-034.png",
+    "name": "Parohatý šprt"
+  },
+  {
+    "avatar_id": 35,
+    "filename": "portrait-035.png",
+    "name": "Noční šprt"
+  },
+  {
+    "avatar_id": 36,
+    "filename": "portrait-036.png",
+    "name": "Kvákající monarcha"
+  },
+  {
+    "avatar_id": 37,
+    "filename": "portrait-037.png",
+    "name": "Slizký rychlík"
+  },
+  {
+    "avatar_id": 38,
+    "filename": "portrait-038.png",
+    "name": "Puntíkatá potížistka"
+  },
+  {
+    "avatar_id": 39,
+    "filename": "portrait-039.png",
+    "name": "Bzučivý výtržník"
+  },
+  {
+    "avatar_id": 40,
+    "filename": "portrait-040.png",
+    "name": "Květinová celebrita"
+  },
+  {
+    "avatar_id": 41,
+    "filename": "portrait-041.png",
+    "name": "Mléčný mafián"
+  },
+  {
+    "avatar_id": 42,
+    "filename": "portrait-042.png",
+    "name": "Růžový pracháč"
+  },
+  {
+    "avatar_id": 43,
+    "filename": "portrait-043.png",
+    "name": "Vlněný výtržník"
+  },
+  {
+    "avatar_id": 44,
+    "filename": "portrait-044.png",
+    "name": "Fousatý vegetarián"
+  },
+  {
+    "avatar_id": 45,
+    "filename": "portrait-045.png",
+    "name": "Kohoutí budíček"
+  },
+  {
+    "avatar_id": 46,
+    "filename": "portrait-046.png",
+    "name": "Kvákající elegán"
+  },
+  {
+    "avatar_id": 47,
+    "filename": "portrait-047.png",
+    "name": "Husí hysterik"
+  },
+  {
+    "avatar_id": 48,
+    "filename": "portrait-048.png",
+    "name": "Krocaní showman"
+  },
+  {
+    "avatar_id": 49,
+    "filename": "portrait-049.png",
+    "name": "Ušatý pašerák"
+  },
+  {
+    "avatar_id": 50,
+    "filename": "portrait-050.png",
+    "name": "Kočičí účetní"
+  },
+  {
+    "avatar_id": 51,
+    "filename": "portrait-051.png",
+    "name": "Basový soused"
+  },
+  {
+    "avatar_id": 52,
+    "filename": "portrait-052.png",
+    "name": "Květinová anarchistka"
+  },
+  {
+    "avatar_id": 53,
+    "filename": "portrait-053.png",
+    "name": "Třpytivá katastrofa"
+  },
+  {
+    "avatar_id": 54,
+    "filename": "portrait-054.png",
+    "name": "Horský hypochondr"
+  },
+  {
+    "avatar_id": 55,
+    "filename": "portrait-055.png",
+    "name": "Duhová pohroma"
+  },
+  {
+    "avatar_id": 56,
+    "filename": "portrait-056.png",
+    "name": "Zamlžený myslitel"
+  },
+  {
+    "avatar_id": 57,
+    "filename": "portrait-057.png",
+    "name": "Kloboukový prorok"
+  },
+  {
+    "avatar_id": 58,
+    "filename": "portrait-058.png",
+    "name": "Dredatý diplomat"
+  },
+  {
+    "avatar_id": 59,
+    "filename": "portrait-059.png",
+    "name": "Hřebenatý výtržník"
+  },
+  {
+    "avatar_id": 60,
+    "filename": "portrait-060.png",
+    "name": "Třpytivý narcis"
+  },
+  {
+    "avatar_id": 61,
+    "filename": "portrait-061.png",
+    "name": "Pírkatá rebelka"
+  },
+  {
+    "avatar_id": 62,
+    "filename": "portrait-062.png",
+    "name": "Malovaná potížistka"
+  },
+  {
+    "avatar_id": 63,
+    "filename": "portrait-063.png",
+    "name": "Kostěný strašpytel"
+  },
+  {
+    "avatar_id": 64,
+    "filename": "portrait-064.png",
+    "name": "Lesní sabotérka"
+  },
+  {
+    "avatar_id": 65,
+    "filename": "portrait-065.png",
+    "name": "Kovbojský kazisvět"
+  },
+  {
+    "avatar_id": 66,
+    "filename": "portrait-066.png",
+    "name": "Kočičí pistolník"
+  },
+  {
+    "avatar_id": 67,
+    "filename": "portrait-067.png",
+    "name": "Lucernový špeh"
+  },
+  {
+    "avatar_id": 68,
+    "filename": "portrait-068.png",
+    "name": "Houbový mudrlant"
+  },
+  {
+    "avatar_id": 69,
+    "filename": "portrait-069.png",
+    "name": "Mechový mrzout"
+  },
+  {
+    "avatar_id": 70,
+    "filename": "portrait-070.png",
+    "name": "Dřevěný morous"
+  },
+  {
+    "avatar_id": 71,
+    "filename": "portrait-071.png",
+    "name": "Zmrzlý elegán"
+  },
+  {
+    "avatar_id": 72,
+    "filename": "portrait-072.png",
+    "name": "Jehličnatý frajer"
+  },
+  {
+    "avatar_id": 73,
+    "filename": "portrait-073.png",
+    "name": "Parohatý playboy"
+  },
+  {
+    "avatar_id": 74,
+    "filename": "portrait-074.png",
+    "name": "Vánoční sabotér"
+  },
+  {
+    "avatar_id": 75,
+    "filename": "portrait-075.png",
+    "name": "Perníkový rebel"
+  },
+  {
+    "avatar_id": 76,
+    "filename": "portrait-076.png",
+    "name": "Mrazivý potížista"
+  },
+  {
+    "avatar_id": 77,
+    "filename": "portrait-077.png",
+    "name": "Frakový kapitán"
+  },
+  {
+    "avatar_id": 78,
+    "filename": "portrait-078.png",
+    "name": "Zubatý průšvihář"
+  },
+  {
+    "avatar_id": 79,
+    "filename": "portrait-079.png",
+    "name": "Růžový narcis"
+  },
+  {
+    "avatar_id": 80,
+    "filename": "portrait-080.png",
+    "name": "Duhový podivín"
+  },
+  {
+    "avatar_id": 81,
+    "filename": "portrait-081.png",
+    "name": "Zubatý elegán"
+  },
+  {
+    "avatar_id": 82,
+    "filename": "portrait-082.png",
+    "name": "Chapadlový manažer"
+  },
+  {
+    "avatar_id": 83,
+    "filename": "portrait-083.png",
+    "name": "Pomalý podnikatel"
+  },
+  {
+    "avatar_id": 84,
+    "filename": "portrait-084.png",
+    "name": "Klepetatý milionář"
+  },
+  {
+    "avatar_id": 85,
+    "filename": "portrait-085.png",
+    "name": "Přístavní intrikán"
+  },
+  {
+    "avatar_id": 86,
+    "filename": "portrait-086.png",
+    "name": "Klynatý aristokrat"
+  },
+  {
+    "avatar_id": 87,
+    "filename": "portrait-087.png",
+    "name": "Delfíní admirál"
+  },
+  {
+    "avatar_id": 88,
+    "filename": "portrait-088.png",
+    "name": "Chapadlový korzár"
+  },
+  {
+    "avatar_id": 89,
+    "filename": "portrait-089.png",
+    "name": "Pichlavý playboy"
+  },
+  {
+    "avatar_id": 90,
+    "filename": "portrait-090.png",
+    "name": "Alpakový milionář"
+  },
+  {
+    "avatar_id": 91,
+    "filename": "portrait-091.png",
+    "name": "Podzemní magnát"
+  },
+  {
+    "avatar_id": 92,
+    "filename": "portrait-092.png",
+    "name": "Cylindrový červ"
+  },
+  {
+    "avatar_id": 93,
+    "filename": "portrait-093.png",
+    "name": "Skořápkový závodník"
+  },
+  {
+    "avatar_id": 94,
+    "filename": "portrait-094.png",
+    "name": "Slizký filozof"
+  },
+  {
+    "avatar_id": 95,
+    "filename": "portrait-095.png",
+    "name": "Šnečí someliér"
+  },
+  {
+    "avatar_id": 96,
+    "filename": "portrait-096.png",
+    "name": "Odpadový boss"
+  },
+  {
+    "avatar_id": 97,
+    "filename": "portrait-097.png",
+    "name": "Hliněný mafián"
+  },
+  {
+    "avatar_id": 98,
+    "filename": "portrait-098.png",
+    "name": "Šroubkový šéf"
+  },
+  {
+    "avatar_id": 99,
+    "filename": "portrait-099.png",
+    "name": "Sluneční flákač"
+  },
+  {
+    "avatar_id": 100,
+    "filename": "portrait-100.png",
+    "name": "Zalévací desperát"
+  }
+]

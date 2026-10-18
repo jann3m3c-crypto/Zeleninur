@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: zeleninur-test
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 app:app
+    disk:
+      name: zeleninur-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: ZELENINUR_DATA_DIR
+        value: /data
+      - key: ZELENINUR_SECRET
+        generateValue: true
+      - key: ZELENINUR_ALLOW_DEMO_USERS
+        value: "false"
+      - key: ZELENINUR_ADMIN_USERNAME
+        sync: false
+      - key: ZELENINUR_ADMIN_PASSWORD
+        sync: false
