@@ -671,6 +671,8 @@ def home():
         avatars.append(item)
     minigame_unlocked = bool(user["role"] == "player" and minigame_round_unlocked(db, user["id"], 1))
     minigame_best_row = db.execute("SELECT best_score,best_level FROM minigame_scores WHERE user_id=? AND round_number=1", (user["id"],)).fetchone()
+    minigame2_unlocked = bool(user["role"] == "player" and minigame_round_unlocked(db, user["id"], 2))
+    minigame2_best_row = db.execute("SELECT best_score,best_level FROM minigame_scores WHERE user_id=? AND round_number=2", (user["id"],)).fetchone()
     return render_template(
         "home.html", user=user, task=task, submission=submission, groups=groups,
         spaces_data=spaces_data, user_message=user_message, avatars=avatars,
@@ -683,14 +685,17 @@ def home():
         legacy_history=legacy_history, featured_item=featured_item,
         minigame_unlocked=minigame_unlocked,
         minigame_best_score=int(minigame_best_row["best_score"]) if minigame_best_row else None,
-        minigame_best_level=int(minigame_best_row["best_level"]) if minigame_best_row else None
+        minigame_best_level=int(minigame_best_row["best_level"]) if minigame_best_row else None,
+        minigame2_unlocked=minigame2_unlocked,
+        minigame2_best_score=int(minigame2_best_row["best_score"]) if minigame2_best_row else None,
+        minigame2_best_level=int(minigame2_best_row["best_level"]) if minigame2_best_row else None
     )
 
 def minigame_round_unlocked(db, user_id, round_number):
-    """The minigame stays available after a player submits the first task, regardless of the answer or review status."""
-    if round_number != 1:
+    """A minigame opens after a player starts its matching published weekly task, regardless of answer correctness or review status."""
+    if round_number not in (1, 2):
         return False
-    task = db.execute("SELECT id FROM tasks WHERE week_number=1 AND published=1 ORDER BY id LIMIT 1").fetchone()
+    task = db.execute("SELECT id FROM tasks WHERE week_number=? AND published=1 ORDER BY id LIMIT 1", (round_number,)).fetchone()
     if not task:
         return False
     submission = db.execute(
@@ -709,10 +714,16 @@ def get_minigame_leaderboard(db, round_number, limit=200):
     result=[]
     for i,row in enumerate(rows, start=1):
         score=int(row["best_score"] or 0)
-        if score >= 20: status="Elitní skener 👁️"
-        elif score >= 12: status="Zkušený hledač 🔍"
-        elif score >= 7: status="Vidí skrz mlhu 🌫️"
-        else: status="Začínající farmář 🌱"
+        if round_number == 2:
+            if score >= 25: status="Postrach slimáků 🛡️"
+            elif score >= 16: status="Zahradní ochránce 🌿"
+            elif score >= 8: status="Lovec škůdců 🐌"
+            else: status="Nováček hlídky 🍃"
+        else:
+            if score >= 20: status="Elitní skener 👁️"
+            elif score >= 12: status="Zkušený hledač 🔍"
+            elif score >= 7: status="Vidí skrz mlhu 🌫️"
+            else: status="Začínající farmář 🌱"
         avatar_id = row["avatar_id"] if row["avatar_id"] in AVATAR_BY_ID else "avatar-001"
         result.append({"rank":i,"name":row["display_name"],"username":row["username"],
                        "avatar_name":get_avatar_name(avatar_id),
@@ -728,13 +739,14 @@ def minigame(round_number):
     if user["role"] == "admin":
         return redirect(url_for("admin"))
     db=get_db()
-    if round_number != 1 or not minigame_round_unlocked(db, user["id"], round_number):
-        flash("Záhonový skener se otevře po splnění prvního týdenního úkolu.", "error")
+    if round_number not in (1, 2) or not minigame_round_unlocked(db, user["id"], round_number):
+        flash(f"Minihra se otevře po odeslání týdenního úkolu {round_number}; správnost odpovědi nerozhoduje.", "error")
         return redirect(url_for("home"))
     best=db.execute("SELECT best_score,best_level FROM minigame_scores WHERE user_id=? AND round_number=?",
                     (user["id"],round_number)).fetchone()
     avatar_id = user["avatar_id"] if user["avatar_id"] in AVATAR_BY_ID else "avatar-001"
-    return render_template("minigame.html", user=user, round_number=round_number,
+    template = "minigame.html" if round_number == 1 else "minigame2.html"
+    return render_template(template, user=user, round_number=round_number,
                            current_avatar_name=get_avatar_name(avatar_id),
                            best_score=int(best["best_score"]) if best else None,
                            best_level=int(best["best_level"]) if best else None,
@@ -745,7 +757,7 @@ def minigame(round_number):
 @login_required
 def minigame_leaderboard_api(round_number):
     user=current_user(); db=get_db()
-    if user["role"] == "admin" or round_number != 1 or not minigame_round_unlocked(db,user["id"],round_number):
+    if user["role"] == "admin" or round_number not in (1, 2) or not minigame_round_unlocked(db,user["id"],round_number):
         return {"error":"Minihra není odemčená."}, 403
     return {"leaderboard":get_minigame_leaderboard(db,round_number)}
 
@@ -754,7 +766,7 @@ def minigame_leaderboard_api(round_number):
 @login_required
 def minigame_score_api(round_number):
     db=get_db(); user=current_user()
-    if user["role"] == "admin" or round_number != 1 or not minigame_round_unlocked(db,user["id"],round_number):
+    if user["role"] == "admin" or round_number not in (1, 2) or not minigame_round_unlocked(db,user["id"],round_number):
         return {"error":"Minihra není odemčená."}, 403
     data=request.get_json(silent=True) or {}
     score=data.get("skore",data.get("score")); level=data.get("uroven",data.get("level",1))
