@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Slimákova hlídka · Zeleninur</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css',v='avatars-woodrim-v35') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='minigame.css',v='avatar-epithets-v2') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='minigame2.css',v='slimakova-hlidka-v1') }}">
+</head>
+<body class="game-body minigame-body minigame2-body">
+<header class="game-header minigame-header">
+  <a class="brand-link" href="{{ url_for('home') }}" aria-label="Zeleninur – zpět na herní plán"><img src="{{ url_for('static',filename='zeleninur-logo.png') }}" alt="Zeleninur" class="header-logo"></a>
+  <div class="minigame-header-title"><span>ZAHRADNÍ VÝZVA · 2. KOLO</span><strong>🐌 Slimákova hlídka</strong></div>
+  <div class="header-right header-right-minimal"><a class="logout-link minigame-back" href="{{ url_for('home') }}">← Herní plán</a></div>
+</header>
+
+<main class="minigame-layout minigame2-layout" id="minigameApp"
+  data-leaderboard-url="{{ url_for('minigame_leaderboard_api',round_number=2) }}"
+  data-score-url="{{ url_for('minigame_score_api',round_number=2) }}">
+  <section class="minigame-main-column">
+    <section class="minigame-hero wood-card minigame2-hero">
+      <div class="minigame-eyebrow">TÝDEN 2 · ZAHRADNÍ HLÍDKA</div>
+      <h1>🛡️ Slimákova hlídka</h1>
+      <p>Škůdci si našli cestu k sazenicím! Za 30 sekund pochytáš co nejvíc slimáků a housenek. Berušky, včelky a motýly nech být — ti zahradě pomáhají.</p>
+      <div class="mini-rules-strip">
+        <span>⏱️ 30 sekund</span>
+        <span>🐌 +1 bod za škůdce</span>
+        <span>🐞 −2 body za pomocníka</span>
+        <span>🌿 Každých 5 zásahů v řadě přidá bonus +2</span>
+      </div>
+    </section>
+
+    <section class="minigame-welcome wood-card" id="welcomePanel">
+      <div class="welcome-emblem" aria-hidden="true">🪴</div>
+      <div class="welcome-copy">
+        <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div>
+        <div class="avatar-epithet-chip">🌱 {{ current_avatar_name }}</div>
+        <h2>Ochraň mladé rostlinky!</h2>
+        <p>Na záhonech se budou objevovat škůdci a užiteční pomocníci. Klikni na škůdce, ale na berušky, včelky a motýly nesahej. Cílem je získat co nejvíc bodů, než vyprší čas.</p>
+        {% if best_score is not none %}
+          <p class="personal-best-line">Tvůj osobní rekord: <strong>{{ best_score }} bodů</strong> · nejdelší série {{ best_level or 1 }}</p>
+        {% else %}
+          <p class="personal-best-line">Zatím nemáš žádný pokus. Ukaž slimákům, kdo je tady pánem zahrady!</p>
+        {% endif %}
+        <button class="primary-button minigame-start-button" id="startButton" type="button">🛡️ Začít hlídku</button>
+      </div>
+    </section>
+
+    <section class="minigame-board wood-card minigame2-board" id="gamePanel" hidden aria-live="polite">
+      <div class="game-scorebar">
+        <div class="score-pill"><small>BODY</small><strong id="scoreValue">0</strong></div>
+        <div class="level-pill"><small>SÉRIE</small><strong id="comboValue">0</strong></div>
+        <div class="phase-pill" id="phaseMessage">Připrav se…</div>
+      </div>
+      <div class="guard-timer-wrap" aria-label="Zbývající čas">
+        <div class="guard-timer-track"><div id="timerBar" class="guard-timer-bar"></div></div>
+        <strong id="timeValue">30</strong><span>s</span>
+      </div>
+      <p class="board-instruction" id="boardInstruction">Klikni na slimáky a housenky. Užitečný hmyz nech v klidu.</p>
+      <div class="guard-grid-wrap">
+        <div class="guard-grid" id="guardGrid" role="group" aria-label="Záhon s objevujícími se škůdci">
+          {% for i in range(9) %}<button class="guard-cell" type="button" data-index="{{ i }}" aria-label="Prázdný záhon"><span class="guard-soil" aria-hidden="true">🌱</span></button>{% endfor %}
+        </div>
+      </div>
+      <div class="game-over-panel minigame2-over" id="gameOverPanel" hidden>
+        <div class="game-over-icon" aria-hidden="true">🌻</div>
+        <div>
+          <div class="minigame-eyebrow">KONEC HLÍDKY</div>
+          <h2 id="gameOverTitle">Záhon je v bezpečí!</h2>
+          <p id="gameOverCopy">Ukládám výsledek do žebříčku…</p>
+          <p class="personal-best-line" id="gameOverBest"></p>
+          <button class="primary-button minigame-start-button" id="replayButton" type="button">↻ Hrát znovu</button>
+        </div>
+      </div>
+      <p class="round-hint">Tip: škůdci přibývají rychleji, jak čas ubíhá. Za každých 5 správných zásahů v řadě získáš bonus +2 body. Minihra nemění zlaťáky ani postup po herním plánu.</p>
+    </section>
+  </section>
+
+  <aside class="minigame-sidebar">
+    <section class="leaderboard-card wood-card" aria-live="polite">
+      <div class="leaderboard-heading">
+        <div><div class="minigame-eyebrow">SPOLEČNÝ ŽEBŘÍČEK</div><h2>🏆 Obránci zahrady</h2></div>
+        <span class="live-dot" title="Žebříček se obnovuje každých 5 sekund">● ŽIVĚ</span>
+      </div>
+      <p class="leaderboard-intro">Počítá se jen tvůj nejlepší výsledek ve Slimákově hlídce. Zkus překonat vlastní rekord i ostatní hráče.</p>
+      <div class="leaderboard-table-wrap"><table class="minigame-leaderboard"><thead><tr><th>#</th><th>Hráč</th><th>Rekord</th></tr></thead><tbody id="leaderboardBody">
+        {% for row in leaderboard %}
+          <tr {% if row['username']==user['username'] %}class="my-leaderboard-row"{% endif %}>
+            <td class="rank-cell">{% if loop.index==1 %}🥇{% elif loop.index==2 %}🥈{% elif loop.index==3 %}🥉{% else %}{{ loop.index }}.{% endif %}</td>
+            <td><div class="leader-player"><img src="{{ row['avatar_src'] }}" alt=""><span><strong>{{ row['name'] }}</strong><small class="leader-avatar-epithet">{{ row['avatar_name'] }}</small><small>{{ row['status'] }}</small></span></div></td>
+            <td class="leader-score">{{ row['score'] }} <small>b.</small></td>
+          </tr>
+        {% else %}
+          <tr class="leaderboard-empty"><td colspan="3">Zatím nikdo nezahnal slimáky. Buď první! 🌱</td></tr>
+        {% endfor %}
+      </tbody></table></div>
+      <p class="leaderboard-refresh-note"><span>↻</span> Automatická aktualizace každých 5 sekund</p>
+    </section>
+    <section class="wood-card leaderboard-rules-card">
+      <h3>🌿 Pravidla hlídky</h3>
+      <p><strong>🐌 Škůdce</strong><br>+1 bod za zásah</p>
+      <p><strong>🐞 Užitečný hmyz</strong><br>−2 body za chybný dotyk</p>
+      <p><strong>🔥 Série</strong><br>Každých 5 zásahů v řadě přidá +2 body</p>
+      <p><strong>🪙 Zlaťáky</strong><br>Minihra žádné neodečítá ani nepřidává</p>
+    </section>
+  </aside>
+</main>
+<footer class="minigame-footer">ZELENINUR · SLIMÁKOVA HLÍDKA · REKORDY SE UKLÁDAJÍ SAMOSTATNĚ</footer>
+
+<script>
+(function(){
+  'use strict';
+  const root=document.getElementById('minigameApp');
+  const leaderboardUrl=root.dataset.leaderboardUrl;
+  const scoreUrl=root.dataset.scoreUrl;
+  const welcomePanel=document.getElementById('welcomePanel');
+  const gamePanel=document.getElementById('gamePanel');
+  const grid=document.getElementById('guardGrid');
+  const scoreValue=document.getElementById('scoreValue');
+  const comboValue=document.getElementById('comboValue');
+  const phaseMessage=document.getElementById('phaseMessage');
+  const boardInstruction=document.getElementById('boardInstruction');
+  const timeValue=document.getElementById('timeValue');
+  const timerBar=document.getElementById('timerBar');
+  const gameOverPanel=document.getElementById('gameOverPanel');
+  const gameOverTitle=document.getElementById('gameOverTitle');
+  const gameOverCopy=document.getElementById('gameOverCopy');
+  const gameOverBest=document.getElementById('gameOverBest');
+  const startButton=document.getElementById('startButton');
+  const replayButton=document.getElementById('replayButton');
+  const cells=[...grid.querySelectorAll('.guard-cell')];
+  const pests=[{emoji:'🐌',name:'Slimák'},{emoji:'🐛',name:'Housenka'},{emoji:'🪱',name:'Červík'},{emoji:'🐌',name:'Slimák'}];
+  const helpers=[{emoji:'🐞',name:'Beruška'},{emoji:'🐝',name:'Včelka'},{emoji:'🦋',name:'Motýl'}];
+  let score=0,combo=0,bestCombo=0,startedAt=0,remaining=30;
+  let running=false,activeIndex=null,activeKind=null,spawnTimer=null,hideTimer=null,timerInterval=null;
+  function setPhase(text,mode){phaseMessage.textContent=text;phaseMessage.className='phase-pill'+(mode?' '+mode:'');}
+  function clearTimerHandles(){
+    if(spawnTimer!==null)window.clearTimeout(spawnTimer);
+    if(hideTimer!==null)window.clearTimeout(hideTimer);
+    if(timerInterval!==null)window.clearInterval(timerInterval);
+    spawnTimer=null;hideTimer=null;timerInterval=null;
+  }
+  function clearTarget(){
+    if(hideTimer!==null)window.clearTimeout(hideTimer);
+    hideTimer=null;
+    if(activeIndex!==null){
+      const cell=cells[activeIndex];
+      cell.classList.remove('has-target','is-pest','is-helper','is-hit','is-penalty');
+      cell.innerHTML='<span class="guard-soil" aria-hidden="true">🌱</span>';
+      cell.setAttribute('aria-label','Prázdný záhon');
+    }
+    activeIndex=null;activeKind=null;
+  }
+  function paintScore(){
+    scoreValue.textContent=String(score);
+    comboValue.textContent=String(combo);
+  }
+  function targetDelay(){
+    const elapsed=30-remaining;
+    return Math.max(430,780-elapsed*11);
+  }
+  function spawnTarget(){
+    if(!running)return;
+    clearTarget();
+    const free=cells.filter(c=>Number(c.dataset.index)!==activeIndex);
+    const cell=free[Math.floor(Math.random()*free.length)]||cells[Math.floor(Math.random()*cells.length)];
+    activeIndex=Number(cell.dataset.index);
+    const friendly=Math.random()<0.24;
+    const target=friendly?helpers[Math.floor(Math.random()*helpers.length)]:pests[Math.floor(Math.random()*pests.length)];
+    activeKind=friendly?'helper':'pest';
+    cell.classList.add('has-target',friendly?'is-helper':'is-pest');
+    cell.innerHTML='<span class="guard-target" aria-hidden="true">'+target.emoji+'</span>';
+    cell.setAttribute('aria-label',target.name+(friendly?' — užitečný hmyz, neklikej':' — škůdce, klikni'));
+    const visibility=Math.max(390,760-(30-remaining)*8);
+    hideTimer=window.setTimeout(()=>{
+      if(!running)return;
+      clearTarget();
+      spawnTimer=window.setTimeout(spawnTarget,130);
+    },visibility);
+  }
+  function targetClick(event){
+    if(!running)return;
+    const cell=event.currentTarget;
+    if(Number(cell.dataset.index)!==activeIndex||!activeKind)return;
+    if(hideTimer!==null)window.clearTimeout(hideTimer);
+    hideTimer=null;
+    if(activeKind==='pest'){
+      score+=1;combo+=1;bestCombo=Math.max(bestCombo,combo);
+      cell.classList.add('is-hit');
+      if(combo>0&&combo%5===0){score+=2;setPhase('🔥 Série '+combo+' · bonus +2','phase-success');}
+      else setPhase('✅ Škůdce chycen','phase-scan');
+      boardInstruction.textContent='Skvěle! Další škůdce už leze do záhonu…';
+    }else{
+      score=Math.max(0,score-2);combo=0;
+      cell.classList.add('is-penalty');
+      setPhase('🌼 To je pomocník! −2','phase-error');
+      boardInstruction.textContent='Berušky, včelky a motýli zahradu chrání. Příště je nech být!';
+    }
+    paintScore();
+    cell.classList.remove('has-target','is-pest','is-helper','is-hit','is-penalty');
+    cell.innerHTML='<span class="guard-soil" aria-hidden="true">🌱</span>';
+    cell.setAttribute('aria-label','Prázdný záhon');
+    activeIndex=null;activeKind=null;
+    spawnTimer=window.setTimeout(spawnTarget,Math.max(120,targetDelay()-170));
+  }
+  function updateTime(){
+    remaining=Math.max(0,30-(performance.now()-startedAt)/1000);
+    timeValue.textContent=String(Math.ceil(remaining));
+    timerBar.style.width=(remaining/30*100)+'%';
+    if(remaining<=7)timerBar.classList.add('is-low');else timerBar.classList.remove('is-low');
+    if(remaining<=0)finishGame();
+  }
+  function startGame(){
+    clearTimerHandles();clearTarget();
+    score=0;combo=0;bestCombo=0;remaining=30;running=true;startedAt=performance.now();
+    paintScore();timeValue.textContent='30';timerBar.style.width='100%';timerBar.classList.remove('is-low');
+    welcomePanel.hidden=true;gamePanel.hidden=false;gameOverPanel.hidden=true;
+    cells.forEach(c=>{c.disabled=false;c.innerHTML='<span class="guard-soil" aria-hidden="true">🌱</span>';c.className='guard-cell';c.setAttribute('aria-label','Prázdný záhon');});
+    setPhase('🛡️ Hlídka běží','phase-success');
+    boardInstruction.textContent='Teď! Klikni na slimáky a housenky, užitečný hmyz nech být.';
+    timerInterval=window.setInterval(updateTime,100);
+    spawnTarget();
+  }
+  async function finishGame(){
+    if(!running)return;
+    running=false;remaining=0;clearTimerHandles();clearTarget();
+    cells.forEach(c=>c.disabled=true);
+    timeValue.textContent='0';timerBar.style.width='0%';
+    gameOverPanel.hidden=false;gameOverTitle.textContent=score>=25?'🌻 Zahrada je zachráněna!':score>=12?'🛡️ Dobrá práce, ochránce!':'🌱 Hlídka právě začala — zkus další pokus!';
+    gameOverCopy.textContent='Tvůj výsledek: '+score+' bodů. Ukládám rekord…';gameOverBest.textContent='';
+    setPhase('⏰ Čas vypršel','phase-error');
+    try{
+      const response=await fetch(scoreUrl,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({skore:score,uroven:Math.max(1,bestCombo)})});
+      const data=await response.json();
+      if(!response.ok)throw new Error(data.error||'Výsledek se nepodařilo uložit.');
+      gameOverCopy.textContent=data.new_record?'Nový osobní rekord! Tvoje skóre '+score+' bodů je zapsané do žebříčku.':'Do žebříčku se uložilo '+score+' bodů. Tvůj osobní rekord zůstává '+data.best_score+' bodů.';
+      gameOverBest.textContent='Rekord: '+data.best_score+' bodů · nejdelší série '+data.best_level+'. Zlaťáky zůstávají beze změny.';
+      renderLeaderboard(data.leaderboard||[]);
+    }catch(err){
+      gameOverCopy.textContent='Výsledek: '+score+' bodů. Uložení se nezdařilo — zkontroluj připojení.';
+      gameOverBest.textContent=err.message||'';
+    }
+  }
+  function renderLeaderboard(rows){
+    const tbody=document.getElementById('leaderboardBody');tbody.replaceChildren();
+    if(!rows.length){const tr=document.createElement('tr');tr.className='leaderboard-empty';const td=document.createElement('td');td.colSpan=3;td.textContent='Zatím nikdo nehlídal záhony. Buď první! 🌱';tr.appendChild(td);tbody.appendChild(tr);return;}
+    rows.forEach((row,index)=>{
+      const tr=document.createElement('tr');if(row.username=== {{ user['username']|tojson }})tr.className='my-leaderboard-row';
+      const rank=document.createElement('td');rank.className='rank-cell';rank.textContent=index===0?'🥇':index===1?'🥈':index===2?'🥉':(index+1)+'.';
+      const player=document.createElement('td');const wrap=document.createElement('div');wrap.className='leader-player';
+      const avatar=document.createElement('img');avatar.src=row.avatar_src||'';avatar.alt='';
+      const info=document.createElement('span');const name=document.createElement('strong');name.textContent=row.name||row.username;
+      const epithet=document.createElement('small');epithet.className='leader-avatar-epithet';epithet.textContent=row.avatar_name||'';
+      const status=document.createElement('small');status.textContent=row.status||'';
+      info.append(name,epithet,status);wrap.append(avatar,info);player.appendChild(wrap);
+      const scoreCell=document.createElement('td');scoreCell.className='leader-score';scoreCell.textContent=String(row.score)+' ';
+      const unit=document.createElement('small');unit.textContent='b.';scoreCell.appendChild(unit);tr.append(rank,player,scoreCell);tbody.appendChild(tr);
+    });
+  }
+  async function refreshLeaderboard(){try{const response=await fetch(leaderboardUrl,{headers:{'Accept':'application/json'},cache:'no-store'});if(!response.ok)return;const data=await response.json();renderLeaderboard(data.leaderboard||[]);}catch(_e){}}
+  cells.forEach(cell=>cell.addEventListener('click',targetClick));
+  startButton.addEventListener('click',startGame);replayButton.addEventListener('click',startGame);
+  window.setInterval(refreshLeaderboard,5000);
+})();
+</script>
+</body>
+</html>
