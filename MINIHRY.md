@@ -9,11 +9,14 @@ Tento soubor je pracovní seznam skutečně připravených miniher. Nové návrh
 - **Žebříček:** vlastní rekord pro minihru 1.
 - **Zlaťáky:** bez vlivu na zlaťáky a postup na plánu.
 
-## 2. Slimákova hlídka — připraveno k testování
-- **Mechanika:** časová postřehová hra. Během 30 sekund hráč kliká na slimáky a housenky, ale vyhýbá se užitečnému hmyzu (beruškám, včelkám a motýlům).
-- **Body:** +1 za škůdce, −2 za užitečného pomocníka; bonus +2 za každou sérii pěti zásahů v řadě.
+## 2. Toxické spojenectví ve sklepní kobce — připraveno k testování
+- **Téma:** druhý týden (8.–14. 11.), bezpečné skladování podzimní úrody.
+- **Mechanika:** rychlá třídicí hra na 30 sekund. Hráč dostává jednotlivé plodiny a vybírá vhodné skladovací místo.
+- **Místa:** bedna s pískem pro celer, petržel a mrkev; oddělená police pro plodiny uvolňující etylen (jablka, banány, zralá rajčata); tmavý a chladný kout pro brambory.
+- **Body:** +1 za správné uložení, −1 za chybu; bonus +2 za každých pět správných zařazení v řadě.
 - **Přístup:** po odeslání týdenního úkolu 2. Samotná správnost odpovědi nerozhoduje.
 - **Žebříček:** vlastní rekord pro minihru 2, oddělený od Záhonového skeneru.
+- **Vizuál:** vlastní ilustrace sklepní komory, dřevěných beden a úrody, stylizovaná jako dřevěné rámy a pergameny Zeleninuru.
 - **Zlaťáky:** bez vlivu na zlaťáky a postup na plánu.
 
 ## Společná pravidla
