@@ -48,7 +48,7 @@
     {% elif featured_item and featured_item["eligible"] %}<div class="status">Toto je tvůj nejstarší nevyřízený úkol. Až ho dokončíš, otevře se další.</div>
     {% endif %}
     <button class="primary-button" type="button" onclick="openTaskModal({{task['id']}})">{% if featured_item and featured_item["can_buy"] %}Vyhodnocení a postup →{% elif submission and submission["status"]=="pending" %}Zobrazit odevzdanou odpověď{% elif submission and submission["status"]=="approved" %}Prohlédnout splněný úkol{% else %}Otevřít zadání úkolu{% endif %}</button>
-    {% if minigame_unlocked %}<a class="secondary-button minigame-quicklink" href="{{ url_for('minigame',round_number=1) }}">🔎 Hrát Záhonový skener · osobní rekord {{ minigame_best_score if minigame_best_score is not none else 'zatím žádný' }}</a>{% endif %}
+    {% if minigame_unlocked %}<a class="secondary-button minigame-quicklink" href="{{ url_for('minigame',round_number=1) }}" target="_blank" rel="noopener">🔎 Hrát Záhonový skener · osobní rekord {{ minigame_best_score if minigame_best_score is not none else 'zatím žádný' }}</a>{% endif %}
   {% else %}<h2>Úkol se připravuje</h2><p class="task-description">Správce zatím nezveřejnil první týdenní úkol. Jakmile ho aktivuje, objeví se zde a všichni hráči dostanou stejné zadání.</p>{% endif %}
 </section>
 
@@ -58,7 +58,7 @@
     <h2>🌫️ Mlha přichází. Zapamatuješ si záhony?</h2>
     <p class="task-description">První minihra je odemčená. Najdi všechny zelené záhony, než tě mlha přelstí. Můžeš hrát opakovaně; do žebříčku se počítá pouze tvůj osobní rekord a zlaťáky zůstávají beze změny.</p>
     {% if minigame_best_score is not none %}<p class="status success">🏆 Tvůj rekord: <strong>{{ minigame_best_score }} bodů</strong>{% if minigame_best_level %} · nejlepší úroveň {{ minigame_best_level }}{% endif %}</p>{% else %}<p class="status">Zatím žádný rekord — budeš první?</p>{% endif %}
-    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=1) }}">🔎 Otevřít Záhonový skener →</a>
+    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=1) }}" target="_blank" rel="noopener">🔎 Otevřít Záhonový skener →</a>
   {% else %}
     <h2>🔒 Záhonový skener čeká na zahájení 1. kola</h2>
     <p class="task-description">Jakmile odešleš první týdenní úkol, Záhonový skener zůstane přístupný bez ohledu na to, zda je odpověď správná, chybná, nebo čeká na kontrolu. Můžeš hrát opakovaně; minihra zlaťáky nemění.</p>
@@ -71,7 +71,7 @@
     <h2>🛡️ Ulož úrodu, než se zkazí!</h2>
     <p class="task-description">Ve 30 sekundách roztřiď plodiny do správných míst: celer, petržel a mrkev do bedny s pískem; jablka a další plodiny uvolňující etylen stranou od brambor. Rekord se ukládá zvlášť a zlaťáků se hra nedotkne.</p>
     {% if minigame2_best_score is not none %}<p class="status success">🏆 Tvůj rekord: <strong>{{ minigame2_best_score }} bodů</strong>{% if minigame2_best_level %} · nejdelší série {{ minigame2_best_level }}{% endif %}</p>{% else %}<p class="status">Zatím žádný rekord — staň se prvním mistrem sklepní komory!</p>{% endif %}
-    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=2) }}">🗝️ Otevřít sklepní komoru →</a>
+    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=2) }}" target="_blank" rel="noopener">🗝️ Otevřít sklepní komoru →</a>
   {% else %}
     <h2>🔒 Sklepní komora čeká na zahájení 2. týdne</h2>
     <p class="task-description">Až odešleš týdenní úkol 2 „Toxické spojenectví ve sklepní kobce“, minihra se otevře bez ohledu na správnost odpovědi nebo čekání na kontrolu. Pak můžeš opakovaně třídit úrodu; zlaťáky zůstanou beze změny.</p>
