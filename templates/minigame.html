@@ -7,7 +7,7 @@
   <title>Záhonový skener · Zeleninur</title>
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css',v='avatars-woodrim-v34') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='minigame.css',v='avatar-epithets-v2') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='scanner-skin.css',v='woodland-scanner-v5') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='scanner-skin.css',v='woodland-scanner-v6') }}">
 </head>
 <body class="game-body minigame-body scanner-game-body">
 <header class="game-header minigame-header">
@@ -52,7 +52,7 @@
         <div class="scanner-memory-head"><span id="memoryLabel">👁️ Zapamatuj si polohu záhonů</span><strong id="memorySeconds">5 s</strong></div>
         <div class="scanner-memory-track"><div class="scanner-memory-bar" id="memoryBar"></div></div>
       </div>
-      <div class="skanner-grid-wrap"><div class="skanner-grid" id="skannerGrid" role="group" aria-label="Mřížka záhonů"></div></div>
+      <div class="skanner-grid-wrap scanner-garden-frame" style="background-image: linear-gradient(180deg,rgba(31,48,27,.12),rgba(49,34,21,.30)), url('{{ url_for('static',filename='garden-world-backdrop.webp',v='scanner-interior-v6') }}'); background-size: cover; background-position: center 54%;"><div class="skanner-grid" id="skannerGrid" role="group" aria-label="Mřížka záhonů"></div></div>
       <div class="game-over-panel" id="gameOverPanel" hidden><div class="game-over-icon" aria-hidden="true">🌫️</div><div><div class="minigame-eyebrow">KONEC POKUSU</div><h2 id="gameOverTitle">Mlha tě přelstila!</h2><p id="gameOverCopy">Výsledek se ukládá do žebříčku.</p><p class="personal-best-line" id="gameOverBest"></p><button class="primary-button minigame-start-button" id="replayButton" type="button">↻ Hrát znovu</button></div></div>
       <div class="round-hint">💡 Tip: správně nalezené záhony zůstávají zelené. Jakmile ťukneš vedle, pokus končí.</div>
     </section>
