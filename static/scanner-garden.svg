@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 330" role="img" aria-labelledby="t d">
+<title id="t">Záhonový skener — tajemná zahrada Zeleninuru</title>
+<desc id="d">Ilustrovaný zahradní záhon obklopený lesem, kapradinami a jemnou ranní mlhou, se šesti dřevěnými záhony, zelenými sazenicemi a drobnými kamínky.</desc>
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#b9d3a2"/><stop offset=".55" stop-color="#e5e6bd"/><stop offset="1" stop-color="#b3c18b"/></linearGradient>
+ <linearGradient id="soil" x2=".2" y2="1"><stop stop-color="#90613a"/><stop offset=".4" stop-color="#654329"/><stop offset="1" stop-color="#402c20"/></linearGradient>
+ <linearGradient id="plank" x2="0" y2="1"><stop stop-color="#c48b4b"/><stop offset=".45" stop-color="#97612f"/><stop offset="1" stop-color="#633c20"/></linearGradient>
+ <linearGradient id="leaf" x2=".9" y2="1"><stop stop-color="#b8d97b"/><stop offset=".55" stop-color="#679944"/><stop offset="1" stop-color="#356b35"/></linearGradient>
+ <radialGradient id="mist"><stop stop-color="#f9f4d9" stop-opacity=".86"/><stop offset="1" stop-color="#f9f4d9" stop-opacity="0"/></radialGradient>
+ <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#20321b" flood-opacity=".38"/></filter>
+ <pattern id="grain" width="68" height="20" patternUnits="userSpaceOnUse"><path d="M2 5 Q19 1 36 5 T68 5 M14 15 Q30 10 45 15" stroke="#40281b" stroke-opacity=".22" stroke-width="2" fill="none"/></pattern>
+ <g id="sprout"><path d="M0 20 Q1 4 0 -4" stroke="#3e7139" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M1 7 Q-23 -13 -27 1 Q-23 14 1 12Z" fill="url(#leaf)" stroke="#3d7239" stroke-width="2"/><path d="M2 1 Q16 -22 28 -11 Q31 2 2 8Z" fill="url(#leaf)" stroke="#3d7239" stroke-width="2"/><path d="M-21 0 L-4 8 M21 -10 L5 3" stroke="#d7e6a0" stroke-width="2" fill="none"/></g>
+ <g id="fern"><path d="M0 70 Q5 27 23 0" stroke="#4b7c3b" stroke-width="5" fill="none"/><g fill="url(#leaf)" stroke="#436f34" stroke-width="2"><path d="M2 58 Q-24 37 -27 49 Q-20 64 2 63Z"/><path d="M8 47 Q31 23 39 36 Q32 51 8 53Z"/><path d="M11 33 Q-10 11 -19 22 Q-13 36 11 39Z"/><path d="M17 22 Q37 0 46 12 Q40 25 17 28Z"/><path d="M21 9 Q5 -9 0 1 Q5 14 21 15Z"/></g></g>
+</defs>
+<!-- soft woodland clearing -->
+<rect width="1000" height="330" rx="19" fill="url(#sky)"/>
+<circle cx="780" cy="43" r="90" fill="#fff3bf" opacity=".46"/>
+<g fill="#507346" opacity=".78"><path d="M0 155 L45 24 L91 155Z"/><path d="M46 155 L112 3 L176 155Z"/><path d="M145 158 L206 30 L264 158Z"/><path d="M733 153 L792 17 L854 153Z"/><path d="M818 157 L881 6 L950 157Z"/><path d="M910 158 L959 40 L1000 141 L1000 165Z"/></g>
+<g fill="#74955a" opacity=".72"><path d="M0 174 L57 64 L112 174Z"/><path d="M94 174 L150 42 L204 174Z"/><path d="M205 171 L255 60 L310 171Z"/><path d="M692 171 L742 55 L796 171Z"/><path d="M874 172 L925 57 L980 172Z"/></g>
+<!-- forest floor and moss -->
+<path d="M0 170 Q150 130 285 171 T560 162 T810 167 T1000 153 V330 H0Z" fill="#6d8a50"/>
+<path d="M0 208 Q170 186 340 205 T700 196 T1000 198 V330 H0Z" fill="#91a969"/>
+<g fill="#486f3b" opacity=".6"><ellipse cx="70" cy="215" rx="70" ry="14"/><ellipse cx="252" cy="224" rx="115" ry="14"/><ellipse cx="840" cy="213" rx="105" ry="15"/><ellipse cx="954" cy="237" rx="78" ry="13"/></g>
+<!-- garden bed shadows -->
+<ellipse cx="500" cy="265" rx="375" ry="47" fill="#263c22" opacity=".35"/>
+<!-- planter -->
+<g filter="url(#shadow)">
+ <path d="M147 121 L856 121 L899 239 L104 239Z" fill="#43301f" opacity=".65"/>
+ <path d="M123 104 L867 104 L897 223 L101 223Z" fill="url(#plank)" stroke="#4e301d" stroke-width="8"/>
+ <path d="M123 104 L867 104 L897 223 L101 223Z" fill="url(#grain)"/>
+ <path d="M125 105 L867 105 L852 130 L143 130Z" fill="#d0a069" stroke="#704522" stroke-width="5"/>
+ <path d="M143 130 L852 130 L869 202 L128 202Z" fill="url(#soil)" stroke="#402b1e" stroke-width="5"/>
+ <path d="M143 130 L852 130 L869 202 L128 202Z" fill="url(#grain)" opacity=".95"/>
+ <!-- bed divisions -->
+ <g stroke="#d2a06a" stroke-width="4" opacity=".9"><path d="M323 130 L311 202"/><path d="M502 130 L500 204"/><path d="M682 130 L693 203"/><path d="M147 162 L860 162"/></g>
+ <g stroke="#34261c" stroke-width="3" opacity=".6"><path d="M319 132 L307 200"/><path d="M498 132 L496 202"/><path d="M678 132 L689 201"/><path d="M147 164 L860 164"/></g>
+ <!-- corner pegs -->
+ <g fill="#d0a06a" stroke="#57371f" stroke-width="3"><circle cx="125" cy="107" r="7"/><circle cx="865" cy="107" r="7"/><circle cx="106" cy="220" r="7"/><circle cx="893" cy="220" r="7"/></g>
+ <g fill="#f6d99a"><circle cx="125" cy="106" r="2"/><circle cx="865" cy="106" r="2"/><circle cx="106" cy="219" r="2"/><circle cx="893" cy="219" r="2"/></g>
+</g>
+<!-- lush sprouts inside garden squares -->
+<g filter="url(#shadow)">
+ <use href="#sprout" x="219" y="137" transform="translate(0 6) scale(.95)"/>
+ <use href="#sprout" x="410" y="141" transform="translate(0 4) scale(1.05)"/>
+ <use href="#sprout" x="590" y="141" transform="translate(0 4) scale(1.1)"/>
+ <use href="#sprout" x="774" y="139" transform="translate(0 2) scale(.96)"/>
+ <use href="#sprout" x="213" y="174" transform="translate(0 4) scale(.78)"/>
+ <use href="#sprout" x="410" y="171" transform="translate(0 4) scale(.82)"/>
+ <use href="#sprout" x="594" y="172" transform="translate(0 3) scale(.82)"/>
+ <use href="#sprout" x="778" y="170" transform="translate(0 3) scale(.82)"/>
+</g>
+<!-- stones, seed details -->
+<g fill="#b5ab82" stroke="#514534" stroke-width="3"><path d="M355 147 l12 -9 15 6 2 12 -15 7 -13 -5Z"/><path d="M711 179 l8 -8 13 3 4 10 -12 6 -11 -4Z"/><path d="M478 179 l7 -5 11 4 2 7 -11 5 -8 -4Z"/></g>
+<g fill="#d5be84" stroke="#785631" stroke-width="2"><ellipse cx="286" cy="149" rx="5" ry="3" transform="rotate(-25 286 149)"/><ellipse cx="545" cy="149" rx="5" ry="3" transform="rotate(26 545 149)"/><ellipse cx="828" cy="183" rx="5" ry="3" transform="rotate(-16 828 183)"/><ellipse cx="461" cy="142" rx="4" ry="3"/></g>
+<!-- mist layers -->
+<ellipse cx="185" cy="93" rx="205" ry="73" fill="url(#mist)" opacity=".7"/>
+<ellipse cx="520" cy="102" rx="240" ry="68" fill="url(#mist)" opacity=".65"/>
+<ellipse cx="840" cy="91" rx="190" ry="71" fill="url(#mist)" opacity=".74"/>
+<path d="M5 86 Q97 62 188 87 T366 84 T550 88 T733 83 T996 86" stroke="#fffbe8" stroke-opacity=".55" stroke-width="10" fill="none" stroke-linecap="round"/>
+<path d="M7 96 Q97 74 190 96 T373 94 T554 96 T744 91 T996 94" stroke="#fffbe8" stroke-opacity=".27" stroke-width="6" fill="none" stroke-linecap="round"/>
+<!-- foreground ferns -->
+<g filter="url(#shadow)"><use href="#fern" x="58" y="185" transform="rotate(-18 58 185)"/><use href="#fern" x="914" y="177" transform="translate(0 3) rotate(20 914 177)"/></g>
+<g fill="#e2b3d7" stroke="#6d7744" stroke-width="2"><circle cx="63" cy="246" r="8"/><circle cx="74" cy="241" r="8"/><circle cx="69" cy="252" r="8"/><circle cx="933" cy="244" r="7"/><circle cx="944" cy="239" r="7"/><circle cx="939" cy="250" r="7"/></g>
+<g fill="#eac975"><circle cx="68" cy="246" r="4"/><circle cx="939" cy="244" r="4"/></g>
+<!-- little bird -->
+<g transform="translate(930 37)"><ellipse cx="0" cy="0" rx="17" ry="12" fill="#ba7d48" stroke="#593d29" stroke-width="3"/><ellipse cx="-3" cy="2" rx="8" ry="9" fill="#e4d2a0"/><path d="M12 -2 L24 2 L12 5Z" fill="#d7a13e" stroke="#765025" stroke-width="2"/><circle cx="4" cy="-3" r="2.5" fill="#2d3527"/><path d="M-8 -7 Q-4 -15 3 -12" fill="none" stroke="#66432b" stroke-width="3"/><path d="M-2 10 L-4 17 M6 10 L8 17" stroke="#6c4d2e" stroke-width="2"/></g>
+<!-- foreground border -->
+<path d="M0 291 Q252 269 498 290 T1000 285 V330 H0Z" fill="#4d6c3e" opacity=".72"/>
+<path d="M0 294 Q240 274 498 293 T1000 289" fill="none" stroke="#bbce8a" stroke-width="4" opacity=".8"/>
+</svg>
