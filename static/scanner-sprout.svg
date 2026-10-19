@@ -1,20 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
 <defs>
- <linearGradient id="soil" x2="0" y2="1"><stop stop-color="#c99a63"/><stop offset=".55" stop-color="#98633c"/><stop offset="1" stop-color="#62402b"/></linearGradient>
- <linearGradient id="stem" x2="1" y2=".2"><stop stop-color="#4d8839"/><stop offset=".48" stop-color="#a4cd54"/><stop offset="1" stop-color="#477b31"/></linearGradient>
- <linearGradient id="leaf" x2=".15" y2="1"><stop stop-color="#d0ee71"/><stop offset=".48" stop-color="#91c947"/><stop offset="1" stop-color="#478238"/></linearGradient>
- <linearGradient id="leaf2" x2="0" y2="1"><stop stop-color="#bfe363"/><stop offset=".55" stop-color="#76b443"/><stop offset="1" stop-color="#3d7331"/></linearGradient>
- <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#20351b" flood-opacity=".32"/></filter>
+ <linearGradient id="leafFront" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#dff58b"/><stop offset=".24" stop-color="#b8e15f"/><stop offset=".65" stop-color="#74b842"/><stop offset="1" stop-color="#3d7c34"/></linearGradient>
+ <linearGradient id="leafBack" x1=".1" y1="0" x2=".8" y2="1"><stop stop-color="#caeb75"/><stop offset=".5" stop-color="#85bf49"/><stop offset="1" stop-color="#417c33"/></linearGradient>
+ <linearGradient id="stem" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#447a30"/><stop offset=".38" stop-color="#9ccf4e"/><stop offset=".72" stop-color="#83bd3f"/><stop offset="1" stop-color="#3b702d"/></linearGradient>
+ <linearGradient id="mound" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#cb975a"/><stop offset=".3" stop-color="#a86f3e"/><stop offset=".78" stop-color="#75472b"/><stop offset="1" stop-color="#50311f"/></linearGradient>
+ <filter id="drop" x="-30%" y="-25%" width="160%" height="170%"><feGaussianBlur in="SourceAlpha" stdDeviation="3"/><feOffset dy="4" dx="0"/><feComponentTransfer><feFuncA type="linear" slope=".38"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 </defs>
-<g filter="url(#shadow)" stroke-linecap="round" stroke-linejoin="round">
- <path d="M64 84 C62 71 62 58 65 43" fill="none" stroke="#3d6e31" stroke-width="10"/>
- <path d="M64 82 C63 68 64 54 66 43" fill="none" stroke="url(#stem)" stroke-width="6"/>
- <path d="M62 60 C42 42 21 38 17 51 C14 66 36 77 63 70Z" fill="url(#leaf)" stroke="#3e7633" stroke-width="4"/>
- <path d="M61 66 C43 56 30 52 19 51" fill="none" stroke="#d9ef91" stroke-width="3" opacity=".85"/>
- <path d="M65 47 C74 24 98 13 111 25 C120 39 99 55 67 58Z" fill="url(#leaf2)" stroke="#3e7633" stroke-width="4"/>
- <path d="M70 52 C84 41 96 33 109 27" fill="none" stroke="#d9ef91" stroke-width="3" opacity=".85"/>
- <path d="M43 91 Q64 82 84 91 L100 107 Q65 120 30 107Z" fill="url(#soil)" stroke="#613d28" stroke-width="4"/>
- <path d="M41 97 Q64 92 84 97" fill="none" stroke="#e1b27a" stroke-width="3" opacity=".85"/>
- <g fill="#4f3524" opacity=".5"><ellipse cx="51" cy="105" rx="3" ry="2"/><ellipse cx="71" cy="110" rx="4" ry="2"/><ellipse cx="82" cy="101" rx="2.5" ry="2"/></g>
+<g filter="url(#drop)" stroke-linejoin="round" stroke-linecap="round">
+ <!-- back leaf, curved toward the left -->
+ <path d="M145 150 C113 125 70 90 43 109 C22 125 52 161 89 169 C113 174 133 165 150 160Z" fill="url(#leafBack)" stroke="#396f2d" stroke-width="5"/>
+ <path d="M137 156 C108 144 75 127 48 116" fill="none" stroke="#e2f49d" stroke-width="4" opacity=".92"/>
+ <path d="M97 137 l-6 -19 M111 144 l7 -17 M75 129 l-5 -12" fill="none" stroke="#b7dc6b" stroke-width="2.7" opacity=".84"/>
+ <!-- right leaf -->
+ <path d="M148 151 C162 105 198 65 235 72 C259 78 256 106 233 126 C209 147 177 159 148 162Z" fill="url(#leafFront)" stroke="#386d2d" stroke-width="5"/>
+ <path d="M154 153 C185 125 211 99 245 81" fill="none" stroke="#e4f59d" stroke-width="4"/>
+ <path d="M185 126 l-1 -24 M201 112 l17 -2 M220 97 l-2 -14 M173 136 l-14 -1" fill="none" stroke="#a8d85a" stroke-width="2.7"/>
+ <path d="M153 151 C160 126 163 99 179 82" fill="none" stroke="#4d8c34" stroke-width="2.4" opacity=".7"/>
+ <!-- small new leaf -->
+ <path d="M148 143 C136 110 139 78 155 61 C174 79 172 110 153 144Z" fill="url(#leafBack)" stroke="#477c31" stroke-width="4"/>
+ <path d="M152 135 Q155 100 155 70" fill="none" stroke="#e0f39a" stroke-width="3"/>
+ <!-- curved stem with bevel -->
+ <path d="M145 231 C152 205 155 178 151 144" fill="none" stroke="#3e762e" stroke-width="19"/>
+ <path d="M145 229 C151 202 153 176 151 146" fill="none" stroke="url(#stem)" stroke-width="13"/>
+ <path d="M145 218 C150 197 150 179 149 162" fill="none" stroke="#c7e977" stroke-width="3.5" opacity=".8"/>
+ <!-- soil mound -->
+ <path d="M84 237 Q104 214 134 218 Q156 204 180 217 Q204 214 224 239 Q199 257 157 255 Q112 260 84 237Z" fill="url(#mound)" stroke="#5d3922" stroke-width="5"/>
+ <path d="M94 235 Q125 219 153 224 Q182 216 212 237" fill="none" stroke="#e0b375" stroke-width="4" opacity=".8"/>
+ <!-- exposed little roots -->
+ <path d="M145 251 Q135 264 128 271 M157 251 Q163 264 174 270 M148 252 Q148 266 146 276" fill="none" stroke="#d6ac70" stroke-width="3.5"/>
+ <!-- soil grains and pebbles -->
+ <g fill="#d8b177" stroke="#70472b" stroke-width="1.8">
+  <ellipse cx="112" cy="238" rx="5" ry="3" transform="rotate(-20 112 238)"/><ellipse cx="193" cy="240" rx="4" ry="3" transform="rotate(16 193 240)"/>
+  <ellipse cx="145" cy="248" rx="4.5" ry="2.7"/><ellipse cx="174" cy="231" rx="3" ry="2"/>
+ </g>
+ <g fill="#593722"><circle cx="129" cy="242" r="2.7"/><circle cx="180" cy="246" r="2.1"/><circle cx="164" cy="235" r="2.3"/></g>
 </g>
 </svg>
