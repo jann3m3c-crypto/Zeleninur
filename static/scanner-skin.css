@@ -943,3 +943,147 @@ body.scanner-standalone{
  .scanner-game-body .skanner-grid{width:min(100%,480px);padding:4px;gap:2px;border-width:4px;border-radius:9px}
  .scanner-game-body .skanner-cell .scanner-cell-illustration{width:68%;height:68%}
 }
+
+/* FINAL ART DIRECTION — one illustrated bed, not a grid of generic rounded buttons.
+   Cells are transparent hit zones over a single hand-painted soil/wood illustration. */
+.scanner-game-body .skanner-grid{
+  position:relative!important;
+  display:grid!important;
+  grid-template-columns:repeat(var(--grid-size),minmax(0,1fr))!important;
+  width:min(100%,560px)!important;
+  aspect-ratio:1 / 1!important;
+  min-width:0!important;
+  padding:11.8%!important;
+  gap:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:url("scanner-bed-background.svg?v=storybook-bed-v1") center center / 100% 100% no-repeat!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  overflow:hidden;
+}
+.scanner-game-body .skanner-grid:before{
+  content:none!important;display:none!important;
+}
+.scanner-game-body .skanner-cell,
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-cell.is-found,
+.scanner-game-body .skanner-cell.is-revealed,
+.scanner-game-body .skanner-cell.is-wrong{
+  position:relative!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;height:100%!important;
+  min-width:0!important;min-height:0!important;
+  margin:0!important;padding:0!important;
+  aspect-ratio:auto!important;
+  border:1px solid rgba(237,207,147,.36)!important;
+  border-radius:0!important;
+  outline:none!important;
+  outline-offset:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  transform:none;
+}
+.scanner-game-body .skanner-cell:nth-child(3n+2){border-left-color:rgba(233,197,132,.46)!important;border-right-color:rgba(54,32,19,.3)!important}
+.scanner-game-body .skanner-cell:nth-child(n+4):nth-child(-n+6),
+.scanner-game-body .skanner-cell:nth-child(n+7):nth-child(-n+9){border-top-color:rgba(233,197,132,.37)!important}
+.scanner-game-body .skanner-cell:before,
+.scanner-game-body .skanner-cell:after,
+.scanner-game-body .skanner-cell.is-bed:before,
+.scanner-game-body .skanner-cell.is-bed:after,
+.scanner-game-body .skanner-cell.is-found:before,
+.scanner-game-body .skanner-cell.is-found:after,
+.scanner-game-body .skanner-cell.is-revealed:before,
+.scanner-game-body .skanner-cell.is-revealed:after,
+.scanner-game-body .skanner-cell.is-wrong:before,
+.scanner-game-body .skanner-cell.is-wrong:after{
+  content:none!important;display:none!important;
+  background:none!important;box-shadow:none!important;
+}
+.scanner-game-body .skanner-cell .scanner-cell-illustration{
+  position:absolute!important;top:50%!important;left:50%!important;
+  right:auto!important;bottom:auto!important;inset:auto!important;
+  display:block!important;flex:0 0 auto!important;
+  width:75%!important;height:78%!important;
+  max-width:100%!important;max-height:100%!important;
+  margin:0!important;padding:0!important;
+  object-fit:contain!important;object-position:center center!important;
+  transform:translate(-50%,-50%)!important;
+  pointer-events:none!important;user-select:none!important;
+  z-index:4!important;
+  filter:drop-shadow(0 4px 3px rgba(33,25,14,.35))!important;
+}
+.scanner-game-body .skanner-cell .scanner-stone-illustration{
+  width:67%!important;height:67%!important;
+}
+.scanner-game-body .skanner-cell.is-bed{
+  background:linear-gradient(0deg,rgba(120,180,60,.20),rgba(162,202,83,.25))!important;
+  border-color:rgba(225,239,157,.58)!important;
+}
+.scanner-game-body .skanner-cell.is-found{
+  background:linear-gradient(0deg,rgba(111,167,52,.45),rgba(198,225,120,.33))!important;
+  border-color:rgba(231,244,169,.92)!important;
+  box-shadow:inset 0 0 0 2px rgba(208,229,131,.46)!important;
+}
+.scanner-game-body .skanner-cell.is-revealed{
+  background:linear-gradient(0deg,rgba(122,176,64,.37),rgba(201,224,121,.23))!important;
+  border-color:rgba(231,244,169,.82)!important;
+  animation:scanner-reveal-bed .5s ease-out both;
+}
+.scanner-game-body .skanner-cell.is-wrong{
+  background:linear-gradient(0deg,rgba(157,60,37,.38),rgba(226,130,76,.30))!important;
+  border-color:#e29b6a!important;
+  animation:scanner-wrong-hit .32s ease-in-out 2;
+}
+.scanner-game-body .skanner-cell:disabled{cursor:default!important}
+.scanner-game-body .skanner-cell:not(:disabled):hover{filter:brightness(1.07)!important}
+.scanner-game-body .scanner-garden-frame{
+  background:
+    linear-gradient(180deg,rgba(34,50,24,.08),rgba(42,27,15,.18)),
+    url("garden-world-backdrop.webp") center 53%/cover no-repeat!important;
+}
+.scanner-game-body .scanner-garden-frame:before{
+  content:"";display:block;position:absolute;inset:7px;
+  border:1px solid rgba(247,226,177,.58);border-radius:14px;
+  pointer-events:none;z-index:3;background:none;
+}
+.scanner-game-body .scanner-board-overline span:first-child{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 9px;border:1px solid #b68b4d;border-radius:999px;
+  background:linear-gradient(#fff6d8,#e2c58a);
+  box-shadow:0 2px 0 #b08443;color:#74501f;
+}
+.scanner-game-body .scanner-memory-countdown{
+  border:2px solid #a8793e;
+  border-radius:12px;
+  background:linear-gradient(180deg,#fff8e2,#ecd6a4);
+  box-shadow:inset 0 0 0 2px #f8eac1,0 4px 0 #b98746;
+}
+.scanner-game-body .scanner-memory-track{
+  background:#d5bf8d;border:1px solid #a37b43;
+}
+.scanner-game-body .scanner-memory-bar{
+  background:linear-gradient(90deg,#b8d76a,#6ca243 55%,#386d35);
+}
+@media(max-width:760px){
+ .scanner-game-body .skanner-grid{width:min(100%,500px)!important;padding:11.8%!important;gap:0!important}
+ .scanner-game-body .skanner-cell .scanner-cell-illustration{width:78%!important;height:80%!important}
+ .scanner-game-body .skanner-cell .scanner-stone-illustration{width:69%!important;height:69%!important}
+ .scanner-game-body .scanner-garden-frame{padding:5px!important}
+}
+.scanner-standalone .scanner-garden-frame .skanner-grid{
+  width:min(72vh,72vw,620px)!important;max-width:100%!important;
+}
+@media(max-width:759px){
+ .scanner-standalone .scanner-garden-frame .skanner-grid{
+  width:min(78vw,56vh,460px)!important;max-width:100%!important;
+ }
+ .scanner-standalone .scanner-game-over{max-width:calc(100% - 10px)}
+}
+@media(prefers-reduced-motion:reduce){
+ .scanner-game-body .skanner-cell.is-revealed,
+ .scanner-game-body .skanner-cell.is-wrong{animation:none!important}
+}
