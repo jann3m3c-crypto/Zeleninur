@@ -640,3 +640,55 @@ body.scanner-game-body{
  .scanner-game-over .minigame-start-button,.scanner-game-over .scanner-plan-button{flex:initial;width:100%;min-width:0;min-height:44px}
 }
 @media(prefers-reduced-motion:reduce){.scanner-game-over .scanner-plan-button{transition:none}}
+
+/* Standalone desktop popup / focused mobile tab mode. */
+body.scanner-standalone{
+  min-height:100vh!important;height:auto!important;overflow-x:hidden!important;overflow-y:auto!important;
+}
+.scanner-standalone .minigame-header{
+  min-height:64px;padding:5px 16px;gap:12px;
+}
+.scanner-standalone .minigame-header-title span{font-size:.58rem}
+.scanner-standalone .minigame-header-title strong{font-size:1.18rem}
+.scanner-standalone .minigame-back{padding:8px 12px;font-size:.8rem}
+.scanner-standalone .minigame-layout{
+  display:block;width:min(1080px,calc(100% - 24px));max-width:1080px;
+  margin:12px auto 16px;
+}
+.scanner-standalone .minigame-main-column{display:flex;flex-direction:column;gap:12px;width:100%}
+.scanner-standalone .scanner-hero,
+.scanner-standalone .minigame-sidebar{display:none!important}
+.scanner-standalone .minigame-welcome{
+  max-width:1000px;margin:8px auto;padding:20px 24px;
+  background:linear-gradient(145deg,#fff9e7ec,#efe0b7ed);
+  backdrop-filter:blur(5px);
+}
+.scanner-standalone .scanner-board{
+  width:100%;max-width:100%;margin:0 auto;padding:clamp(10px,1.8vh,20px);
+  background:linear-gradient(145deg,#fff9e6f2,#ecd8abf2);
+  backdrop-filter:blur(3px);
+}
+.scanner-standalone .scanner-board-overline{margin-bottom:8px}
+.scanner-standalone .game-scorebar{margin-bottom:7px}
+.scanner-standalone .board-instruction{margin:7px 0 9px}
+.scanner-standalone .scanner-memory-countdown{margin-bottom:9px;padding:8px 12px}
+.scanner-standalone .scanner-garden-frame{
+  width:100%;max-width:100%;min-height:0;padding:clamp(7px,1.5vh,14px);
+  aspect-ratio:auto;
+}
+.scanner-standalone .skanner-grid{
+  width:min(62vh,62vw,600px)!important;max-width:100%;
+}
+.scanner-standalone .round-hint{margin-top:8px}
+.scanner-standalone .scanner-game-over{max-height:calc(100% - 16px)}
+@media(max-width:759px){
+  .scanner-standalone .minigame-header{min-height:58px;padding:5px 9px;gap:7px}
+  .scanner-standalone .minigame-header-title span{font-size:.49rem}
+  .scanner-standalone .minigame-header-title strong{font-size:1rem}
+  .scanner-standalone .minigame-back{font-size:.68rem;padding:7px 8px}
+  .scanner-standalone .minigame-layout{width:calc(100% - 12px);margin:8px auto}
+  .scanner-standalone .minigame-welcome{padding:14px 11px}
+  .scanner-standalone .scanner-board{padding:11px 7px}
+  .scanner-standalone .skanner-grid{width:min(68vw,56vh,430px)!important}
+  .scanner-standalone .scanner-garden-frame{min-height:0}
+}
