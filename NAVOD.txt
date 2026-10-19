@@ -173,14 +173,14 @@ MINIHRA 1 – ZÁHONOVÝ SKENER
 Po schválení/splnění prvního zveřejněného týdenního úkolu se na hlavní stránce hráče objeví vstup do minihry „Záhonový skener“. Pro přístup se používá stávající účet Zeleninuru; hráč nezadává přezdívku podruhé.
 
 Průběh:
-- 1. úroveň: mřížka 3×3 a 3 zelené záhony, které se zobrazí na 2 sekundy.
-- 2. úroveň: 4×4 a 4 záhony; 3. úroveň: 5×5 a 5 záhonů; od 4. úrovně je mřížka 6×6 a záhony postupně přibývají.
+- 1. úroveň: mřížka 3×3 a 3 zelené záhony; čas na zapamatování je přibližně 6,3 sekundy. Viditelný odpočet ukazuje zbývající čas.
+- 2. úroveň: 4×4 a 4 záhony; 3. úroveň: 5×5 a 5 záhonů; od 4. úrovně je mřížka 6×6 a záhony postupně přibývají. Čas na zapamatování se zvyšuje podle počtu záhonů a dosahuje nejvýše 12 sekund.
 - Za každý správně nalezený záhon je okamžitě 1 bod. Jediný chybný výběr ukončí pokus.
 - Hráč může minihru opakovat bez omezení. Zlaťáky ani pozice na hlavním herním plánu se při hraní nemění.
 - Do sdíleného žebříčku se u každého hráče a kola ukládá jen jeho nejvyšší skóre. Nižší pozdější pokus rekord nepřepíše. Žebříček se obnovuje každých 5 sekund.
 - Skóre je v oddělené tabulce databáze `minigame_scores`; ostatní data účtů a hlavní hry se tím nemění.
 
-Technická poznámka k nejvyšším úrovním: na mřížce 6×6 se počet záhonů zastropuje na 35, aby na desce zůstalo alespoň jedno prázdné políčko a chybné kliknutí zůstalo možné. Zatím je připraveno pouze 1. kolo; další minihry se budou přidávat samostatně.
+Technická poznámka k nejvyšším úrovním: na mřížce 6×6 se počet záhonů zastropuje na 35, aby na desce zůstalo alespoň jedno prázdné políčko a chybné kliknutí zůstalo možné. Mřížka má kompaktnější rozměry, aby byla dobře ovladatelná i při běžném přiblížení prohlížeče; přechod mezi úrovněmi je prodloužen na 1,6 sekundy. Zatím je připraveno pouze 1. kolo; další minihry se budou přidávat samostatně.
 
 Aktualizace instalace zůstává stejná: zastav aplikaci Ctrl+C, rozbal celý ZIP do `C:\Zeleninur` a přepiš soubory aplikace. Soubor `zeleninur.db` nikdy nemaž ani nepřepisuj. Potom spusť `.venv\Scripts\python app.py` a v prohlížeči proveď Ctrl+F5.
 
