@@ -48,7 +48,7 @@
     {% elif featured_item and featured_item["eligible"] %}<div class="status">Toto je tvůj nejstarší nevyřízený úkol. Až ho dokončíš, otevře se další.</div>
     {% endif %}
     <button class="primary-button" type="button" onclick="openTaskModal({{task['id']}})">{% if featured_item and featured_item["can_buy"] %}Vyhodnocení a postup →{% elif submission and submission["status"]=="pending" %}Zobrazit odevzdanou odpověď{% elif submission and submission["status"]=="approved" %}Prohlédnout splněný úkol{% else %}Otevřít zadání úkolu{% endif %}</button>
-    {% if minigame_unlocked %}<a class="secondary-button minigame-quicklink" href="{{ url_for('minigame',round_number=1) }}" target="_blank" rel="noopener">🔎 Hrát Záhonový skener · osobní rekord {{ minigame_best_score if minigame_best_score is not none else 'zatím žádný' }}</a>{% endif %}
+    {% if minigame_unlocked %}<a class="secondary-button minigame-quicklink" href="{{ url_for('minigame',round_number=1,standalone=1) }}" target="_blank" rel="noopener" onclick="return openMiniGameWindow(event,this)">🔎 Hrát Záhonový skener · osobní rekord {{ minigame_best_score if minigame_best_score is not none else 'zatím žádný' }}</a>{% endif %}
   {% else %}<h2>Úkol se připravuje</h2><p class="task-description">Správce zatím nezveřejnil první týdenní úkol. Jakmile ho aktivuje, objeví se zde a všichni hráči dostanou stejné zadání.</p>{% endif %}
 </section>
 
@@ -58,7 +58,7 @@
     <h2>🌫️ Mlha přichází. Zapamatuješ si záhony?</h2>
     <p class="task-description">První minihra je odemčená. Najdi všechny zelené záhony, než tě mlha přelstí. Můžeš hrát opakovaně; do žebříčku se počítá pouze tvůj osobní rekord a zlaťáky zůstávají beze změny.</p>
     {% if minigame_best_score is not none %}<p class="status success">🏆 Tvůj rekord: <strong>{{ minigame_best_score }} bodů</strong>{% if minigame_best_level %} · nejlepší úroveň {{ minigame_best_level }}{% endif %}</p>{% else %}<p class="status">Zatím žádný rekord — budeš první?</p>{% endif %}
-    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=1) }}" target="_blank" rel="noopener">🔎 Otevřít Záhonový skener →</a>
+    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=1,standalone=1) }}" target="_blank" rel="noopener" onclick="return openMiniGameWindow(event,this)">🔎 Otevřít Záhonový skener →</a>
   {% else %}
     <h2>🔒 Záhonový skener čeká na zahájení 1. kola</h2>
     <p class="task-description">Jakmile odešleš první týdenní úkol, Záhonový skener zůstane přístupný bez ohledu na to, zda je odpověď správná, chybná, nebo čeká na kontrolu. Můžeš hrát opakovaně; minihra zlaťáky nemění.</p>
@@ -71,7 +71,7 @@
     <h2>🛡️ Ulož úrodu, než se zkazí!</h2>
     <p class="task-description">Ve 30 sekundách roztřiď plodiny do správných míst: celer, petržel a mrkev do bedny s pískem; jablka a další plodiny uvolňující etylen stranou od brambor. Rekord se ukládá zvlášť a zlaťáků se hra nedotkne.</p>
     {% if minigame2_best_score is not none %}<p class="status success">🏆 Tvůj rekord: <strong>{{ minigame2_best_score }} bodů</strong>{% if minigame2_best_level %} · nejdelší série {{ minigame2_best_level }}{% endif %}</p>{% else %}<p class="status">Zatím žádný rekord — staň se prvním mistrem sklepní komory!</p>{% endif %}
-    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=2) }}" target="_blank" rel="noopener">🗝️ Otevřít sklepní komoru →</a>
+    <a class="primary-button minigame-entry-button" href="{{ url_for('minigame',round_number=2,standalone=1) }}" target="_blank" rel="noopener" onclick="return openMiniGameWindow(event,this)">🗝️ Otevřít sklepní komoru →</a>
   {% else %}
     <h2>🔒 Sklepní komora čeká na zahájení 2. týdne</h2>
     <p class="task-description">Až odešleš týdenní úkol 2 „Toxické spojenectví ve sklepní kobce“, minihra se otevře bez ohledu na správnost odpovědi nebo čekání na kontrolu. Pak můžeš opakovaně třídit úrodu; zlaťáky zůstanou beze změny.</p>
@@ -154,6 +154,22 @@
 {% endfor %}
 
 <script>
+function openMiniGameWindow(event,link){
+  if(!event||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return true;
+  if(!window.matchMedia||!window.matchMedia('(min-width: 760px)').matches)return true;
+  const screenW=(window.screen&&window.screen.availWidth)||1240;
+  const screenH=(window.screen&&window.screen.availHeight)||900;
+  const width=Math.min(1240,Math.max(820,screenW-60));
+  const height=Math.min(940,Math.max(600,screenH-60));
+  const left=Math.max(0,Math.round((screenW-width)/2));
+  const top=Math.max(0,Math.round((screenH-height)/2));
+  const features='popup=yes,width='+width+',height='+height+',left='+left+',top='+top+',resizable=yes,scrollbars=yes';
+  const gameWindow=window.open(link.href,'ZeleninurMiniGame',features);
+  if(!gameWindow)return true;
+  try{gameWindow.focus();}catch(_e){}
+  event.preventDefault();
+  return false;
+}
 const SPACE_PLAYERS = {{spaces_data|tojson}};
 function openModal(id){const m=document.getElementById(id);if(!m)return;m.classList.add('is-open');m.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');}
 function closeModal(id){const m=document.getElementById(id);if(!m)return;m.classList.remove('is-open');m.setAttribute('aria-hidden','true');if(!document.querySelector('.modal-backdrop.is-open'))document.body.classList.remove('modal-open');}
