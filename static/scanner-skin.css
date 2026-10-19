@@ -1194,3 +1194,126 @@ body.scanner-standalone{
 @media(max-width:759px){
  .scanner-standalone .scanner-garden-frame .skanner-grid{width:min(78vw,56vh,480px)!important;max-width:100%!important}
 }
+
+/* Meadow tiles v1 — every grid cell is its own crop from one painted grass-and-wildflower texture.
+   The crop coordinates are set per cell in renderGrid(), so the garden grows naturally from 3×3 to 4×4, 5×5, and beyond. */
+.scanner-game-body .scanner-garden-frame{
+  position:relative!important;isolation:isolate;overflow:hidden;
+  width:100%;max-width:1000px;margin:10px auto 0;
+  padding:clamp(8px,1.25vw,15px);
+  border:5px solid #694424;border-radius:23px;
+  background:
+    linear-gradient(180deg,rgba(34,51,23,.04),rgba(44,35,18,.13)),
+    url("garden-world-backdrop.webp?v=meadow-border-v2") center 53%/cover no-repeat!important;
+  box-shadow:inset 0 0 0 2px #f4d8a0,inset 0 0 0 6px #9c6931,
+    0 6px 0 #4d321e,0 12px 24px #23371d40;
+}
+.scanner-game-body .scanner-garden-frame:before{
+  content:"";display:block;position:absolute;inset:7px;z-index:3;
+  border:1px solid rgba(244,225,177,.58);border-radius:14px;pointer-events:none;
+}
+.scanner-game-body .skanner-grid{
+  position:relative!important;z-index:1!important;isolation:isolate;
+  display:grid!important;grid-template-columns:repeat(var(--grid-size),minmax(0,1fr))!important;
+  width:min(100%,650px)!important;max-width:100%!important;
+  aspect-ratio:1/1!important;height:auto!important;min-width:0!important;
+  padding:6px!important;gap:5px!important;margin:0 auto!important;
+  border:4px solid #91a45f!important;border-radius:15px!important;
+  background:linear-gradient(145deg,#6d8c4e,#526f3e)!important;
+  box-shadow:inset 0 0 0 2px #d3df9e,0 4px 0 #553820,0 8px 16px #182b1b5c!important;
+  overflow:hidden;
+}
+.scanner-game-body .skanner-grid:before{display:none!important;content:none!important}
+.scanner-game-body .skanner-cell,
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-cell.is-found,
+.scanner-game-body .skanner-cell.is-revealed,
+.scanner-game-body .skanner-cell.is-wrong{
+  position:relative!important;isolation:isolate;overflow:hidden!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;
+  aspect-ratio:auto!important;margin:0!important;padding:0!important;
+  border:2px solid rgba(206,220,145,.85)!important;border-radius:8px!important;
+  outline:0!important;outline-offset:0!important;
+  background-color:#82a85a!important;
+  background-image:
+    linear-gradient(160deg,rgba(48,77,30,.02),rgba(37,56,28,.14)),
+    url("scanner-meadow-mosaic.svg?v=meadow-tile-art-v1")!important;
+  background-size:100% 100%,var(--meadow-tile-size,300% 300%)!important;
+  background-position:center center,var(--meadow-tile-position,50% 50%)!important;
+  background-repeat:no-repeat!important;
+  box-shadow:inset 0 0 0 1px rgba(46,78,32,.28),inset 0 -3px 0 rgba(43,61,28,.28),0 2px 0 #513820!important;
+  transform:none!important;filter:none!important;cursor:pointer;
+  transition:filter .16s ease,background-color .18s ease,box-shadow .18s ease;
+}
+.scanner-game-body .skanner-cell.grid-last-col{margin-right:0!important}
+.scanner-game-body .skanner-cell.grid-last-row{margin-bottom:0!important}
+.scanner-game-body .skanner-cell:before,
+.scanner-game-body .skanner-cell:after,
+.scanner-game-body .skanner-cell.is-bed:before,
+.scanner-game-body .skanner-cell.is-bed:after,
+.scanner-game-body .skanner-cell.is-found:before,
+.scanner-game-body .skanner-cell.is-found:after,
+.scanner-game-body .skanner-cell.is-revealed:before,
+.scanner-game-body .skanner-cell.is-revealed:after,
+.scanner-game-body .skanner-cell.is-wrong:before,
+.scanner-game-body .skanner-cell.is-wrong:after{
+  content:none!important;display:none!important;background:none!important;box-shadow:none!important;
+}
+.scanner-game-body .skanner-cell .scanner-cell-illustration{
+  position:absolute!important;top:50%!important;left:50%!important;
+  right:auto!important;bottom:auto!important;inset:auto!important;
+  display:block!important;flex:0 0 auto!important;
+  width:89%!important;height:84%!important;max-width:100%!important;max-height:100%!important;
+  margin:0!important;padding:0!important;object-fit:contain!important;object-position:center center!important;
+  transform:translate(-50%,-50%)!important;pointer-events:none!important;user-select:none!important;z-index:4!important;
+  filter:drop-shadow(0 4px 4px rgba(33,31,19,.36))!important;
+}
+.scanner-game-body .skanner-cell .scanner-stone-illustration{
+  width:56%!important;height:56%!important;
+}
+.scanner-game-body .skanner-cell.is-bed{
+  border-color:#d6e69b!important;
+  background-image:
+    linear-gradient(160deg,rgba(153,204,83,.08),rgba(76,133,43,.12)),
+    url("scanner-meadow-mosaic.svg?v=meadow-tile-art-v1")!important;
+  box-shadow:inset 0 0 0 2px rgba(221,240,159,.65),0 2px 0 #4f381f!important;
+}
+.scanner-game-body .skanner-cell.is-found{
+  border-color:#edf4b2!important;
+  background-image:
+    linear-gradient(160deg,rgba(200,231,122,.45),rgba(97,164,52,.37)),
+    url("scanner-meadow-mosaic.svg?v=meadow-tile-art-v1")!important;
+  box-shadow:inset 0 0 0 2px rgba(239,246,176,.85),0 2px 0 #4f381f!important;
+}
+.scanner-game-body .skanner-cell.is-revealed{
+  border-color:#dceba3!important;
+  background-image:
+    linear-gradient(160deg,rgba(196,225,116,.28),rgba(115,173,57,.20)),
+    url("scanner-meadow-mosaic.svg?v=meadow-tile-art-v1")!important;
+  animation:scanner-reveal-bed .45s ease-out both;
+}
+.scanner-game-body .skanner-cell.is-wrong{
+  border-color:#f2bd8f!important;
+  background-image:
+    linear-gradient(160deg,rgba(218,117,74,.38),rgba(154,61,40,.33)),
+    url("scanner-meadow-mosaic.svg?v=meadow-tile-art-v1")!important;
+  box-shadow:inset 0 0 0 2px rgba(255,213,158,.64),0 2px 0 #4f381f!important;
+  animation:scanner-wrong-hit .32s ease-in-out 2;
+}
+.scanner-game-body .skanner-cell:not(:disabled):hover{filter:brightness(1.08)!important}
+.scanner-game-body .skanner-cell:focus-visible{outline:3px dashed #fff0be!important;outline-offset:-5px!important}
+.scanner-game-body .skanner-cell:disabled{cursor:default!important}
+.scanner-game-body .scanner-board-overline span:nth-child(2){color:#315c31}
+.scanner-standalone .scanner-garden-frame .skanner-grid{
+  width:min(68vh,68vw,650px)!important;max-width:100%!important;
+}
+@media(max-width:760px){
+ .scanner-game-body .scanner-garden-frame{padding:5px!important;border-width:3px!important;border-radius:16px!important}
+ .scanner-game-body .skanner-grid{width:min(100%,500px)!important;padding:4px!important;gap:3px!important;border-width:3px!important;border-radius:11px!important}
+ .scanner-game-body .skanner-cell{border-radius:5px!important;border-width:1.5px!important}
+ .scanner-game-body .skanner-cell .scanner-cell-illustration{width:93%!important;height:86%!important}
+ .scanner-game-body .skanner-cell .scanner-stone-illustration{width:60%!important;height:60%!important}
+}
+.scanner-standalone .scanner-garden-frame .skanner-grid{width:min(72vh,68vw,650px)!important;max-width:100%!important}
+@media(max-width:759px){.scanner-standalone .scanner-garden-frame .skanner-grid{width:min(78vw,56vh,480px)!important;max-width:100%!important}}
