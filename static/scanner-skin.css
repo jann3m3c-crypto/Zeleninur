@@ -497,3 +497,38 @@ body.scanner-game-body{
  .scanner-game-body .skanner-cell{border-radius:6px;border-width:1.5px;font-size:clamp(1rem,6vw,1.85rem)}
  .scanner-game-body .scanner-memory-countdown{padding:8px 9px}
 }
+
+/* Final art alignment: reuse Zeleninur's actual forest backdrop; use illustrated plant and stone sprites instead of emoji. */
+.scanner-game-body .scanner-hero-art img{
+  object-position:center 55%;
+}
+.scanner-game-body .skanner-grid-wrap{
+  background:
+    linear-gradient(180deg,rgba(36,53,27,.18),rgba(53,35,21,.42)),
+    url("garden-world-backdrop.webp") center 54% / cover no-repeat,
+    linear-gradient(145deg,#a4bc7d,#617b48);
+}
+.scanner-game-body .skanner-grid{
+  background:linear-gradient(145deg,#acbf82e8,#728d51ed 60%,#536e41ed);
+  backdrop-filter:blur(1px);
+}
+.scanner-game-body .skanner-cell.is-bed:after,
+.scanner-game-body .skanner-cell.is-found:after{
+  content:"";display:block;position:absolute;inset:12%;
+  background:url("scanner-sprout.svg?v=seedling-v1") center center / contain no-repeat;
+  filter:drop-shadow(0 2px 2px #1d341b88);
+  opacity:1;pointer-events:none;z-index:1;
+}
+.scanner-game-body .skanner-cell.is-wrong:after{
+  content:"";display:block;position:absolute;inset:13%;
+  background:url("scanner-stone.svg?v=stone-v1") center center / contain no-repeat;
+  filter:drop-shadow(0 2px 2px #251b1380);
+  opacity:1;pointer-events:none;z-index:1;
+}
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-cell.is-found,
+.scanner-game-body .skanner-cell.is-wrong{color:transparent;font-size:0}
+@media(max-width:650px){
+ .scanner-game-body .skanner-cell.is-bed:after,
+ .scanner-game-body .skanner-cell.is-found:after{inset:10%}
+}
