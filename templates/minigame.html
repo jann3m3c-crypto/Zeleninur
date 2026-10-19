@@ -7,7 +7,7 @@
   <title>Záhonový skener · Zeleninur</title>
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css',v='avatars-woodrim-v34') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='minigame.css',v='avatar-epithets-v2') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='scanner-skin.css',v='woodland-scanner-v2') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='scanner-skin.css',v='woodland-scanner-v3') }}">
 </head>
 <body class="game-body minigame-body scanner-game-body">
 <header class="game-header minigame-header">
@@ -23,7 +23,7 @@
         <h1>🔎 Záhonový skener</h1>
         <p>Ranní mlha přikryla zahradu. Na okamžik zahlédneš, kde se ukrývají mladé záhony. Zapamatuj si jejich polohu a potom je najdi dřív, než tě mlha přelstí.</p>
         <div class="mini-rules-strip">
-          <span>👁️ 2 sekundy na zapamatování</span>
+          <span>👁️ 6–12 sekund na zapamatování</span>
           <span>🌱 +1 bod za záhon</span>
           <span>🌫️ Jediná chyba ukončí pokus</span>
           <span>🪙 Bez vlivu na zlaťáky</span>
@@ -39,7 +39,7 @@
       <div class="welcome-copy">
         <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div><div class="avatar-epithet-chip">🌿 {{current_avatar_name}}</div>
         <h2>Otevři oči. Mlha se blíží.</h2>
-        <p>Nejdřív uvidíš zelené sazenice na záhonech. Začínáš s pěti sekundami; u složitějších úrovní se čas na zapamatování prodlužuje. Pak se všechna místa promění v hliněné políčko. Každý správný nález tě posune dál, ale jediný chybný dotyk ukončí pokus.</p>
+        <p>Nejdřív uvidíš zelené sazenice na záhonech. Na začátku máš přibližně šest sekund; u složitějších úrovní se čas přiměřeně prodlužuje. Pak se všechna místa promění v hliněné políčko. Každý správný nález tě posune dál, ale jediný chybný dotyk ukončí pokus.</p>
         {% if best_score is not none %}<p class="personal-best-line">Tvůj osobní rekord: <strong>{{ best_score }} bodů</strong> · nejlepší úroveň {{ best_level }}</p>{% else %}<p class="personal-best-line">Zatím nemáš žádný zaznamenaný pokus. Pojď vytvořit první rekord!</p>{% endif %}
         <button class="primary-button minigame-start-button" id="startButton" type="button">🌿 Spustit skener</button>
       </div>
@@ -78,7 +78,7 @@
   const scoreValue=document.getElementById('scoreValue'), levelValue=document.getElementById('levelValue'), phaseMessage=document.getElementById('phaseMessage'), boardInstruction=document.getElementById('boardInstruction');
   const gameOverPanel=document.getElementById('gameOverPanel'), gameOverCopy=document.getElementById('gameOverCopy'), gameOverBest=document.getElementById('gameOverBest');
   const startButton=document.getElementById('startButton'), replayButton=document.getElementById('replayButton');
-  let level=1, score=0, beds=new Set(), found=new Set(), phase='idle', timers=[], memoryTick=null, memoryDeadline=0, mistakeCount=0;
+  let level=1, score=0, beds=new Set(), found=new Set(), phase='idle', timers=[], memoryTick=null, memoryDeadline=0;
   function later(fn,ms){const id=window.setTimeout(()=>{timers=timers.filter(t=>t!==id);fn();},ms);timers.push(id);return id;}
   function clearTimers(){timers.forEach(window.clearTimeout);timers=[];if(memoryTick!==null){window.clearInterval(memoryTick);memoryTick=null;}}
   function gridSizeFor(n){return Math.min(n+2,6);}
@@ -87,7 +87,7 @@
   function setStatus(text,mode){phaseMessage.textContent=text;phaseMessage.className='phase-pill'+(mode?' '+mode:'');}
   function renderGrid(size,showBeds){grid.replaceChildren();grid.classList.toggle('memory-mode',showBeds);grid.classList.toggle('scan-mode',!showBeds&&phase==='scan');grid.classList.toggle('over-mode',phase==='over');grid.style.setProperty('--grid-size',size);for(let i=0;i<size*size;i++){const cell=document.createElement('button');cell.type='button';cell.className='skanner-cell';cell.setAttribute('aria-label','Zahalené políčko '+(i+1));if(showBeds&&beds.has(i)){cell.classList.add('is-bed');cell.textContent='🌱';cell.setAttribute('aria-label','Záhon k zapamatování');}if(found.has(i)){cell.classList.add('is-found');cell.textContent='🌱';cell.setAttribute('aria-label','Nalezený záhon');cell.disabled=true;}if(phase==='memory'||phase==='transition'||phase==='over')cell.disabled=true;cell.addEventListener('click',()=>chooseCell(i,cell));grid.appendChild(cell);}}
   function startGame(){clearTimers();score=0;level=1;found=new Set();beds=new Set();phase='transition';welcomePanel.hidden=true;gamePanel.hidden=false;gameOverPanel.hidden=true;scoreValue.textContent='0';startLevel(level);}
-  function memoryDurationMs(count){return Math.min(12000,4200+count*380);}
+  function memoryDurationMs(count){return Math.min(12000,4800+count*500);}
   function startMemoryCountdown(duration){
     const box=document.getElementById('memoryCountdown'),bar=document.getElementById('memoryBar'),seconds=document.getElementById('memorySeconds'),label=document.getElementById('memoryLabel');
     box.hidden=false;bar.style.transition='none';bar.style.width='100%';
