@@ -80,3 +80,33 @@
 }
 @media(prefers-reduced-motion:reduce){.produce-card,.storage-choice,.cellar-timer-bar{animation:none;transition:none}}
 [hidden]{display:none!important}
+
+/* Standalone focused game window — hide the ranking column during play. */
+body.cellar-standalone{
+  min-height:100vh!important;height:auto!important;overflow-x:hidden!important;overflow-y:auto!important;
+}
+.cellar-standalone .cellar-layout{
+  grid-template-columns:minmax(0,1fr);width:min(1040px,calc(100% - 24px));max-width:1040px;
+  margin:12px auto 16px;gap:12px;
+}
+.cellar-standalone .cellar-main-column,
+.cellar-standalone .minigame-main-column{gap:12px}
+.cellar-standalone .cellar-sidebar{display:none!important}
+.cellar-standalone .cellar-hero{grid-template-columns:minmax(0,1fr) minmax(250px,.75fr)}
+.cellar-standalone .cellar-hero-copy{padding:17px 20px}
+.cellar-standalone .cellar-illustration{max-height:205px}
+.cellar-standalone.cellar-playing .cellar-hero{display:none!important}
+.cellar-standalone .cellar-welcome{max-width:960px;margin:0 auto}
+.cellar-standalone .cellar-board{width:100%;max-width:100%;margin:0 auto}
+.cellar-standalone .produce-card{min-height:155px}
+.cellar-standalone .storage-choice{min-height:165px}
+@media(max-width:759px){
+ .cellar-standalone .cellar-layout{width:calc(100% - 12px);margin:8px auto}
+ .cellar-standalone .cellar-hero{grid-template-columns:minmax(0,1fr)}
+ .cellar-standalone .cellar-hero-copy{padding:13px}
+ .cellar-standalone .cellar-illustration{max-height:145px;aspect-ratio:2.2/1;object-fit:cover}
+ .cellar-standalone .cellar-hero p{font-size:.82rem}
+ .cellar-standalone .mini-rules-strip span{font-size:.61rem}
+ .cellar-standalone .storage-choices{grid-template-columns:1fr}
+ .cellar-standalone .storage-choice{min-height:0}
+}
