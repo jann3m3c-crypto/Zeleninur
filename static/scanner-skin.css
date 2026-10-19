@@ -301,3 +301,18 @@ body.scanner-game-body{
  .scanner-game-body .skanner-grid.memory-mode .skanner-cell.is-bed{animation:none}
  .scanner-game-body .skanner-cell.is-wrong,.scanner-game-body .skanner-cell.is-found{animation:none}
 }
+
+/* Compact carved plaque above the live board */
+.scanner-game-body .scanner-board-overline{
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ margin:0 0 12px;padding:0 3px;color:#7d5829;font-size:.67rem;
+ font-weight:1000;letter-spacing:.1em;text-transform:uppercase;
+}
+.scanner-game-body .scanner-board-overline span:nth-child(2){
+ color:#43663a;font-size:.73rem;letter-spacing:.035em;text-transform:none;
+}
+.scanner-game-body .scanner-board-overline span:last-child{color:#a27a39;letter-spacing:.18em}
+@media(max-width:650px){
+ .scanner-game-body .scanner-board-overline{font-size:.54rem;gap:5px;margin-bottom:9px;letter-spacing:.06em}
+ .scanner-game-body .scanner-board-overline span:nth-child(2){font-size:.61rem}
+}
