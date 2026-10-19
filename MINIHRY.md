@@ -3,7 +3,7 @@
 Tento soubor je pracovní seznam skutečně připravených miniher. Nové návrhy se označují jako návrhy, dokud nejsou hotové a nasazené.
 
 ## 1. Záhonový skener — hotovo
-- **Mechanika:** hráč si zapamatuje polohu zelených záhonů a potom je hledá v mlze. První úroveň nabízí přibližně 6 sekund; čas roste podle počtu záhonů až na 12 sekund. Viditelný odpočet ukazuje zbývající čas. Mezi úrovněmi je delší, čitelný přechod.
+- **Mechanika:** hráč si zapamatuje polohu zelených záhonů a potom je hledá v mlze. První úroveň nabízí přibližně 9,4 sekundy; čas roste podle počtu záhonů až na 12 sekund. Pozice jsou rozmístěné vyváženě, aby se na začátku všechny záhony náhodně neshlukovaly do jedné řady. Viditelný odpočet ukazuje zbývající čas. Mezi úrovněmi je delší, čitelný přechod.
 - **Skóre:** počet správně nalezených záhonů; hra se ukončí chybným kliknutím.
 - **Přístup:** po odeslání týdenního úkolu 1. Odpověď může být správná, chybná nebo čekající na kontrolu.
 - **Žebříček:** vlastní rekord pro minihru 1.
