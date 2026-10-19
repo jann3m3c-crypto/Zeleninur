@@ -39,7 +39,7 @@
       <div class="welcome-copy">
         <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div><div class="avatar-epithet-chip">🌿 {{current_avatar_name}}</div>
         <h2>Otevři oči. Mlha se blíží.</h2>
-        <p>Nejdřív uvidíš zelené sazenice na záhonech. Na začátku máš přibližně šest sekund; u složitějších úrovní se čas přiměřeně prodlužuje. Pak se všechna místa promění v hliněné políčko. Každý správný nález tě posune dál, ale jediný chybný dotyk ukončí pokus.</p>
+        <p>Nejdřív uvidíš zelené sazenice na záhonech. Na první úrovni máš přibližně 9,4 sekundy; u složitějších úrovní se čas prodlužuje až na 12 sekund. Pak se všechna místa promění v hliněné políčko. Každý správný nález tě posune dál, ale jediný chybný dotyk ukončí pokus.</p>
         {% if best_score is not none %}<p class="personal-best-line">Tvůj osobní rekord: <strong>{{ best_score }} bodů</strong> · nejlepší úroveň {{ best_level }}</p>{% else %}<p class="personal-best-line">Zatím nemáš žádný zaznamenaný pokus. Pojď vytvořit první rekord!</p>{% endif %}
         <button class="primary-button minigame-start-button" id="startButton" type="button">🌿 Spustit skener</button>
       </div>
@@ -83,7 +83,20 @@
   function clearTimers(){timers.forEach(window.clearTimeout);timers=[];if(memoryTick!==null){window.clearInterval(memoryTick);memoryTick=null;}}
   function gridSizeFor(n){return Math.min(n+2,6);}
   function bedCountFor(n,size){return Math.min(n+2,size*size-1);}
-  function shufflePositions(total,count){const a=Array.from({length:total},(_,i)=>i);for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return new Set(a.slice(0,count));}
+  function shuffleArray(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  function shufflePositions(total,count){
+    const size=Math.round(Math.sqrt(total));
+    const rows=shuffleArray(Array.from({length:size},(_,i)=>i));
+    const cols=shuffleArray(Array.from({length:size},(_,i)=>i));
+    const positions=[];
+    for(let k=0;k<count;k++){
+      const row=rows[k%size];
+      const cycle=Math.floor(k/size);
+      const col=cols[(k+cycle)%size];
+      positions.push(row*size+col);
+    }
+    return new Set(positions);
+  }
   function setStatus(text,mode){phaseMessage.textContent=text;phaseMessage.className='phase-pill'+(mode?' '+mode:'');}
   function renderGrid(size,showBeds){grid.replaceChildren();grid.classList.toggle('memory-mode',showBeds);grid.classList.toggle('scan-mode',!showBeds&&phase==='scan');grid.classList.toggle('over-mode',phase==='over');grid.style.setProperty('--grid-size',size);for(let i=0;i<size*size;i++){const cell=document.createElement('button');cell.type='button';cell.className='skanner-cell';cell.setAttribute('aria-label','Zahalené políčko '+(i+1));if(showBeds&&beds.has(i)){cell.classList.add('is-bed');cell.textContent='🌱';cell.setAttribute('aria-label','Záhon k zapamatování');}if(found.has(i)){cell.classList.add('is-found');cell.textContent='🌱';cell.setAttribute('aria-label','Nalezený záhon');cell.disabled=true;}if(phase==='memory'||phase==='transition'||phase==='over')cell.disabled=true;cell.addEventListener('click',()=>chooseCell(i,cell));grid.appendChild(cell);}}
   function startGame(){clearTimers();score=0;level=1;found=new Set();beds=new Set();phase='transition';welcomePanel.hidden=true;gamePanel.hidden=false;gameOverPanel.hidden=true;scoreValue.textContent='0';startLevel(level);}
