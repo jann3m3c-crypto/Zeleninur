@@ -417,3 +417,83 @@ body.scanner-game-body{
 @media(prefers-reduced-motion:reduce){
  .scanner-game-body .skanner-cell.is-bed{animation:none}
 }
+
+/* Actual-play refinements after comparing against the live screenshot. */
+.scanner-game-body .scanner-memory-countdown{
+  max-width:490px;
+  padding:11px 14px 12px;
+  background:linear-gradient(180deg,#fff7df,#e9d2a0);
+  border-color:#ac7c3f;
+  box-shadow:inset 0 0 0 2px #f7e8bc,0 3px 0 #a77539;
+}
+.scanner-game-body .skanner-grid-wrap{
+  width:min(100%,760px);
+  margin-inline:auto;
+  padding:12px;
+  border:4px solid #684020;
+  border-radius:21px;
+  background:
+    linear-gradient(180deg,rgba(52,65,35,.11),rgba(64,39,20,.3)),
+    url("scanner-garden.svg?v=garden-art-v1") center 52% / cover no-repeat,
+    linear-gradient(145deg,#b9c98c,#617849);
+  box-shadow:inset 0 0 0 2px #f4d89a,inset 0 0 0 7px #9b682f,0 6px 0 #51331e,0 10px 22px #1d321e4a;
+}
+.scanner-game-body .skanner-grid-wrap:before{
+  inset:7px;border:1px solid #ffebba9c;border-radius:13px;
+  background:linear-gradient(90deg,#f4d28b16,transparent 28%,transparent 72%,#f4d28b16);
+}
+.scanner-game-body .skanner-grid{
+  width:min(100%,390px);
+  padding:8px;
+  gap:6px;
+  border:4px solid #7c9b59;
+  border-radius:16px;
+  background:linear-gradient(145deg,#b0c98a,#8ea96d 48%,#627f4b);
+  box-shadow:inset 0 0 0 2px #e0e8b5,inset 0 0 0 5px #64834a,0 4px 0 #51371f,0 7px 15px #202b194c;
+}
+.scanner-game-body .skanner-grid:before{
+  inset:6px;border:1px solid #f3f4c579;border-radius:8px;
+}
+.scanner-game-body .skanner-cell{
+  border:2px solid #b5864d;
+  border-radius:9px;
+  background:
+    radial-gradient(ellipse at 17% 19%,#bb9e70 0 2px,transparent 3px),
+    radial-gradient(ellipse at 72% 74%,#a58251 0 3px,transparent 4px),
+    radial-gradient(ellipse at 58% 45%,#8d603b 0 4px,transparent 5px),
+    radial-gradient(ellipse at 31% 83%,#765033 0 2px,transparent 3px),
+    linear-gradient(150deg,#896343 0%,#704b30 52%,#503524 100%);
+  box-shadow:inset 0 0 0 2px #6c4729,inset 0 1px 4px #f3d4a13b,
+    inset 0 -4px 0 #432d1d,0 3px 0 #684522;
+}
+.scanner-game-body .skanner-cell:before{
+  display:none;
+}
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-grid.memory-mode .skanner-cell.is-bed{
+  border-color:#b2c979;
+  background:
+    radial-gradient(ellipse at 18% 22%,#be9a62 0 2px,transparent 3px),
+    radial-gradient(ellipse at 78% 75%,#b48b56 0 2px,transparent 3px),
+    radial-gradient(ellipse at 54% 49%,#d0df8e 0 5px,transparent 6px),
+    linear-gradient(155deg,#7eaa4c 0%,#649346 48%,#3b6c38 100%);
+  box-shadow:inset 0 0 0 2px #b9d77a,inset 0 0 0 4px #648d42,
+    inset 0 -4px 0 #2e5b32,0 3px 0 #5c3e22,0 0 0 1px #e9dda0;
+}
+.scanner-game-body .skanner-cell.is-found{
+  border-color:#a9c66e!important;
+  background:
+    radial-gradient(ellipse at 18% 22%,#be9a62 0 2px,transparent 3px),
+    radial-gradient(ellipse at 78% 75%,#b48b56 0 2px,transparent 3px),
+    linear-gradient(155deg,#7eaa4c 0%,#5b8e40 48%,#315d32 100%)!important;
+  box-shadow:inset 0 0 0 2px #b9d77a,inset 0 0 0 4px #648d42,
+    inset 0 -4px 0 #2e5b32,0 3px 0 #5c3e22!important;
+}
+.scanner-game-body .scanner-memory-head{font-size:.84rem}
+.scanner-game-body .scanner-memory-head strong{font-size:.94rem}
+@media(max-width:650px){
+ .scanner-game-body .skanner-grid-wrap{width:100%;padding:7px;border-radius:15px}
+ .scanner-game-body .skanner-grid{width:min(100%,390px);padding:5px;gap:4px;border-width:3px;border-radius:11px}
+ .scanner-game-body .skanner-cell{border-radius:6px;border-width:1.5px;font-size:clamp(1rem,6vw,1.85rem)}
+ .scanner-game-body .scanner-memory-countdown{padding:8px 9px}
+}
