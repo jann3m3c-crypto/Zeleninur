@@ -850,3 +850,96 @@ body.scanner-standalone{
  .scanner-game-body .skanner-cell.is-revealed,
  .scanner-game-body .skanner-cell.is-wrong{animation:none}
 }
+
+/* Definitive redesign of the scanner interior: one continuous soil bed, not individual card tiles. */
+.scanner-game-body .scanner-board{overflow:visible!important}
+.scanner-game-body .scanner-garden-frame{
+  width:100%;max-width:790px;margin:9px auto 0;padding:12px;
+  border:7px solid #684221;border-radius:25px;
+  background:
+    linear-gradient(180deg,#364e2b14,#2b211331),
+    url("garden-world-backdrop.webp") center 53%/cover no-repeat;
+  box-shadow:inset 0 0 0 2px #f5dba1,inset 0 0 0 7px #9e6b34,
+    0 7px 0 #53341d,0 12px 22px #1b301d3d;
+}
+.scanner-game-body .scanner-garden-frame:before{display:none}
+.scanner-game-body .skanner-grid{
+  position:relative;isolation:isolate;
+  width:min(100%,560px);aspect-ratio:1/1;
+  display:grid;grid-template-columns:repeat(var(--grid-size),minmax(0,1fr));
+  gap:3px;padding:6px;
+  border:5px solid #72502d;border-radius:14px;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 32px,#e3c78a19 33px,#53392318 35px,transparent 37px),
+    linear-gradient(145deg,#94774d,#685237 54%,#4f422d);
+  box-shadow:inset 0 0 0 2px #e8cd8f,inset 0 0 0 5px #927347,
+    0 4px 0 #4d321d,0 7px 14px #17281460;
+}
+.scanner-game-body .skanner-grid:before{display:none!important}
+.scanner-game-body .skanner-cell{
+  position:relative;isolation:isolate;overflow:hidden;
+  width:100%;height:100%;min-width:0;min-height:0;aspect-ratio:1/1;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  border:0!important;border-radius:2px!important;
+  background:
+    radial-gradient(ellipse at 18% 24%,#b99a65 0 2px,transparent 3px),
+    radial-gradient(ellipse at 76% 70%,#9a7448 0 2px,transparent 3px),
+    radial-gradient(ellipse at 53% 50%,#8c5a35 0 4px,transparent 5px),
+    repeating-linear-gradient(170deg,transparent 0 24px,#3b281919 25px,#f0c98b0b 27px,transparent 30px),
+    linear-gradient(155deg,#805b3b,#6d482c 53%,#573a25);
+  box-shadow:inset 0 0 0 1px #d1a46a7a,inset 0 -3px 0 #432d1d!important;
+  cursor:pointer;transform:none!important;transition:filter .15s,background .2s;
+}
+.scanner-game-body .skanner-cell:not(:last-child){outline:none}
+.scanner-game-body .skanner-cell:hover:not(:disabled){filter:brightness(1.08)}
+.scanner-game-body .skanner-cell:before{display:none!important}
+.scanner-game-body .skanner-cell .scanner-cell-illustration{
+  position:relative;display:block;flex:0 0 auto;
+  width:64%;height:64%;max-width:100%;max-height:100%;
+  object-fit:contain;object-position:center center;
+  margin:0;padding:0;inset:auto;transform:none!important;
+  pointer-events:none;user-select:none;z-index:2;
+  filter:drop-shadow(0 3px 2px #3020186b);
+}
+.scanner-game-body .skanner-cell .scanner-stone-illustration{
+  width:65%;height:65%;
+}
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-cell.is-found,
+.scanner-game-body .skanner-cell.is-revealed{
+  background:
+    radial-gradient(ellipse at 22% 25%,#c6d985 0 3px,transparent 4px),
+    radial-gradient(ellipse at 78% 73%,#a4c566 0 2px,transparent 3px),
+    repeating-linear-gradient(170deg,transparent 0 24px,#2748201b 25px,#e4f4ae10 27px,transparent 30px),
+    linear-gradient(145deg,#7daa4f,#648f42 55%,#4c773a)!important;
+  box-shadow:inset 0 0 0 1px #c6d989,inset 0 -3px 0 #35592b!important;
+  outline:2px solid #b9cd78;outline-offset:-2px;
+}
+.scanner-game-body .skanner-cell.is-bed{
+  animation:scanner-seedling-breathe 1.8s ease-in-out infinite alternate;
+}
+.scanner-game-body .skanner-cell.is-found{
+  outline:2px solid #e1e9a3;
+  box-shadow:inset 0 0 0 2px #bfd781,inset 0 -3px 0 #35592b,0 0 0 1px #f3e7b4!important;
+  animation:scanner-found-stamp .24s ease-out;
+}
+.scanner-game-body .skanner-cell.is-revealed{
+  outline:2px solid #e1e9a3;outline-offset:-2px;
+  animation:scanner-reveal-bed .45s ease-out both;
+}
+.scanner-game-body .skanner-cell.is-wrong{
+  background:
+    repeating-linear-gradient(170deg,transparent 0 24px,#7f2c1d20 25px,#ffe0a10a 27px,transparent 30px),
+    linear-gradient(145deg,#bd7954,#995034 56%,#743722)!important;
+  box-shadow:inset 0 0 0 2px #d99a6c,inset 0 -3px 0 #60291d!important;
+  outline:2px solid #f2bc8a;outline-offset:-2px;
+  animation:scanner-wrong-hit .32s ease-in-out 2;
+}
+@keyframes scanner-seedling-breathe{from{filter:brightness(.98)}to{filter:brightness(1.055)}}
+@keyframes scanner-found-stamp{from{transform:scale(.94)!important;filter:brightness(1.2)}to{transform:scale(1)!important;filter:brightness(1)}}
+.scanner-game-body .scanner-board .scanner-garden-frame .skanner-cell:disabled{cursor:default}
+@media(max-width:760px){
+ .scanner-game-body .scanner-garden-frame{padding:6px;border-width:4px;border-radius:17px}
+ .scanner-game-body .skanner-grid{width:min(100%,480px);padding:4px;gap:2px;border-width:4px;border-radius:9px}
+ .scanner-game-body .skanner-cell .scanner-cell-illustration{width:68%;height:68%}
+}
