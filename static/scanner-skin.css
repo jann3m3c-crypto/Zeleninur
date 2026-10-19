@@ -316,3 +316,104 @@ body.scanner-game-body{
  .scanner-game-body .scanner-board-overline{font-size:.54rem;gap:5px;margin-bottom:9px;letter-spacing:.06em}
  .scanner-game-body .scanner-board-overline span:nth-child(2){font-size:.61rem}
 }
+
+/* Fixes based on actual gameplay screenshot: less bulky soil tiles, no glowing orb,
+   visible memory timer, and a complete board at common desktop/mobile zoom levels. */
+.scanner-game-body .scanner-memory-countdown{
+  position:relative;z-index:1;max-width:560px;margin:0 auto 13px;padding:9px 12px 10px;
+  border:2px solid #b88a47;border-radius:11px;
+  background:linear-gradient(180deg,#fff9e5,#ead7a8);
+  box-shadow:inset 0 0 0 2px #f5e6bc,0 3px 0 #bd8d48;
+  text-align:left;
+}
+.scanner-game-body .scanner-memory-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-bottom:7px;color:#4c673b;font-size:.8rem;font-weight:950;
+}
+.scanner-game-body .scanner-memory-head strong{
+  color:#865922;font-variant-numeric:tabular-nums;font-size:.88rem;white-space:nowrap;
+}
+.scanner-game-body .scanner-memory-track{
+  height:9px;overflow:hidden;border:1px solid #98703d;border-radius:999px;
+  background:#d8c292;box-shadow:inset 0 2px 3px #5b402333;
+}
+.scanner-game-body .scanner-memory-bar{
+  width:100%;height:100%;border-radius:999px;
+  background:linear-gradient(90deg,#9ec45b,#4d873b 55%,#2f6738);
+  box-shadow:inset 0 1px 1px #efffc1a8;
+}
+.scanner-game-body .skanner-grid-wrap{padding:10px}
+.scanner-game-body .skanner-grid{
+  width:min(100%,440px);
+  gap:8px;padding:10px;
+  border:2px solid #546b3f;border-radius:11px;
+  background:
+    radial-gradient(ellipse at 10% 15%,#afc88a 0%,transparent 42%),
+    linear-gradient(155deg,#94ae72,#6b8752 58%,#4d693d);
+  box-shadow:inset 0 0 0 2px #c9d99d,inset 0 5px 15px #3047203d;
+}
+.scanner-game-body .skanner-grid:before{inset:6px;border:1px solid #e6edc16b;border-radius:6px}
+.scanner-game-body .skanner-cell{
+  border:2px solid #aa7b45;border-radius:7px;
+  background:
+    radial-gradient(ellipse at 19% 20%,#b99a6c 0 2px,transparent 3px),
+    radial-gradient(ellipse at 74% 73%,#9c754c 0 3px,transparent 4px),
+    radial-gradient(ellipse at 53% 46%,#885936 0 3px,transparent 4px),
+    repeating-linear-gradient(168deg,transparent 0 21px,#3b281b20 22px,#e3b9800d 24px,transparent 26px),
+    linear-gradient(150deg,#846040 0%,#69472d 55%,#503523 100%);
+  box-shadow:inset 0 0 0 2px #634126,inset 0 1px 3px #e6bd8450,
+    inset 0 -4px 0 #3f2a1c,0 3px 0 #5c3c1e,0 4px 4px #3045224a;
+}
+.scanner-game-body .skanner-cell:before{
+  inset:0;border:0;border-radius:0;
+  background:repeating-linear-gradient(175deg,transparent 0 18px,#2b1b1320 19px,#edc08a0a 21px,transparent 24px);
+}
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-grid.memory-mode .skanner-cell.is-bed{
+  border-color:#8aab56;
+  background:
+    radial-gradient(ellipse at 19% 20%,#b99a6c 0 2px,transparent 3px),
+    radial-gradient(ellipse at 74% 73%,#967347 0 2px,transparent 3px),
+    repeating-linear-gradient(168deg,transparent 0 21px,#294d2322 22px,#f2df9d0c 24px,transparent 26px),
+    linear-gradient(150deg,#668c46 0%,#527d3c 53%,#345d32 100%);
+  box-shadow:inset 0 0 0 2px #a9c978,inset 0 1px 4px #eef8bd4a,
+    inset 0 -4px 0 #294d28,0 3px 0 #634320,0 0 0 1px #ddcb8c;
+  animation:none;
+  color:#fff8de;
+}
+.scanner-game-body .skanner-cell.is-bed:after{
+  content:"";position:absolute;left:50%;top:50%;width:42%;height:42%;
+  transform:translate(-50%,-45%);border-radius:50%;
+  background:radial-gradient(circle,#9bcf5b 0%,#609b43 54%,transparent 74%);
+  opacity:.14;pointer-events:none;z-index:-1;
+}
+.scanner-game-body .skanner-cell.is-found{
+  border-color:#9bbb63!important;
+  background:
+    radial-gradient(ellipse at 20% 22%,#b99a6c 0 2px,transparent 3px),
+    radial-gradient(ellipse at 75% 70%,#967347 0 2px,transparent 3px),
+    repeating-linear-gradient(168deg,transparent 0 21px,#294d2322 22px,#f2df9d0c 24px,transparent 26px),
+    linear-gradient(150deg,#71974e 0%,#4d793b 55%,#315a31 100%)!important;
+  box-shadow:inset 0 0 0 2px #a9c978,inset 0 -4px 0 #294d28,0 3px 0 #634320!important;
+  animation:none;
+}
+.scanner-game-body .skanner-cell.is-wrong{
+  border-color:#ce8060!important;
+  background:
+    radial-gradient(ellipse at 50% 52%,#a5a08b 0 20%,transparent 22%),
+    repeating-linear-gradient(168deg,transparent 0 21px,#381d1a28 22px,#f3b08a0c 24px,transparent 26px),
+    linear-gradient(150deg,#b56747 0%,#95412f 58%,#6d2d24 100%)!important;
+  box-shadow:inset 0 0 0 2px #e7b38c,inset 0 -4px 0 #6d2a21,0 3px 0 #5c2e1d!important;
+}
+.scanner-game-body .skanner-cell:not(:disabled){cursor:pointer}
+.scanner-game-body .skanner-cell:disabled{cursor:default}
+@media(max-width:650px){
+ .scanner-game-body .scanner-memory-countdown{margin-bottom:10px;padding:8px 9px}
+ .scanner-game-body .scanner-memory-head{font-size:.71rem}
+ .scanner-game-body .skanner-grid-wrap{padding:6px;border-width:3px}
+ .scanner-game-body .skanner-grid{width:min(100%,420px);gap:5px;padding:6px;border-radius:8px}
+ .scanner-game-body .skanner-cell{border-width:1.5px;border-radius:6px;font-size:clamp(1rem,6.2vw,2rem)}
+}
+@media(prefers-reduced-motion:reduce){
+ .scanner-game-body .skanner-cell.is-bed{animation:none}
+}
