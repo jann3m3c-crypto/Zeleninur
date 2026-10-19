@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 260" role="img" aria-label="Malý záhon s několika sazenicemi na louce">
+<defs>
+ <linearGradient id="soil" x1="0" y1="0" x2=".1" y2="1"><stop stop-color="#8f633a"/><stop offset=".28" stop-color="#654126"/><stop offset=".72" stop-color="#4b2e1d"/><stop offset="1" stop-color="#332014"/></linearGradient>
+ <linearGradient id="wood" x1="0" y1="0" x2=".1" y2="1"><stop stop-color="#d5a363"/><stop offset=".28" stop-color="#ac7843"/><stop offset=".7" stop-color="#80502e"/><stop offset="1" stop-color="#5e3922"/></linearGradient>
+ <linearGradient id="leaf" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#d8ee86"/><stop offset=".36" stop-color="#9ecb53"/><stop offset=".7" stop-color="#64a142"/><stop offset="1" stop-color="#3d7836"/></linearGradient>
+ <linearGradient id="leafB" x1=".1" y1="0" x2=".8" y2="1"><stop stop-color="#bade6d"/><stop offset=".52" stop-color="#7cb54a"/><stop offset="1" stop-color="#3a7334"/></linearGradient>
+ <linearGradient id="moss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b7d66a"/><stop offset=".5" stop-color="#6e9f43"/><stop offset="1" stop-color="#426f32"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-25%" width="140%" height="155%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#2f2819" flood-opacity=".42"/></filter>
+ <pattern id="grain" width="65" height="17" patternUnits="userSpaceOnUse"><path d="M-3 6 Q15 1 34 7 T70 5 M8 14 Q23 10 40 14" fill="none" stroke="#40291a" stroke-opacity=".42" stroke-width="1.6"/></pattern>
+ <pattern id="earth" width="44" height="34" patternUnits="userSpaceOnUse"><g fill="#c18b51" opacity=".7"><ellipse cx="9" cy="11" rx="2.7" ry="1.8"/><circle cx="35" cy="24" r="1.6"/></g><g fill="#24180f" opacity=".45"><circle cx="22" cy="29" r="2"/><ellipse cx="32" cy="7" rx="3" ry="1.5"/></g></pattern>
+</defs>
+<g filter="url(#shadow)">
+ <!-- Natural patch of exposed soil, not a card/tile -->
+ <path d="M28 152 Q48 120 89 114 Q133 94 178 108 Q231 100 270 118 Q308 128 330 158 Q321 184 284 196 Q240 216 182 212 Q115 219 70 196 Q34 181 28 152Z" fill="#31532e" opacity=".45" transform="translate(0 8)"/>
+ <path d="M28 143 Q48 111 90 107 Q132 89 178 101 Q230 93 270 111 Q307 121 330 150 Q321 176 284 188 Q240 208 182 204 Q115 211 70 188 Q34 173 28 143Z" fill="url(#soil)" stroke="#604028" stroke-width="4"/>
+ <path d="M28 143 Q48 111 90 107 Q132 89 178 101 Q230 93 270 111 Q307 121 330 150 Q321 176 284 188 Q240 208 182 204 Q115 211 70 188 Q34 173 28 143Z" fill="url(#earth)" opacity=".9"/>
+ <!-- low rustic edge boards following the uneven bed shape -->
+ <path d="M32 142 Q69 172 111 174 Q175 190 240 174 Q286 164 327 149" fill="none" stroke="#52351f" stroke-width="17" stroke-linecap="round"/>
+ <path d="M32 137 Q69 167 111 169 Q175 185 240 169 Q286 159 327 144" fill="none" stroke="url(#wood)" stroke-width="15" stroke-linecap="round"/>
+ <path d="M33 135 Q70 163 112 165 Q175 181 240 165 Q286 155 325 142" fill="none" stroke="#e4bd7b" stroke-opacity=".8" stroke-width="2.5" stroke-linecap="round"/>
+ <path d="M39 143 Q70 169 111 171 M256 167 Q294 158 319 146" fill="none" stroke="url(#grain)" stroke-width="9" stroke-linecap="round"/>
+ <!-- furrows -->
+ <g fill="none" stroke-linecap="round">
+  <path d="M65 135 Q116 119 158 132 T286 139" stroke="#322014" stroke-width="11" opacity=".6"/>
+  <path d="M64 131 Q116 115 158 128 T286 135" stroke="#ad7944" stroke-width="5" opacity=".62"/>
+  <path d="M72 158 Q119 143 163 156 T287 160" stroke="#332014" stroke-width="9" opacity=".65"/>
+  <path d="M72 154 Q119 139 163 152 T287 156" stroke="#9c6b3c" stroke-width="4" opacity=".6"/>
+ </g>
+ <!-- clods and pebbles -->
+ <g fill="#d1a16c" stroke="#56351e" stroke-width="1.8"><path d="M78 135 l7 -4 6 4 -3 6 -8 1Z"/><path d="M212 173 l7 -3 5 5 -4 5 -7 -2Z"/><path d="M280 132 l5 -3 5 4 -2 5 -7 0Z"/></g>
+ <g fill="#372417"><circle cx="128" cy="151" r="2.3"/><circle cx="247" cy="148" r="1.8"/><circle cx="178" cy="182" r="2.1"/></g>
+ <!-- Three small garden seedlings with leaf veins -->
+ <g stroke-linejoin="round" stroke-linecap="round">
+  <g transform="translate(109 0)">
+   <path d="M0 139 Q0 122 -2 100" stroke="#3a712f" stroke-width="8" fill="none"/><path d="M0 139 Q0 122 -2 100" stroke="#97c94f" stroke-width="4" fill="none"/>
+   <path d="M-3 115 Q-38 87 -46 104 Q-46 121 -5 127Z" fill="url(#leafB)" stroke="#3d7430" stroke-width="3.5"/>
+   <path d="M-3 113 Q15 76 39 84 Q52 100 0 123Z" fill="url(#leaf)" stroke="#3c7330" stroke-width="3.5"/>
+   <path d="M0 122 Q2 94 -6 82 Q4 58 18 81 Q26 99 3 125Z" fill="url(#leafB)" stroke="#3c7330" stroke-width="3.5"/>
+   <path d="M-7 119 L-38 107 M2 117 L31 90 M2 111 L9 85" stroke="#d8f09a" stroke-width="2.5" fill="none"/>
+  </g>
+  <g transform="translate(183 0) scale(.8)">
+   <path d="M0 154 Q-1 134 4 119" stroke="#3a712f" stroke-width="8" fill="none"/><path d="M0 154 Q-1 134 4 119" stroke="#97c94f" stroke-width="4" fill="none"/>
+   <path d="M1 137 Q-27 111 -40 125 Q-41 139 -1 145Z" fill="url(#leafB)" stroke="#3d7430" stroke-width="3.5"/>
+   <path d="M2 136 Q20 99 42 109 Q52 126 4 145Z" fill="url(#leaf)" stroke="#3c7330" stroke-width="3.5"/>
+   <path d="M2 136 Q-2 107 6 95 Q22 113 5 145Z" fill="url(#leafB)" stroke="#3c7330" stroke-width="3.5"/>
+   <path d="M0 140 L-33 129 M4 137 L35 115" stroke="#d8f09a" stroke-width="2.5" fill="none"/>
+  </g>
+  <g transform="translate(245 0) scale(.72)">
+   <path d="M0 158 Q1 138 0 123" stroke="#3a712f" stroke-width="8" fill="none"/><path d="M0 158 Q1 138 0 123" stroke="#97c94f" stroke-width="4" fill="none"/>
+   <path d="M0 142 Q-31 116 -43 132 Q-42 147 0 150Z" fill="url(#leafB)" stroke="#3d7430" stroke-width="3.5"/>
+   <path d="M0 141 Q18 105 43 113 Q54 130 2 151Z" fill="url(#leaf)" stroke="#3c7330" stroke-width="3.5"/>
+   <path d="M0 143 Q-3 112 7 100 Q20 120 4 151Z" fill="url(#leafB)" stroke="#3c7330" stroke-width="3.5"/>
+   <path d="M0 145 L-34 134 M4 142 L38 119" stroke="#d8f09a" stroke-width="2.5" fill="none"/>
+  </g>
+ </g>
+ <!-- Wild clover along the soil edge -->
+ <g fill="url(#moss)" stroke="#426c2e" stroke-width="2"><path d="M49 163 Q37 143 49 141 Q60 144 56 162Z"/><path d="M56 164 Q65 145 74 153 Q73 164 56 164Z"/><path d="M296 171 Q281 152 294 149 Q305 154 302 170Z"/><path d="M301 173 Q315 154 323 163 Q319 174 301 173Z"/></g>
+ <!-- tiny wildflowers, natural meadow context -->
+ <g stroke="#6d713a" stroke-width="1.5"><path d="M54 165 l-3 -9 M304 176 l2 -10" stroke-width="2.5" fill="none"/></g>
+ <g fill="#fff1d3" stroke="#d4be83" stroke-width="1.2"><circle cx="48" cy="155" r="3.7"/><circle cx="54" cy="151" r="3.7"/><circle cx="59" cy="155" r="3.7"/><circle cx="54" cy="160" r="3.7"/><circle cx="51" cy="155" r="2.2" fill="#e6b94f"/><circle cx="296" cy="162" r="3.5"/><circle cx="302" cy="158" r="3.5"/><circle cx="307" cy="162" r="3.5"/><circle cx="302" cy="167" r="3.5"/><circle cx="299" cy="162" r="2.1" fill="#e6b94f"/></g>
+ <!-- a few grassy leaves to blend into a meadow -->
+ <g fill="url(#moss)" stroke="#476d32" stroke-width="2.3"><path d="M66 171 Q44 144 52 138 Q71 151 69 170Z"/><path d="M75 178 Q72 148 82 145 Q90 167 75 178Z"/><path d="M288 180 Q290 152 302 150 Q305 173 288 180Z"/><path d="M279 174 Q261 151 269 145 Q286 157 279 174Z"/></g>
+</g>
+</svg>
