@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+<title>Záhon Zeleninuru</title>
+<defs>
+ <linearGradient id="oak" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dcb174"/><stop offset=".18" stop-color="#bd8649"/><stop offset=".62" stop-color="#946036"/><stop offset="1" stop-color="#5e3d25"/></linearGradient>
+ <linearGradient id="oakSide" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c89558"/><stop offset=".4" stop-color="#88552f"/><stop offset="1" stop-color="#55351f"/></linearGradient>
+ <linearGradient id="soil" x1="0" y1="0" x2=".25" y2="1"><stop stop-color="#68472c"/><stop offset=".28" stop-color="#51351f"/><stop offset=".65" stop-color="#654226"/><stop offset="1" stop-color="#422a1b"/></linearGradient>
+ <linearGradient id="soilRidge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#986b40" stop-opacity=".72"/><stop offset=".25" stop-color="#8a5a35" stop-opacity=".35"/><stop offset="1" stop-color="#322014" stop-opacity=".06"/></linearGradient>
+ <linearGradient id="moss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a2ba5a"/><stop offset=".5" stop-color="#557d36"/><stop offset="1" stop-color="#34552b"/></linearGradient>
+ <pattern id="woodgrain" width="170" height="30" patternUnits="userSpaceOnUse"><path d="M-5 8 Q35 1 75 9 T177 7 M5 20 Q44 14 90 21 T170 18" fill="none" stroke="#4b2e1b" stroke-opacity=".38" stroke-width="2"/><path d="M3 10 Q40 4 75 11 T173 9" fill="none" stroke="#f1c58a" stroke-opacity=".35" stroke-width="1.5"/></pattern>
+ <pattern id="earth" width="72" height="58" patternUnits="userSpaceOnUse"><g fill="#bb8b56" opacity=".45"><ellipse cx="11" cy="15" rx="3.4" ry="2.1" transform="rotate(-25 11 15)"/><ellipse cx="56" cy="42" rx="2.6" ry="1.9"/><ellipse cx="39" cy="8" rx="1.8" ry="1.6"/></g><g fill="#2a1b13" opacity=".5"><circle cx="27" cy="37" r="2.4"/><ellipse cx="66" cy="20" rx="4" ry="2.2" transform="rotate(30 66 20)"/><circle cx="5" cy="50" r="1.4"/></g></pattern>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#24170f" flood-opacity=".55"/></filter>
+ <filter id="soilTexture" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".055" numOctaves="2" seed="7"/><feColorMatrix values=".22 0 0 0 .18 .18 0 0 0 .1 .1 0 0 0 .03 0 0 0 .17 0"/></filter>
+</defs>
+<!-- Deep bed shadow and bevel -->
+<g filter="url(#shadow)">
+ <rect x="15" y="16" width="610" height="608" rx="24" fill="#3f2918" stroke="#4e321d" stroke-width="7"/>
+ <rect x="23" y="23" width="594" height="594" rx="19" fill="url(#oakSide)" stroke="#e0bd7c" stroke-width="4"/>
+ <!-- Soil inset -->
+ <rect x="67" y="67" width="506" height="506" rx="8" fill="#2d1d13" stroke="#4b311e" stroke-width="11"/>
+ <rect x="76" y="76" width="488" height="488" rx="5" fill="url(#soil)"/>
+ <rect x="76" y="76" width="488" height="488" rx="5" fill="url(#earth)" opacity=".78"/>
+ <!-- Furrowed soil ribbons -->
+ <g fill="none" stroke-linecap="round">
+  <path d="M79 130 Q168 113 258 130 T560 126" stroke="#2a1a12" stroke-opacity=".44" stroke-width="18"/>
+  <path d="M79 124 Q168 108 258 124 T560 120" stroke="url(#soilRidge)" stroke-width="13"/>
+  <path d="M79 220 Q180 198 278 217 T560 214" stroke="#2e1d14" stroke-opacity=".43" stroke-width="22"/>
+  <path d="M79 211 Q180 190 278 208 T560 205" stroke="url(#soilRidge)" stroke-width="15"/>
+  <path d="M79 320 Q166 300 270 318 T560 313" stroke="#2b1c13" stroke-opacity=".4" stroke-width="21"/>
+  <path d="M79 311 Q166 291 270 309 T560 304" stroke="url(#soilRidge)" stroke-width="14"/>
+  <path d="M79 415 Q182 393 282 413 T560 408" stroke="#2b1a11" stroke-opacity=".42" stroke-width="20"/>
+  <path d="M79 407 Q182 386 282 405 T560 400" stroke="url(#soilRidge)" stroke-width="14"/>
+  <path d="M79 505 Q175 483 268 501 T560 497" stroke="#2b1a11" stroke-opacity=".45" stroke-width="20"/>
+  <path d="M79 497 Q175 475 268 493 T560 489" stroke="url(#soilRidge)" stroke-width="13"/>
+ </g>
+ <!-- Tiny natural detritus -->
+ <g fill="#c49a63" stroke="#382519" stroke-width="2" opacity=".8">
+  <path d="M128 159 l12 -5 8 7 -6 9 -12 -2Z"/><path d="M369 183 l9 -5 8 6 -6 8 -10 -2Z"/>
+  <path d="M478 270 l13 -4 5 8 -9 7 -11 -4Z"/><path d="M195 360 l8 -5 7 6 -6 8 -10 -2Z"/>
+  <path d="M404 457 l14 -5 7 7 -10 8 -11 -3Z"/><path d="M522 523 l7 -4 8 5 -3 7 -10 -1Z"/>
+  <path d="M114 445 l6 -4 5 5 -4 5 -6 -1Z"/><path d="M293 252 l5 -3 4 4 -3 4 -5 -1Z"/>
+ </g>
+ <g fill="none" stroke="#b98752" stroke-width="3" opacity=".52" stroke-linecap="round">
+  <path d="M145 181 q11 -8 20 -17 l8 -3"/><path d="M310 294 q14 4 19 -5 l10 -5"/>
+  <path d="M448 368 q-10 10 -18 8 l-7 4"/><path d="M236 473 q12 -8 15 -17"/>
+  <path d="M489 151 q-6 11 -16 16"/><path d="M160 535 q8 -12 18 -14"/>
+ </g>
+ <!-- Four individually grained planks -->
+ <g>
+  <rect x="47" y="34" width="546" height="45" rx="7" fill="url(#oak)" stroke="#5a3920" stroke-width="5"/>
+  <rect x="47" y="34" width="546" height="45" rx="7" fill="url(#woodgrain)" opacity=".9"/>
+  <rect x="47" y="34" width="546" height="45" rx="7" fill="none" stroke="#f2cf91" stroke-opacity=".7" stroke-width="2"/>
+  <rect x="47" y="561" width="546" height="45" rx="7" fill="url(#oakSide)" stroke="#4c301c" stroke-width="5"/>
+  <rect x="47" y="561" width="546" height="45" rx="7" fill="url(#woodgrain)" opacity=".8"/>
+  <rect x="47" y="561" width="546" height="45" rx="7" fill="none" stroke="#c99557" stroke-width="2"/>
+  <rect x="34" y="47" width="45" height="546" rx="7" fill="url(#oakSide)" stroke="#4b301c" stroke-width="5"/>
+  <rect x="34" y="47" width="45" height="546" rx="7" fill="url(#woodgrain)" opacity=".8"/>
+  <rect x="34" y="47" width="45" height="546" rx="7" fill="none" stroke="#d6a568" stroke-width="2"/>
+  <rect x="561" y="47" width="45" height="546" rx="7" fill="url(#oakSide)" stroke="#4b301c" stroke-width="5"/>
+  <rect x="561" y="47" width="45" height="546" rx="7" fill="url(#woodgrain)" opacity=".8"/>
+  <rect x="561" y="47" width="45" height="546" rx="7" fill="none" stroke="#d6a568" stroke-width="2"/>
+ </g>
+ <!-- Moss and little leaves on the timber's inside corners -->
+ <g fill="url(#moss)" stroke="#35562b" stroke-width="2">
+  <path d="M64 80 Q81 73 93 82 Q87 96 71 94Z"/><path d="M75 90 Q91 84 100 94 Q93 108 79 103Z"/>
+  <path d="M543 82 Q556 72 573 81 Q571 96 550 99Z"/><path d="M538 94 Q552 85 562 94 Q558 106 540 109Z"/>
+  <path d="M67 548 Q83 540 95 550 Q90 566 73 566Z"/><path d="M545 547 Q560 540 573 550 Q566 565 551 565Z"/>
+ </g>
+ <g fill="#9dbc62" stroke="#567c36" stroke-width="1.5">
+  <path d="M75 89 Q65 72 79 68 Q92 76 83 91Z"/><path d="M80 100 Q96 81 106 91 Q105 105 80 100Z"/>
+  <path d="M555 89 Q563 70 574 78 Q575 92 555 89Z"/><path d="M551 100 Q535 84 527 95 Q531 106 551 100Z"/>
+  <path d="M78 556 Q65 539 78 532 Q90 541 85 557Z"/><path d="M555 554 Q566 537 576 546 Q575 560 555 554Z"/>
+ </g>
+ <!-- Wooden pegs / joinery -->
+ <g fill="#6d4526" stroke="#edc383" stroke-width="3">
+  <circle cx="49" cy="54" r="8"/><circle cx="589" cy="54" r="8"/><circle cx="49" cy="584" r="8"/><circle cx="589" cy="584" r="8"/>
+  <circle cx="320" cy="50" r="5"/><circle cx="320" cy="585" r="5"/>
+ </g>
+ <g fill="#3e2819"><circle cx="49" cy="54" r="2.4"/><circle cx="589" cy="54" r="2.4"/><circle cx="49" cy="584" r="2.4"/><circle cx="589" cy="584" r="2.4"/></g>
+ <!-- thin inner highlight -->
+ <rect x="24" y="24" width="592" height="592" rx="18" fill="none" stroke="#f5dca5" stroke-width="2" stroke-opacity=".62"/>
+</g>
+</svg>
