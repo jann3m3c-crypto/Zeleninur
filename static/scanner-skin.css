@@ -1087,3 +1087,110 @@ body.scanner-standalone{
  .scanner-game-body .skanner-cell.is-revealed,
  .scanner-game-body .skanner-cell.is-wrong{animation:none!important}
 }
+
+/* Meadow direction: use the game's painted garden scene as the field.
+   No wooden soil-table background and no individual card-like grid cells. */
+.scanner-game-body .scanner-garden-frame{
+  width:100%;max-width:1000px;min-width:0;
+  display:flex;align-items:center;justify-content:center;
+  margin:10px auto 0;padding:clamp(8px,1.4vw,16px);
+  position:relative;isolation:isolate;overflow:hidden;
+  border:5px solid #694424;border-radius:24px;
+  background:
+    linear-gradient(180deg,rgba(34,51,23,.05),rgba(44,35,18,.13)),
+    url("garden-world-backdrop.webp?v=meadow-field-v1") center 53%/cover no-repeat!important;
+  box-shadow:inset 0 0 0 2px #f4d8a0,inset 0 0 0 6px #9c6931,
+    0 6px 0 #4d321e,0 12px 24px #23371d40;
+}
+.scanner-game-body .scanner-garden-frame:before{
+  content:"";display:block;position:absolute;inset:7px;z-index:0;
+  border:1px solid rgba(244,225,177,.58);border-radius:14px;pointer-events:none;
+  background:transparent;
+}
+.scanner-game-body .skanner-grid{
+  position:relative!important;z-index:1!important;isolation:isolate;
+  display:grid!important;grid-template-columns:repeat(var(--grid-size),minmax(0,1fr))!important;
+  width:min(100%,620px)!important;max-width:100%!important;
+  aspect-ratio:1/1!important;height:auto!important;min-width:0!important;
+  padding:0!important;gap:0!important;margin:0!important;
+  border:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;
+}
+.scanner-game-body .skanner-grid:before{display:none!important;content:none!important}
+.scanner-game-body .skanner-cell,
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-cell.is-found,
+.scanner-game-body .skanner-cell.is-revealed,
+.scanner-game-body .skanner-cell.is-wrong{
+  position:relative!important;isolation:isolate;overflow:hidden!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;
+  aspect-ratio:auto!important;margin:0!important;padding:0!important;
+  border:0!important;border-radius:0!important;outline:0!important;outline-offset:0!important;
+  background:transparent!important;box-shadow:none!important;
+  transform:none!important;filter:none;cursor:pointer;
+  transition:background .18s ease,filter .18s ease;
+}
+.scanner-game-body .skanner-cell:nth-child(3n+2),
+.scanner-game-body .skanner-cell:nth-child(n+4):nth-child(-n+6),
+.scanner-game-body .skanner-cell:nth-child(n+7):nth-child(-n+9){
+  border:0!important;
+}
+.scanner-game-body .skanner-cell:before,
+.scanner-game-body .skanner-cell:after,
+.scanner-game-body .skanner-cell.is-bed:before,
+.scanner-game-body .skanner-cell.is-bed:after,
+.scanner-game-body .skanner-cell.is-found:before,
+.scanner-game-body .skanner-cell.is-found:after,
+.scanner-game-body .skanner-cell.is-revealed:before,
+.scanner-game-body .skanner-cell.is-revealed:after,
+.scanner-game-body .skanner-cell.is-wrong:before,
+.scanner-game-body .skanner-cell.is-wrong:after{
+  content:none!important;display:none!important;background:none!important;box-shadow:none!important;
+}
+.scanner-game-body .skanner-cell .scanner-cell-illustration{
+  position:relative!important;inset:auto!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;
+  display:block!important;flex:0 0 auto!important;
+  width:94%!important;height:94%!important;max-width:100%!important;max-height:100%!important;
+  margin:auto!important;padding:0!important;object-fit:contain!important;object-position:center center!important;
+  transform:none!important;pointer-events:none!important;user-select:none!important;z-index:4!important;
+  filter:drop-shadow(0 4px 4px rgba(31,31,14,.28))!important;
+}
+.scanner-game-body .skanner-cell .scanner-stone-illustration{
+  width:56%!important;height:56%!important;
+}
+.scanner-game-body .skanner-cell.is-bed{
+  background:radial-gradient(ellipse at 50% 55%,rgba(194,222,110,.14) 0%,rgba(157,192,83,.08) 46%,transparent 77%)!important;
+}
+.scanner-game-body .skanner-cell.is-found{
+  background:radial-gradient(ellipse at 50% 56%,rgba(190,226,101,.33) 0%,rgba(140,190,72,.22) 43%,transparent 75%)!important;
+}
+.scanner-game-body .skanner-cell.is-revealed{
+  background:radial-gradient(ellipse at 50% 55%,rgba(191,223,112,.26) 0%,rgba(152,195,78,.16) 46%,transparent 77%)!important;
+  animation:scanner-reveal-bed .5s ease-out both;
+}
+.scanner-game-body .skanner-cell.is-wrong{
+  background:radial-gradient(ellipse at 50% 55%,rgba(222,127,75,.30) 0%,rgba(178,77,49,.15) 48%,transparent 77%)!important;
+  animation:scanner-wrong-hit .32s ease-in-out 2;
+}
+.scanner-game-body .skanner-cell:not(:disabled):hover{
+  background:radial-gradient(ellipse at 50% 55%,rgba(248,235,171,.17),transparent 72%)!important;
+  filter:brightness(1.08)!important;
+}
+.scanner-game-body .skanner-cell:focus-visible{
+  outline:2px dashed #ffedb9!important;outline-offset:-5px!important;border-radius:12px!important;
+}
+.scanner-game-body .skanner-cell:disabled{cursor:default!important}
+.scanner-game-body .scanner-board-overline span:nth-child(2){color:#315c31}
+.scanner-standalone .scanner-garden-frame .skanner-grid{
+  width:min(68vh,68vw,650px)!important;max-width:100%!important;
+}
+@media(max-width:760px){
+ .scanner-game-body .scanner-garden-frame{padding:5px;border-width:3px;border-radius:16px;margin-top:5px}
+ .scanner-game-body .skanner-grid{width:min(100%,500px)!important;padding:0!important}
+ .scanner-game-body .skanner-cell .scanner-cell-illustration{width:96%!important;height:96%!important}
+ .scanner-game-body .skanner-cell .scanner-stone-illustration{width:60%!important;height:60%!important}
+}
+@media(max-width:759px){
+ .scanner-standalone .scanner-garden-frame .skanner-grid{width:min(78vw,56vh,480px)!important;max-width:100%!important}
+}
