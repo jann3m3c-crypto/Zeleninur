@@ -7,7 +7,7 @@
   <title>Záhonový skener · Zeleninur</title>
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css',v='avatars-woodrim-v34') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='minigame.css',v='avatar-epithets-v2') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='scanner-skin.css',v='woodland-scanner-v3') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='scanner-skin.css',v='woodland-scanner-v4') }}">
 </head>
 <body class="game-body minigame-body scanner-game-body">
 <header class="game-header minigame-header">
@@ -23,7 +23,7 @@
         <h1>🔎 Záhonový skener</h1>
         <p>Ranní mlha přikryla zahradu. Na okamžik zahlédneš, kde se ukrývají mladé záhony. Zapamatuj si jejich polohu a potom je najdi dřív, než tě mlha přelstí.</p>
         <div class="mini-rules-strip">
-          <span>👁️ 6–12 sekund na zapamatování</span>
+          <span>👁️ 9–12 sekund na zapamatování</span>
           <span>🌱 +1 bod za záhon</span>
           <span>🌫️ Jediná chyba ukončí pokus</span>
           <span>🪙 Bez vlivu na zlaťáky</span>
@@ -87,7 +87,7 @@
   function setStatus(text,mode){phaseMessage.textContent=text;phaseMessage.className='phase-pill'+(mode?' '+mode:'');}
   function renderGrid(size,showBeds){grid.replaceChildren();grid.classList.toggle('memory-mode',showBeds);grid.classList.toggle('scan-mode',!showBeds&&phase==='scan');grid.classList.toggle('over-mode',phase==='over');grid.style.setProperty('--grid-size',size);for(let i=0;i<size*size;i++){const cell=document.createElement('button');cell.type='button';cell.className='skanner-cell';cell.setAttribute('aria-label','Zahalené políčko '+(i+1));if(showBeds&&beds.has(i)){cell.classList.add('is-bed');cell.textContent='🌱';cell.setAttribute('aria-label','Záhon k zapamatování');}if(found.has(i)){cell.classList.add('is-found');cell.textContent='🌱';cell.setAttribute('aria-label','Nalezený záhon');cell.disabled=true;}if(phase==='memory'||phase==='transition'||phase==='over')cell.disabled=true;cell.addEventListener('click',()=>chooseCell(i,cell));grid.appendChild(cell);}}
   function startGame(){clearTimers();score=0;level=1;found=new Set();beds=new Set();phase='transition';welcomePanel.hidden=true;gamePanel.hidden=false;gameOverPanel.hidden=true;scoreValue.textContent='0';startLevel(level);}
-  function memoryDurationMs(count){return Math.min(12000,4800+count*500);}
+  function memoryDurationMs(count){return Math.min(12000,7000+count*800);}
   function startMemoryCountdown(duration){
     const box=document.getElementById('memoryCountdown'),bar=document.getElementById('memoryBar'),seconds=document.getElementById('memorySeconds'),label=document.getElementById('memoryLabel');
     box.hidden=false;bar.style.transition='none';bar.style.width='100%';
