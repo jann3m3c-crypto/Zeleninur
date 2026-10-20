@@ -23,7 +23,7 @@
       <div class="cellar-hero-copy">
         <div class="minigame-eyebrow">SKLEPNÍ VÝZVA · TÝDEN 2</div>
         <h1>🍎 Toxické spojenectví</h1>
-        <p>Ve sklepě se pomíchala úroda! Během 45 sekund zachraň co nejvíce plodin, ulož je na správná místa a nedovol, aby se z jablek a brambor stali špatní sousedé.</p>
+        <p>Ve sklepě se pomíchala úroda! Během 45 sekund zachraň co nejvíce plodin a dávej pozor na skutečné skladovací chytáky. Dýně například potřebuje sucho a dobré větrání, ne vlhký písek.</p>
         <div class="mini-rules-strip">
           <span>⏱️ 45 sekund</span>
           <span>✅ +1 za správné uložení</span>
@@ -70,7 +70,7 @@
         <div class="cellar-room-heading"><span>🪵 SKLEP SE PLNÍ</span><strong id="roomMessage">Najdi každé plodině bezpečný domov.</strong></div>
         <div class="cellar-room-bins">
           <div class="cellar-room-bin bin-roots"><span class="bin-art">🧺</span><strong>Kořenová komora</strong><small>Chlad · mírná vlhkost</small><b id="countRoots">0 uloženo</b><div class="bin-fill"><i id="fillRoots"></i></div></div>
-          <div class="cellar-room-bin bin-ethylene"><span class="bin-art">🍎</span><strong>Větraná police</strong><small>Oddělené skladování</small><b id="countEthylene">0 uloženo</b><div class="bin-fill"><i id="fillEthylene"></i></div></div>
+          <div class="cellar-room-bin bin-ethylene"><span class="bin-art">🍎</span><strong>Suchá, větraná police</strong><small>Oddělené skladování</small><b id="countEthylene">0 uloženo</b><div class="bin-fill"><i id="fillEthylene"></i></div></div>
           <div class="cellar-room-bin bin-potato"><span class="bin-art">🥔</span><strong>Tmavá komora</strong><small>Tma · chlad</small><b id="countPotato">0 uloženo</b><div class="bin-fill"><i id="fillPotato"></i></div></div>
         </div>
         <div class="cellar-neighbor-warning"><span aria-hidden="true">⚠️</span><span><strong>Pozor na špatné sousedy!</strong> Jablka drž dál od brambor. Dýně naopak potřebuje suché a dobře větrané místo.</span></div>
@@ -93,7 +93,7 @@
         </button>
         <button class="storage-choice storage-ethylene" type="button" data-category="ethylene">
           <span class="storage-choice-icon" aria-hidden="true">🪵</span>
-          <span class="storage-choice-copy"><strong>Větraná police</strong></span>
+          <span class="storage-choice-copy"><strong>Suchá, větraná police</strong></span>
           <span class="storage-choice-check" aria-hidden="true">✓</span>
         </button>
         <button class="storage-choice storage-potato" type="button" data-category="potato">
@@ -180,7 +180,7 @@
     {name:'Červená řepa',icon:'🟣',category:'roots',note:'Kořenová zelenina má ráda chlad a mírnou vlhkost.'},
     {name:'Pastinák',icon:'🥕',category:'roots',note:'Kořenová úroda se dobře uchová v chladném písku.'},
     {name:'Jablko',icon:'🍎',category:'ethylene',note:'Uvolňuje etylen, který může urychlit klíčení a změny u brambor.'},
-    {name:'Banán',icon:'🍌',category:'ethylene',note:'Uvolňuje etylen a urychluje zrání okolní úrody. Skladuj odděleně.'},
+    {name:'Banán',icon:'🍌',category:'ethylene',note:'Uvolňuje etylen a urychluje zrání okolní úrody. Skladuj odděleně. Dýně, cibule a česnek naopak potřebují sucho a proudění vzduchu.'},
     {name:'Zralé rajče',icon:'🍅',category:'ethylene',note:'Zralá rajčata produkují etylen. Drž je mimo brambory.'},
     {name:'Hruška',icon:'🍐',category:'ethylene',note:'Dozrávající ovoce může uvolňovat etylen, proto ho drž odděleně.'},
     {name:'Dýně',icon:'🎃',category:'ethylene',note:'Skutečný chyták! Dýni skladuj v suchu, dobře větranou a spíše v mírném teple. Vlhký písek a studený vlhký sklep jí nesvědčí.'},
