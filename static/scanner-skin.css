@@ -378,3 +378,62 @@
 .scanner-game-body .minigame-footer{
   background:transparent!important;
 }
+
+
+/* Repair after transparency pass: restore tile art and keep both columns inside viewport. */
+.scanner-game-body,
+.scanner-game-body *{box-sizing:border-box}
+.scanner-game-body .minigame-layout{
+  width:min(100% - 32px, 1500px)!important;
+  max-width:1500px!important;
+  margin:16px auto 0!important;
+  grid-template-columns:minmax(0,1.7fr) minmax(300px,.95fr)!important;
+  gap:18px!important;
+}
+.scanner-game-body .minigame-main-column,
+.scanner-game-body .minigame-sidebar{min-width:0!important;width:100%!important}
+.scanner-game-body .minigame-hero,
+.scanner-game-body .minigame-board,
+.scanner-game-body .minigame-welcome,
+.scanner-game-body .minigame-sidebar .leaderboard-card,
+.scanner-game-body .minigame-sidebar .leaderboard-rules-card{
+  background:rgba(255,247,222,.94)!important;
+  overflow:hidden;
+}
+.scanner-game-body .skanner-grid-wrap{
+  background:rgba(220,232,205,.94)!important;
+}
+.scanner-game-body .skanner-grid{
+  background:transparent!important;
+}
+.scanner-game-body .skanner-cell{
+  background-color:#604027!important;
+  background-image:url("/static/scanner-bed-tile.svg")!important;
+  background-size:100% 100%!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  border:0!important;
+  border-radius:7px!important;
+  box-shadow:0 2px 5px #24170e55!important;
+}
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-cell.is-found{
+  background-image:url("/static/scanner-bed-tile.svg")!important;
+  box-shadow:0 0 0 2px #b4d777,0 2px 5px #24170e55!important;
+}
+.scanner-game-body .skanner-cell.is-wrong{
+  background-image:url("/static/scanner-bed-tile.svg")!important;
+  box-shadow:0 0 0 3px #d64b35,0 2px 5px #24170e55!important;
+}
+.scanner-game-body .scanner-cell-illustration{
+  display:block!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+@media(max-width:900px){
+  .scanner-game-body .minigame-layout{
+    width:calc(100% - 24px)!important;
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .scanner-game-body .minigame-sidebar{grid-template-columns:minmax(0,1fr)!important}
+}
