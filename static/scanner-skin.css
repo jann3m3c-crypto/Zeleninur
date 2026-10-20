@@ -267,3 +267,33 @@
   .scanner-game-body .minigame-hero{padding:16px 14px!important}
   .scanner-game-body .skanner-grid-wrap{padding:6px!important}
 }
+
+
+/* Final polish: clean board label, spacing and prevent accidental text selection. */
+.scanner-game-body .scanner-board-overline{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex-wrap:wrap!important;
+  gap:8px 12px!important;
+  padding:10px 14px!important;
+  color:#3d5f36!important;
+  font-size:.95rem!important;
+  line-height:1.35!important;
+  text-align:center!important;
+}
+.scanner-game-body .scanner-terrain-label{
+  font-weight:900!important;
+  white-space:nowrap!important;
+}
+.scanner-game-body .scanner-terrain-instruction{
+  font-weight:650!important;
+}
+.scanner-game-body .scanner-board-overline span+span:before{content:"·";margin-right:12px;color:#91a779}
+.scanner-game-body .leaderboard-refresh-note{
+  user-select:none!important;
+  -webkit-user-select:none!important;
+}
+.scanner-game-body .minigame-layout{align-items:start!important}
+.scanner-game-body .minigame-main-column{gap:14px!important}
+.scanner-game-body .minigame-sidebar{gap:14px!important}
