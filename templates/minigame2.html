@@ -221,20 +221,20 @@
   function updateTime(){
     remaining=Math.max(0,45-(performance.now()-startedAt)/1000);
     timeValue.textContent=String(Math.ceil(remaining));
-    timerBar.style.width=(remaining/30*100)+'%';
+    timerBar.style.width=(remaining/45*100)+'%';
     timerBar.classList.toggle('is-low',remaining<=7);
     if(remaining<=0)finishGame();
   }
   function startGame(){
     document.body.classList.add('cellar-playing');
-    clearTimers();score=0;combo=0;bestCombo=0;remaining=30;running=true;startedAt=performance.now();lastName='';
-    paintScore();timeValue.textContent='30';timerBar.style.width='100%';timerBar.classList.remove('is-low');
+    clearTimers();score=0;combo=0;bestCombo=0;remaining=45;placed=0;binCounts.roots=0;binCounts.ethylene=0;binCounts.potato=0;running=true;startedAt=performance.now();lastName='';
+    paintScore();paintRoom();timeValue.textContent='45';timerBar.style.width='100%';timerBar.classList.remove('is-low');
     welcomePanel.hidden=true;gamePanel.hidden=false;gameOverPanel.hidden=true;
     choices.forEach(c=>{c.disabled=false;c.classList.remove('is-correct','is-wrong');});
     setPhase('🗝️ Třídění začíná','phase-success');chooseProduce();
     timerInterval=setInterval(updateTime,100);
   }
-  async function finishGame(){
+  async function finishGame(completed=false){
     if(!running)return;running=false;remaining=0;clearTimers();choices.forEach(c=>c.disabled=true);
     timeValue.textContent='0';timerBar.style.width='0%';gameOverPanel.hidden=false;
     gameOverTitle.textContent=completed?(score>=8?'🏆 Sklepní výzva splněna!':'🧺 Všech 10 plodin roztříděno!'):score>=12?'🧺 Úroda je v dobrých rukou!':'🌱 Sklep ještě potřebuje pomoc.';
