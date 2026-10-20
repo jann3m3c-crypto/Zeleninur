@@ -16,3 +16,24 @@ body.minigame-body{height:auto!important;min-height:100vh;overflow-x:hidden!impo
 /* Avatar-specific funny epithet is shown separately from username and leaderboard rank. */
 .avatar-epithet-chip{display:inline-flex;align-items:center;gap:5px;margin:0 0 8px;padding:5px 9px;border-radius:999px;border:1px solid #d2b374;background:linear-gradient(#fff7df,#ead7a5);color:#54723c;font-size:.77rem;font-weight:900;box-shadow:0 2px 0 rgba(126,78,25,.12)}
 .leader-player .leader-avatar-epithet{font-weight:900;color:#4b7a38}
+
+
+/* Keep the shared leaderboard in view while the player scrolls through a minigame. */
+@media(min-width:901px){
+  .minigame-sidebar{
+    position:sticky!important;
+    top:12px;
+    max-height:calc(100vh - 24px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-gutter:stable;
+  }
+}
+@media(max-width:900px){
+  .minigame-sidebar{
+    order:-1!important;
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  .minigame-sidebar .leaderboard-card{order:-1!important}
+}
