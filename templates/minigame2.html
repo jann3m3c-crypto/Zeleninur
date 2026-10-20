@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="cellar-art-frame">
-        <img src="{{ url_for('static',filename='minigame2-produce-art.svg',v='produce-illustrations-v1') }}" alt="Ručně vykreslené ilustrace dýně, jablek, brambor a mrkve ve stylu Zeleninuru" class="cellar-illustration">
+        <img src="{{ url_for('static',filename='minigame2-produce-art.svg',v='produce-illustrations-v2') }}" alt="Ručně vykreslené ilustrace dýně, jablek, brambor a mrkve ve stylu Zeleninuru" class="cellar-illustration">
         <div class="cellar-art-caption"><span>SKLEPNÍ KOMORA</span><strong>Každá úroda má své místo</strong></div>
       </div>
     </section>
@@ -212,6 +212,19 @@
     ['roots','ethylene','potato'].forEach(k=>{document.getElementById('fill'+(k==='roots'?'Roots':k==='ethylene'?'Ethylene':'Potato')).style.width=(binCounts[k]/10*100)+'%';});
     document.getElementById('roomMessage').textContent=placed+' rozhodnutí za tebou · vydrž co nejdéle';
   }
+  const cropArt={
+    'Mrkev':'carrot','Petržel':'parsnip','Celer':'celery','Červená řepa':'beet','Pastinák':'parsnip',
+    'Jablko':'apple','Banán':'banana','Zralé rajče':'tomato','Hruška':'pear','Dýně':'pumpkin',
+    'Česnek':'garlic','Cibule':'onion','Brambora':'potato','Pytel brambor':'potato',
+    'Zimní zásoba: mrkev bez natě':'carrot','Dýně s tvrdou, nepoškozenou slupkou':'pumpkin',
+    'Brambory začínají zelenat':'potato','Cibule po sklizni ještě vlhne':'onion',
+    'Jablka a brambory v jedné bedně':'apple','Česnek v chladném, vlhkém písku':'garlic'
+  };
+  function drawCrop(item){
+    const ids=(item.name==='Jablka a brambory v jedné bedně')?['apple','potato']:[cropArt[item.name]||'carrot'];
+    produceIcon.innerHTML=(bonusRound?'<span class="crop-bonus-sparkle" aria-hidden="true">✦</span>':'')+ids.map(id=>'<img class="crop-illustration" alt="" src="/static/minigame2-crops.svg?v=crops-art-v1#'+id+'">').join('');
+    produceIcon.setAttribute('aria-label',item.name);
+  }
   function chooseProduce(){
     bonusRound=(placed>0 && (placed+1)%4===0);
     const isRiddle=placed>0 && (placed+1)%4===0;
@@ -223,7 +236,7 @@
     lastName=current.name;decisionStarted=performance.now();
     decisionLimit=Math.max(2.8,6.5-Math.floor(placed/6)*0.65-(isRiddle?0.6:0));
     produceCard.classList.remove('is-correct','is-wrong','is-entering');void produceCard.offsetWidth;produceCard.classList.add('is-entering');
-    produceIcon.textContent=bonusRound?'✨ '+current.icon:current.icon;
+    drawCrop(current);
     produceName.textContent=isRiddle?'⚠️ '+current.name:(bonusRound?'Zlatá úroda: '+current.name:current.name);
     produceNote.textContent=isRiddle?eventText:('Rozhodnutí '+(placed+1)+' · vyhodnoť podmínky a vyber bezpečné místo.');
     document.querySelector('.produce-question-label').textContent=isRiddle?'SKLEPNÍ RÉBUS · VYBER NEJBEZPEČNĚJŠÍ ŘEŠENÍ':'SKŘÍTEK PŘINÁŠÍ DALŠÍ PLODINU · KAM S NÍ?';
