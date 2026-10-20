@@ -736,17 +736,20 @@ def get_minigame_leaderboard(db, round_number, limit=200):
 @login_required
 def minigame(round_number):
     user=current_user()
-    if user["role"] == "admin":
+    admin_preview = user["role"] == "admin" and request.args.get("admin_preview") == "1"
+    if user["role"] == "admin" and not admin_preview:
         return redirect(url_for("admin"))
     db=get_db()
-    if round_number not in (1, 2) or not minigame_round_unlocked(db, user["id"], round_number):
+    if round_number not in (1, 2):
+        abort(404)
+    if not admin_preview and not minigame_round_unlocked(db, user["id"], round_number):
         flash(f"Minihra se otevře po odeslání týdenního úkolu {round_number}; správnost odpovědi nerozhoduje.", "error")
         return redirect(url_for("home"))
     best=db.execute("SELECT best_score,best_level FROM minigame_scores WHERE user_id=? AND round_number=?",
                     (user["id"],round_number)).fetchone()
     avatar_id = user["avatar_id"] if user["avatar_id"] in AVATAR_BY_ID else "avatar-001"
     template = "minigame.html" if round_number == 1 else "minigame2.html"
-    return render_template(template, user=user, round_number=round_number,
+    return render_template(template, user=user, round_number=round_number, admin_preview=admin_preview,
                            current_avatar_name=get_avatar_name(avatar_id),
                            best_score=int(best["best_score"]) if best else None,
                            best_level=int(best["best_level"]) if best else None,
@@ -757,7 +760,8 @@ def minigame(round_number):
 @login_required
 def minigame_leaderboard_api(round_number):
     user=current_user(); db=get_db()
-    if user["role"] == "admin" or round_number not in (1, 2) or not minigame_round_unlocked(db,user["id"],round_number):
+    admin_preview = user["role"] == "admin" and request.args.get("admin_preview") == "1"
+    if round_number not in (1, 2) or (user["role"] == "admin" and not admin_preview) or (not admin_preview and not minigame_round_unlocked(db,user["id"],round_number)):
         return {"error":"Minihra není odemčená."}, 403
     return {"leaderboard":get_minigame_leaderboard(db,round_number)}
 
@@ -766,7 +770,8 @@ def minigame_leaderboard_api(round_number):
 @login_required
 def minigame_score_api(round_number):
     db=get_db(); user=current_user()
-    if user["role"] == "admin" or round_number not in (1, 2) or not minigame_round_unlocked(db,user["id"],round_number):
+    admin_preview = user["role"] == "admin" and request.args.get("admin_preview") == "1"
+    if round_number not in (1, 2) or (user["role"] == "admin" and not admin_preview) or (not admin_preview and not minigame_round_unlocked(db,user["id"],round_number)):
         return {"error":"Minihra není odemčená."}, 403
     data=request.get_json(silent=True) or {}
     score=data.get("skore",data.get("score")); level=data.get("uroven",data.get("level",1))
