@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520">
+<defs>
+ <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#64533c"/><stop offset="1" stop-color="#292d27"/></linearGradient>
+ <linearGradient id="timber" x2="0" y2="1"><stop stop-color="#c28a4b"/><stop offset=".5" stop-color="#80502d"/><stop offset="1" stop-color="#4d2e1a"/></linearGradient>
+ <radialGradient id="lamp"><stop stop-color="#fff0a0"/><stop offset=".35" stop-color="#e9a846" stop-opacity=".45"/><stop offset="1" stop-color="#e9a846" stop-opacity="0"/></radialGradient>
+ <linearGradient id="stone" x2="0" y2="1"><stop stop-color="#83765c"/><stop offset="1" stop-color="#464536"/></linearGradient>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#160f09" flood-opacity=".6"/></filter>
+ <pattern id="brick" width="120" height="58" patternUnits="userSpaceOnUse"><path d="M0 0H120V58H0ZM60 0V29M0 29H120M30 29V58" fill="none" stroke="#c1a77b" stroke-opacity=".2" stroke-width="3"/></pattern>
+ <g id="potatoes"><path d="M0 20Q-12 2 7 -8Q30 -18 37 3Q43 25 20 30Q5 32 0 20Z" fill="#b99a68" stroke="#6d4c2c" stroke-width="3"/><g fill="#62472d"><circle cx="9" cy="5" r="2.5"/><circle cx="26" cy="12" r="2"/><circle cx="15" cy="22" r="2"/></g></g>
+ <g id="apple"><path d="M0 -6Q-20 -23 -31 -5Q-45 16 -24 39Q-7 51 0 40Q16 51 33 31Q49 5 30 -7Q16 -21 0 -6Z" fill="#c83c2d" stroke="#7c2820" stroke-width="3"/><path d="M0 -7Q0 -21 11 -30" fill="none" stroke="#604125" stroke-width="5"/><path d="M8 -22Q26 -36 39 -22Q27 -8 8 -22Z" fill="#6f9845" stroke="#3e622c" stroke-width="3"/><ellipse cx="-19" cy="4" rx="4" ry="10" fill="#ffd1a0" opacity=".7"/></g>
+ <g id="carrot"><path d="M0 -8Q-20 -30 -29 -17Q-27 -2 -4 2M0 -8Q-4 -38 12 -36Q25 -21 3 -5M0 -8Q25 -28 34 -12Q24 2 3 2" fill="#719649" stroke="#3e622c" stroke-width="3"/><path d="M-8 0Q-29 4 -19 26L-2 64Q4 72 8 61L20 25Q22 4 -8 0Z" fill="#ed8a36" stroke="#9c4d22" stroke-width="3"/><path d="M-12 20L5 25M-5 39L9 42" stroke="#ffd08a" stroke-width="3"/></g>
+</defs>
+<!-- stone alcove -->
+<rect width="1200" height="520" rx="14" fill="url(#wall)"/><rect width="1200" height="520" rx="14" fill="url(#brick)"/>
+<path d="M0 0H1200V40H0Z" fill="url(#timber)"/><path d="M20 0L120 40M250 0L350 40M500 0L600 40M750 0L850 40M1000 0L1100 40" stroke="#d4a363" stroke-opacity=".4" stroke-width="8"/>
+<ellipse cx="110" cy="130" rx="180" ry="180" fill="url(#lamp)"/><ellipse cx="1090" cy="130" rx="180" ry="180" fill="url(#lamp)"/>
+<!-- central room panel / no words, scene only -->
+<g filter="url(#shadow)">
+ <path d="M24 45H1176V492H24Z" fill="#382a1d" stroke="#c99b58" stroke-width="8"/>
+ <path d="M38 59H1162V478H38Z" fill="#57432d" stroke="#e0bd7b" stroke-width="4"/>
+</g>
+<!-- three separate scenic bays -->
+<g>
+ <path d="M50 85H380V455H50Z" fill="#443d2d" stroke="#b7864d" stroke-width="7"/>
+ <path d="M420 85H780V455H420Z" fill="#3f3b2e" stroke="#b7864d" stroke-width="7"/>
+ <path d="M820 85H1150V455H820Z" fill="#252a26" stroke="#b7864d" stroke-width="7"/>
+</g>
+<!-- root cellar scene -->
+<path d="M66 99H364V438H66Z" fill="url(#stone)"/><path d="M66 99H364V438H66Z" fill="url(#brick)"/>
+<path d="M72 320H358V433H72Z" fill="url(#timber)" stroke="#d3a35f" stroke-width="5"/>
+<path d="M72 348H358M72 381H358M72 414H358" stroke="#e0b575" stroke-width="6"/>
+<path d="M83 318L83 433M345 318V433" stroke="#4a2c19" stroke-width="10"/>
+<g transform="translate(120 333) scale(1.15)"><use href="#carrot"/></g><g transform="translate(180 337) scale(.95)"><use href="#carrot"/></g><g transform="translate(235 334) scale(1.1)"><use href="#carrot"/></g><g transform="translate(285 341) scale(.85)"><use href="#carrot"/></g>
+<path d="M88 180Q215 142 340 180V205Q215 236 88 205Z" fill="#c39a61" stroke="#593a22" stroke-width="7"/><path d="M98 184Q215 211 330 184" fill="none" stroke="#f0d092" stroke-width="5"/>
+<g transform="translate(140 190) scale(.55)"><use href="#potatoes"/></g><g transform="translate(210 187) scale(.65)"><use href="#potatoes"/></g><g transform="translate(280 189) scale(.55)"><use href="#potatoes"/></g>
+<!-- dry airy shelving -->
+<path d="M440 120H760V145H440ZM440 220H760V245H440ZM440 320H760V345H440Z" fill="url(#timber)" stroke="#4b2b17" stroke-width="7"/>
+<path d="M458 145V345M742 145V345" stroke="#714522" stroke-width="19"/><path d="M452 126H748M452 226H748M452 326H748" stroke="#e0b777" stroke-width="4"/>
+<g transform="translate(485 170) scale(.7)"><use href="#apple"/></g><g transform="translate(555 170) scale(.65)"><use href="#apple"/></g><g transform="translate(625 170) scale(.7)"><use href="#apple"/></g><g transform="translate(695 170) scale(.6)"><use href="#apple"/></g>
+<g transform="translate(495 269) scale(.5)"><use href="#apple"/></g><g transform="translate(550 269) scale(.55)"><use href="#apple"/></g><g transform="translate(610 269) scale(.55)"><use href="#apple"/></g><g transform="translate(670 269) scale(.5)"><use href="#apple"/></g>
+<path d="M455 385H745V432H455Z" fill="#ac7d43" stroke="#4a2b18" stroke-width="7"/><path d="M465 395H735M465 411H735" stroke="#e1b777" stroke-width="4"/>
+<!-- dark cellar -->
+<path d="M839 100H1132V438H839Z" fill="#222821" stroke="#5c4b34" stroke-width="5"/>
+<path d="M858 110V438M1113 110V438" stroke="#6c5c43" stroke-width="13"/><path d="M845 198H1125M845 305H1125" stroke="#5e4c35" stroke-width="14"/>
+<path d="M862 350H1108V431H862Z" fill="url(#timber)" stroke="#d0a366" stroke-width="5"/><path d="M862 376H1108M862 404H1108" stroke="#d9ab68" stroke-width="5"/>
+<g transform="translate(880 344) scale(.75)"><use href="#potatoes"/></g><g transform="translate(928 350) scale(.8)"><use href="#potatoes"/></g><g transform="translate(978 342) scale(.85)"><use href="#potatoes"/></g><g transform="translate(1027 350) scale(.75)"><use href="#potatoes"/></g><g transform="translate(1074 344) scale(.7)"><use href="#potatoes"/></g>
+<path d="M875 225H1097V245H875Z" fill="#8d643a" stroke="#3d2919" stroke-width="5"/><g transform="translate(914 208) scale(.5)"><use href="#potatoes"/></g><g transform="translate(978 208) scale(.55)"><use href="#potatoes"/></g><g transform="translate(1040 208) scale(.5)"><use href="#potatoes"/></g>
+<!-- hanging garlic and lanterns -->
+<g stroke="#d4b174" stroke-width="4" fill="#e3d5b5"><path d="M1020 88V135M1038 88V135M1056 88V135" stroke="#d8bd85"/><path d="M1010 135Q1000 153 1020 163Q1040 153 1030 135ZM1028 135Q1018 153 1038 163Q1058 153 1048 135ZM1046 135Q1036 153 1056 163Q1076 153 1066 135Z"/></g>
+<g transform="translate(65 125)"><path d="M0 0Q30 -12 60 0L54 18H6Z" fill="#332316" stroke="#d6a762" stroke-width="4"/><path d="M14 18H46L40 60H20Z" fill="#f6b64e" stroke="#6d451f" stroke-width="4"/><ellipse cx="30" cy="37" rx="45" ry="55" fill="url(#lamp)"/></g>
+<g transform="translate(1080 130)"><path d="M0 0Q30 -12 60 0L54 18H6Z" fill="#332316" stroke="#d6a762" stroke-width="4"/><path d="M14 18H46L40 60H20Z" fill="#f6b64e" stroke="#6d451f" stroke-width="4"/><ellipse cx="30" cy="37" rx="45" ry="55" fill="url(#lamp)"/></g>
+</svg>
