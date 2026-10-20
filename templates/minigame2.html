@@ -43,13 +43,13 @@
         <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div>
         <div class="avatar-epithet-chip">🌱 {{ current_avatar_name }}</div>
         <h2>Jak se to hraje?</h2>
-        <p>Skřítek ti přinese 10 plodin jednu po druhé. U každé vyber správné místo. Sleduj, jak se sklep plní. Za chybu dostaneš vysvětlení — zlaťáky ani postup na plánu se nemění.</p>
+        <p>Skřítek přinesl smíchané pytle a sklepní alarm už houká. Rozhoduj rychle podle podmínek skladování, hlídej sérii a zachraň co nejvíc úrody. Po každé volbě se dozvíš, co hrozilo.</p>
         <div class="cellar-howto" aria-label="Tři pravidla skladování">
-          <div><span aria-hidden="true">🧺</span><p><strong>1. Bedna s pískem</strong><small>Mrkev, petržel a celer.</small></p></div>
-          <div><span aria-hidden="true">🍎</span><p><strong>2. Oddělená police</strong><small>Jablka, banány a zralá rajčata. Drž je dál od brambor.</small></p></div>
-          <div><span aria-hidden="true">🥔</span><p><strong>3. Tmavý a chladný kout</strong><small>Brambory — bez světla a mimo jablka.</small></p></div>
+          <div><span aria-hidden="true">🧺</span><p><strong>1. Kořenová komora</strong><small>Vlhký písek, chlad a stabilní prostředí.</small></p></div>
+          <div><span aria-hidden="true">🍎</span><p><strong>2. Větraná police</strong><small>Odděleně od brambor a citlivé úrody.</small></p></div>
+          <div><span aria-hidden="true">🥔</span><p><strong>3. Tmavá komora</strong><small>Bez světla, v chladu a mimo zdroje etylenu.</small></p></div>
         </div>
-        <p class="cellar-simple-scoring"><strong>Cíl:</strong> bezpečně uložit 10 plodin. Správně +1 bod, chyba −1 (nejméně 0), pět správných za sebou = bonus +2. Je to jen trénink — zlaťáky ani pozici na plánu to nezmění.</p>
+        <p class="cellar-simple-scoring"><strong>Výzva:</strong> 10 rozhodnutí za 45 sekund. Správně +1, chyba −1, pět správných za sebou přidá +2. Zkus překonat vlastní rekord — zlaťáky ani pozici na plánu se nemění.</p>
         {% if best_score is not none %}
           <p class="personal-best-line">Tvůj rekord: <strong>{{ best_score }} bodů</strong> · nejlepší série {{ best_level or 1 }}</p>
         {% else %}
@@ -88,7 +88,7 @@
       <div class="storage-choices" id="storageChoices" aria-label="Vyber správné skladovací místo">
         <button class="storage-choice storage-sand" type="button" data-category="roots">
           <span class="storage-choice-icon" aria-hidden="true">🧺</span>
-          <span class="storage-choice-copy"><strong>Bedna s pískem</strong><small>Mrkev · petržel · celer</small><em>Chladno a mírná vlhkost</em></span>
+          <span class="storage-choice-copy"><strong>Kořenová komora</strong><small>Chlad · vlhký písek</small><em>Pro kořenovou úrodu, která nevysychá</em></span>
           <span class="storage-choice-check" aria-hidden="true">✓</span>
         </button>
         <button class="storage-choice storage-ethylene" type="button" data-category="ethylene">
@@ -98,7 +98,7 @@
         </button>
         <button class="storage-choice storage-potato" type="button" data-category="potato">
           <span class="storage-choice-icon" aria-hidden="true">🥔</span>
-          <span class="storage-choice-copy"><strong>Tmavý, chladný kout</strong><small>Brambory</small><em>Mimo dosah jablek a světla</em></span>
+          <span class="storage-choice-copy"><strong>Tmavá komora</strong><small>Tma · chlad</small><em>Bez světla a mimo zdroje etylenu</em></span>
           <span class="storage-choice-check" aria-hidden="true">✓</span>
         </button>
       </div>
@@ -174,13 +174,17 @@
   const replayButton=document.getElementById('replayButton');
   const choices=[...document.querySelectorAll('.storage-choice')];
   const produce=[
-    {name:'Mrkev',icon:'🥕',category:'roots',note:'Kořenová zelenina. Ulož ji do písku.'},
-    {name:'Petržel',icon:'🌿',category:'roots',note:'Kořenová trojice drží pohromadě.'},
-    {name:'Celer',icon:'🥬',category:'roots',note:'Patří do bedny s mrkví a petrželí.'},
-    {name:'Jablko',icon:'🍎',category:'ethylene',note:'Pozor: uvolňuje etylen, drž ho dál od brambor.'},
-    {name:'Banán',icon:'🍌',category:'ethylene',note:'Podporuje zrání okolních plodin. Skladuj odděleně.'},
-    {name:'Zralé rajče',icon:'🍅',category:'ethylene',note:'Zralá rajčata také produkují etylen.'},
-    {name:'Brambora',icon:'🥔',category:'potato',note:'Potřebuje tmu a chlad. Jablka vedle ní nepatří.'}
+    {name:'Mrkev',icon:'🥕',category:'roots',note:'Kořenová zelenina rychle ztrácí vodu. Pomůže jí chlad a mírně vlhký písek.'},
+    {name:'Petržel',icon:'🌿',category:'roots',note:'Kořenová zelenina zůstává déle svěží v chladném, mírně vlhkém prostředí.'},
+    {name:'Celer',icon:'🥬',category:'roots',note:'Kořenová úroda potřebuje chlad a ochranu před vysycháním.'},
+    {name:'Červená řepa',icon:'🟣',category:'roots',note:'Kořenová zelenina má ráda chlad a mírnou vlhkost.'},
+    {name:'Pastinák',icon:'🥕',category:'roots',note:'Kořenová úroda se dobře uchová v chladném písku.'},
+    {name:'Jablko',icon:'🍎',category:'ethylene',note:'Uvolňuje etylen, který může urychlit klíčení a změny u brambor.'},
+    {name:'Banán',icon:'🍌',category:'ethylene',note:'Uvolňuje etylen a urychluje zrání okolní úrody. Skladuj odděleně.'},
+    {name:'Zralé rajče',icon:'🍅',category:'ethylene',note:'Zralá rajčata produkují etylen. Drž je mimo brambory.'},
+    {name:'Hruška',icon:'🍐',category:'ethylene',note:'Dozrávající ovoce může uvolňovat etylen, proto ho drž odděleně.'},
+    {name:'Brambora',icon:'🥔',category:'potato',note:'Brambory potřebují tmu a chlad. Světlo podporuje zelenání a jablka mohou ovlivnit jejich skladování.'},
+    {name:'Pytel brambor',icon:'🧺',category:'potato',note:'Brambory ukládej do tmy a chladu, mimo ovoce produkující etylen.'}
   ];
   let score=0,combo=0,bestCombo=0,remaining=45,startedAt=0,running=false,current=null,placed=0;
   const binCounts={roots:0,ethylene:0,potato:0};
@@ -204,9 +208,9 @@
     produceCard.classList.remove('is-correct','is-wrong','is-entering');
     void produceCard.offsetWidth;
     produceCard.classList.add('is-entering');
-    produceIcon.textContent=current.icon;produceName.textContent=current.name;produceNote.textContent='Plodina '+(placed+1)+' z 10 · rozhodni, kam patří.';
+    produceIcon.textContent=current.icon;produceName.textContent=current.name;produceNote.textContent='Záchranné rozhodnutí '+(placed+1)+' z 10 · vyber podmínky, které jí sedí.';
     choices.forEach(c=>{c.disabled=false;c.classList.remove('is-correct','is-wrong');});
-    feedback.textContent='Kam bys tuto plodinu uložil/a?';feedback.className='cellar-feedback';
+    feedback.textContent='Rychle se rozhodni — která komora ji udrží v bezpečí?';feedback.className='cellar-feedback';
   }
   function answer(category,button){
     if(!running||!current||button.disabled)return;
@@ -224,7 +228,7 @@
       produceCard.classList.add('is-wrong');button.classList.add('is-wrong');
       setPhase('⚠️ Špatná volba','phase-error');
       const correctPlace = current.category==='roots' ? 'Správně: bedna s pískem.' : current.category==='ethylene' ? 'Správně: oddělená police, mimo brambory.' : 'Správně: tmavý a chladný kout.';
-      feedback.textContent='Zkus to znovu zapamatovat. '+correctPlace+' '+current.note;
+      feedback.textContent='Sklepní alarm! '+correctPlace+' '+current.note;
       const correctButton=choices.find(c=>c.dataset.category===current.category);
       if(correctButton)correctButton.classList.add('is-correct');
     }
