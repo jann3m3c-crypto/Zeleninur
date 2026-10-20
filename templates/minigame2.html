@@ -198,6 +198,7 @@
     document.getElementById('roomMessage').textContent=placed>=10?'Všech 10 plodin má své místo!':placed+' z 10 plodin bezpečně roztříděno';
   }
   function chooseProduce(){
+    if(placed>=10){finishGame(true);return;}
     const pool=produce.filter(p=>p.name!==lastName);
     current=pool[Math.floor(Math.random()*pool.length)]||produce[0];lastName=current.name;
     produceCard.classList.remove('is-correct','is-wrong','is-entering');
@@ -211,6 +212,8 @@
     if(!running||!current||button.disabled)return;
     choices.forEach(c=>c.disabled=true);
     const correct=category===current.category;
+    placed+=1;
+    if(correct)binCounts[current.category]+=1;
     if(correct){
       score+=1;combo+=1;bestCombo=Math.max(bestCombo,combo);
       produceCard.classList.add('is-correct');button.classList.add('is-correct');
@@ -225,8 +228,9 @@
       const correctButton=choices.find(c=>c.dataset.category===current.category);
       if(correctButton)correctButton.classList.add('is-correct');
     }
-    paintScore();
-    nextItemTimer=window.setTimeout(()=>{if(running)chooseProduce();},720);
+    paintScore();paintRoom();
+    if(placed>=10){nextItemTimer=window.setTimeout(()=>finishGame(true),850);return;}
+    nextItemTimer=window.setTimeout(()=>{if(running)chooseProduce();},1050);
   }
   function updateTime(){
     remaining=Math.max(0,45-(performance.now()-startedAt)/1000);
