@@ -6,7 +6,7 @@
   <title>Toxické spojenectví ve sklepní kobce · Zeleninur</title>
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css',v='avatars-woodrim-v35') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='minigame.css',v='leaderboard-sticky-maxwindow-v1') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='minigame2.css',v='toxic-cellar-v4') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='minigame2.css',v='cellar-rescue-v5') }}">
 </head>
 <body class="game-body minigame-body minigame2-body cellar-game-body{% if request.args.get('standalone') == '1' %} cellar-standalone{% endif %}">
 <header class="game-header minigame-header cellar-header">
@@ -23,9 +23,9 @@
       <div class="cellar-hero-copy">
         <div class="minigame-eyebrow">SKLEPNÍ VÝZVA · TÝDEN 2</div>
         <h1>🍎 Toxické spojenectví</h1>
-        <p>Na obrazovce se objeví jedna plodina. Rozhodni, kam ji uložit: kořenovou zeleninu do písku, jablka a podobné plody na oddělenou polici a brambory do tmy a chladu.</p>
+        <p>Ve sklepě se pomíchala úroda! Během 45 sekund zachraň 10 plodin, ulož je na správná místa a nedovol, aby se z jablek a brambor stali špatní sousedé.</p>
         <div class="mini-rules-strip">
-          <span>⏱️ 30 sekund</span>
+          <span>⏱️ 45 sekund</span>
           <span>✅ +1 za správné uložení</span>
           <span>❌ −1 za chybu</span>
           <span>🌿 Bonus +2 za 5 správných v řadě</span>
@@ -43,13 +43,13 @@
         <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div>
         <div class="avatar-epithet-chip">🌱 {{ current_avatar_name }}</div>
         <h2>Jak se to hraje?</h2>
-        <p>Po stisknutí tlačítka se ukáže plodina. Klikni na jedno ze tří skladovacích míst. Máš 30 sekund — nemusíš nic přetahovat.</p>
+        <p>Skřítek ti přinese 10 plodin jednu po druhé. U každé vyber správné místo. Sleduj, jak se sklep plní. Za chybu dostaneš vysvětlení — zlaťáky ani postup na plánu se nemění.</p>
         <div class="cellar-howto" aria-label="Tři pravidla skladování">
           <div><span aria-hidden="true">🧺</span><p><strong>1. Bedna s pískem</strong><small>Mrkev, petržel a celer.</small></p></div>
           <div><span aria-hidden="true">🍎</span><p><strong>2. Oddělená police</strong><small>Jablka, banány a zralá rajčata. Drž je dál od brambor.</small></p></div>
           <div><span aria-hidden="true">🥔</span><p><strong>3. Tmavý a chladný kout</strong><small>Brambory — bez světla a mimo jablka.</small></p></div>
         </div>
-        <p class="cellar-simple-scoring"><strong>Body:</strong> správně +1, chyba −1 (nejméně 0), pět správných za sebou = bonus +2. Je to jen trénink — zlaťáky ani pozici na plánu to nezmění.</p>
+        <p class="cellar-simple-scoring"><strong>Cíl:</strong> bezpečně uložit 10 plodin. Správně +1 bod, chyba −1 (nejméně 0), pět správných za sebou = bonus +2. Je to jen trénink — zlaťáky ani pozici na plánu to nezmění.</p>
         {% if best_score is not none %}
           <p class="personal-best-line">Tvůj rekord: <strong>{{ best_score }} bodů</strong> · nejlepší série {{ best_level or 1 }}</p>
         {% else %}
@@ -65,10 +65,19 @@
         <div class="level-pill"><small>SÉRIE</small><strong id="comboValue">0</strong></div>
         <div class="phase-pill" id="phaseMessage">Sklep se otevírá…</div>
       </div>
-      <div class="cellar-timer-wrap"><div class="cellar-timer-track"><div id="timerBar" class="cellar-timer-bar"></div></div><strong id="timeValue">30</strong><span>s</span></div>
+      <div class="cellar-timer-wrap"><div class="cellar-timer-track"><div id="timerBar" class="cellar-timer-bar"></div></div><strong id="timeValue">45</strong><span>s</span><span class="cellar-goal" id="goalValue">0 / 10 plodin</span></div>
+      <section class="cellar-room-status" aria-label="Stav sklepa">
+        <div class="cellar-room-heading"><span>🪵 SKLEP SE PLNÍ</span><strong id="roomMessage">Najdi každé plodině bezpečný domov.</strong></div>
+        <div class="cellar-room-bins">
+          <div class="cellar-room-bin bin-roots"><span class="bin-art">🧺</span><strong>Kořenová bedna</strong><small>Mrkev · petržel · celer</small><b id="countRoots">0 uloženo</b><div class="bin-fill"><i id="fillRoots"></i></div></div>
+          <div class="cellar-room-bin bin-ethylene"><span class="bin-art">🍎</span><strong>Oddělená police</strong><small>Jablka · banány · rajčata</small><b id="countEthylene">0 uloženo</b><div class="bin-fill"><i id="fillEthylene"></i></div></div>
+          <div class="cellar-room-bin bin-potato"><span class="bin-art">🥔</span><strong>Temný kout</strong><small>Brambory · tma a chlad</small><b id="countPotato">0 uloženo</b><div class="bin-fill"><i id="fillPotato"></i></div></div>
+        </div>
+        <div class="cellar-neighbor-warning"><span aria-hidden="true">⚠️</span><span><strong>Pozor na špatné sousedy!</strong> Jablka drž dál od brambor. Etylen může urychlit zrání okolních plodin.</span></div>
+      </section>
 
       <section class="produce-question" aria-live="polite">
-        <div class="produce-question-label">KAM ULOŽIT TUTO PLODINU?</div>
+        <div class="produce-question-label">SKŘÍTEK PŘINÁŠÍ DALŠÍ PLODINU · KAM S NÍ?</div>
         <div id="produceCard" class="produce-card">
           <span class="produce-icon" id="produceIcon" aria-hidden="true">🥕</span>
           <div class="produce-name" id="produceName">Mrkev</div>
@@ -173,18 +182,18 @@
     {name:'Zralé rajče',icon:'🍅',category:'ethylene',note:'Zralá rajčata také produkují etylen.'},
     {name:'Brambora',icon:'🥔',category:'potato',note:'Potřebuje tmu a chlad. Jablka vedle ní nepatří.'}
   ];
-  let score=0,combo=0,bestCombo=0,remaining=30,startedAt=0,running=false,current=null;
+  let score=0,combo=0,bestCombo=0,remaining=45,startedAt=0,running=false,current=null,placed=0;\n  const binCounts={roots:0,ethylene:0,potato:0};
   let timerInterval=null,nextItemTimer=null,lastName='';
   function setPhase(text,mode){phaseMessage.textContent=text;phaseMessage.className='phase-pill'+(mode?' '+mode:'');}
   function clearTimers(){if(timerInterval!==null)clearInterval(timerInterval);if(nextItemTimer!==null)clearTimeout(nextItemTimer);timerInterval=null;nextItemTimer=null;}
-  function paintScore(){scoreValue.textContent=String(score);comboValue.textContent=String(combo);}
+  function paintScore(){scoreValue.textContent=String(score);comboValue.textContent=String(combo);}\n  function paintRoom(){\n    const total=Math.max(1,placed);\n    document.getElementById('goalValue').textContent=placed+' / 10 plodin';\n    document.getElementById('countRoots').textContent=binCounts.roots+' uloženo';\n    document.getElementById('countEthylene').textContent=binCounts.ethylene+' uloženo';\n    document.getElementById('countPotato').textContent=binCounts.potato+' uloženo';\n    ['roots','ethylene','potato'].forEach(k=>{document.getElementById('fill'+(k==='roots'?'Roots':k==='ethylene'?'Ethylene':'Potato')).style.width=(binCounts[k]/10*100)+'%';});\n    document.getElementById('roomMessage').textContent=placed>=10?'Všech 10 plodin má své místo!':placed+' z 10 plodin bezpečně roztříděno';\n  }
   function chooseProduce(){
     const pool=produce.filter(p=>p.name!==lastName);
     current=pool[Math.floor(Math.random()*pool.length)]||produce[0];lastName=current.name;
     produceCard.classList.remove('is-correct','is-wrong','is-entering');
     void produceCard.offsetWidth;
     produceCard.classList.add('is-entering');
-    produceIcon.textContent=current.icon;produceName.textContent=current.name;produceNote.textContent='Vyber správné skladovací místo.';
+    produceIcon.textContent=current.icon;produceName.textContent=current.name;produceNote.textContent='Plodina '+(placed+1)+' z 10 · rozhodni, kam patří.';
     choices.forEach(c=>{c.disabled=false;c.classList.remove('is-correct','is-wrong');});
     feedback.textContent='Kam bys tuto plodinu uložil/a?';feedback.className='cellar-feedback';
   }
@@ -210,7 +219,7 @@
     nextItemTimer=window.setTimeout(()=>{if(running)chooseProduce();},720);
   }
   function updateTime(){
-    remaining=Math.max(0,30-(performance.now()-startedAt)/1000);
+    remaining=Math.max(0,45-(performance.now()-startedAt)/1000);
     timeValue.textContent=String(Math.ceil(remaining));
     timerBar.style.width=(remaining/30*100)+'%';
     timerBar.classList.toggle('is-low',remaining<=7);
@@ -228,8 +237,8 @@
   async function finishGame(){
     if(!running)return;running=false;remaining=0;clearTimers();choices.forEach(c=>c.disabled=true);
     timeValue.textContent='0';timerBar.style.width='0%';gameOverPanel.hidden=false;
-    gameOverTitle.textContent=score>=25?'🏆 Mistr sklepní komory!':score>=12?'🧺 Úroda je v dobrých rukou!':'🌱 Každá bedna se počítá — zkus další pokus.';
-    gameOverCopy.textContent='Tvůj výsledek: '+score+' bodů. Ukládám rekord…';gameOverBest.textContent='';setPhase('⏰ Čas vypršel','phase-error');
+    gameOverTitle.textContent=completed?'🏆 Sklep zachráněn!':score>=12?'🧺 Úroda je v dobrých rukou!':'🌱 Sklep ještě potřebuje pomoc.';
+    gameOverCopy.textContent=(completed?'Všech 10 plodin roztříděno! ':'Čas vypršel — zachránil/a jsi '+placed+' z 10 plodin. ')+'Výsledek: '+score+' bodů. Ukládám rekord…';gameOverBest.textContent='';setPhase(completed?'🌿 Sklep zachráněn':'⏰ Čas vypršel',completed?'phase-success':'phase-error');
     try{
       const response=await fetch(scoreUrl,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({skore:score,uroven:Math.max(1,bestCombo)})});
       const data=await response.json();if(!response.ok)throw new Error(data.error||'Výsledek se nepodařilo uložit.');
