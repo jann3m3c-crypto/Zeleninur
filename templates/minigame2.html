@@ -222,7 +222,7 @@
   };
   function drawCrop(item){
     const ids=(item.name==='Jablka a brambory v jedné bedně')?['apple','potato']:[cropArt[item.name]||'carrot'];
-    produceIcon.innerHTML=(bonusRound?'<span class="crop-bonus-sparkle" aria-hidden="true">✦</span>':'')+ids.map(id=>'<img class="crop-illustration" alt="" src="/static/minigame2-crops.svg?v=crops-art-v1#'+id+'">').join('');
+    produceIcon.innerHTML=(bonusRound?'<span class="crop-bonus-sparkle" aria-hidden="true">✦</span>':'')+ids.map(id=>'<svg class="crop-illustration" viewBox="0 0 512 512" aria-hidden="true"><use href="/static/minigame2-crops.svg?v=crops-art-v1#'+id+'"></use></svg>').join('');
     produceIcon.setAttribute('aria-label',item.name);
   }
   function chooseProduce(){
