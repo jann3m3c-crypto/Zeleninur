@@ -7,7 +7,7 @@
   <title>Záhonový skener · Zeleninur</title>
   <link rel="stylesheet" href="{{ url_for('static',filename='style.css',v='avatars-woodrim-v34') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='minigame.css',v='leaderboard-sticky-maxwindow-v1') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='scanner-skin.css',v='scanner-simple-v4') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='scanner-skin.css',v='scanner-simple-v5') }}">
 </head>
 <body class="game-body minigame-body scanner-game-body{% if request.args.get('standalone') == '1' %} scanner-standalone{% endif %}">
 <header class="game-header minigame-header">
@@ -45,7 +45,7 @@
       </div>
     </section>
     <section class="minigame-board wood-card scanner-board" id="gamePanel" hidden aria-live="polite">
-      <div class="scanner-board-overline"><span>🌿 TERÉN 01</span><span>Najdi všechny záhony</span><span>◈ ◈ ◈</span></div>
+      <div class="scanner-board-overline"><span class="scanner-terrain-label">🌿 TERÉN 01</span><span class="scanner-terrain-instruction">Najdi všechny záhony</span></div>
       <div class="game-scorebar"><div class="score-pill"><small>NALEZENO</small><strong id="scoreValue">0</strong></div><div class="level-pill"><small>ÚROVEŇ</small><strong id="levelValue">1</strong></div><div class="phase-pill" id="phaseMessage">Připrav se…</div></div>
       <p class="board-instruction" id="boardInstruction">Pozorně si zapamatuj, kde se zelené sazenice objevily.</p>
       <div class="scanner-memory-countdown" id="memoryCountdown" aria-live="polite">
