@@ -11,6 +11,14 @@
   <a href="#players">Hráči a zlaťáky</a>
   <a href="#registrations">Registrace</a>
 </nav>
+<section class="admin-section" id="minigameTesting">
+  <h2>🎮 Testovací režim miniher</h2>
+  <p class="muted">Spusť libovolnou minihru i před odemčením. Tato možnost je dostupná pouze správci; pravidla odemykání pro hráče se nemění. Výsledky správce se nezobrazují ve veřejném žebříčku.</p>
+  <div class="admin-minigame-launchers">
+    <article class="weekly-task-admin-card"><div class="weekly-task-admin-top"><span class="week-number-chip">1</span><div class="weekly-task-admin-title"><strong>🔎 Záhonový skener</strong><small>Postřeh a zapamatování polohy záhonů</small></div></div><a class="secondary-button small-button" href="{{ url_for('minigame', round_number=1, admin_preview=1, standalone=1) }}" target="_blank" rel="noopener">▶ Spustit testovací minihru</a></article>
+    <article class="weekly-task-admin-card"><div class="weekly-task-admin-top"><span class="week-number-chip">2</span><div class="weekly-task-admin-title"><strong>🪵 Toxické spojenectví ve sklepní kobce</strong><small>Strategická minihra ze sklepní kobky</small></div></div><a class="secondary-button small-button" href="{{ url_for('minigame', round_number=2, admin_preview=1, standalone=1) }}" target="_blank" rel="noopener">▶ Spustit testovací minihru</a></article>
+  </div>
+</section>
 <section class="admin-section" id="taskManagement"><h2>📚 Správa a úpravy všech týdenních úkolů</h2>
 <p class="muted"><strong>Knihovna všech úkolů je přístupná kdykoli, nezávisle na aktuálním datu.</strong> V knihovně je všech 29 úkolů z podkladového dokumentu. Nepublikované návrhy můžeš upravovat včetně názvu, termínu, příběhu, zadání, možností, správné odpovědi, vysvětlení i následku při nesplnění. Po zveřejnění zůstává úkol běžně uzamčený, ale jako správce ho můžeš opravit i později — například když objevíš chybu v termínu, zadání nebo správné odpovědi. Oprava se projeví ihned pro všechny hráče; již uložená vyhodnocení se zpětně nepřepočítávají. Zveřejňuj týdny postupně — nováček potom může plnit všechny zveřejněné úkoly od začátku až po aktuální týden.</p>
 <div class="weekly-admin-current"><strong>Aktuálně zveřejněno:</strong> {% if latest_week %}týden {{latest_week}}{% else %}zatím žádný týden — hra čeká na zveřejnění týdne 1{% endif %}</div>
