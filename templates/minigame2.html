@@ -237,8 +237,8 @@
   async function finishGame(){
     if(!running)return;running=false;remaining=0;clearTimers();choices.forEach(c=>c.disabled=true);
     timeValue.textContent='0';timerBar.style.width='0%';gameOverPanel.hidden=false;
-    gameOverTitle.textContent=completed?'🏆 Sklep zachráněn!':score>=12?'🧺 Úroda je v dobrých rukou!':'🌱 Sklep ještě potřebuje pomoc.';
-    gameOverCopy.textContent=(completed?'Všech 10 plodin roztříděno! ':'Čas vypršel — zachránil/a jsi '+placed+' z 10 plodin. ')+'Výsledek: '+score+' bodů. Ukládám rekord…';gameOverBest.textContent='';setPhase(completed?'🌿 Sklep zachráněn':'⏰ Čas vypršel',completed?'phase-success':'phase-error');
+    gameOverTitle.textContent=completed?(score>=8?'🏆 Sklepní výzva splněna!':'🧺 Všech 10 plodin roztříděno!'):score>=12?'🧺 Úroda je v dobrých rukou!':'🌱 Sklep ještě potřebuje pomoc.';
+    gameOverCopy.textContent=(completed?'Dokončil/a jsi všech 10 rozhodnutí. Bezpečně uloženo: '+(binCounts.roots+binCounts.ethylene+binCounts.potato)+' plodin. ':'Čas vypršel — rozhodl/a jsi o '+placed+' z 10 plodin. Bezpečně uloženo: '+(binCounts.roots+binCounts.ethylene+binCounts.potato)+'. ')+'Výsledek: '+score+' bodů. Ukládám rekord…';gameOverBest.textContent='';setPhase(completed?'🌿 Sklep zachráněn':'⏰ Čas vypršel',completed?'phase-success':'phase-error');
     try{
       const response=await fetch(scoreUrl,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({skore:score,uroven:Math.max(1,bestCombo)})});
       const data=await response.json();if(!response.ok)throw new Error(data.error||'Výsledek se nepodařilo uložit.');
