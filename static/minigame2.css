@@ -399,3 +399,26 @@ body.cellar-standalone{
 .storage-choice.is-correct .storage-choice-copy{background:linear-gradient(180deg,#3f7336ee,#244323f5)}
 .storage-choice.is-wrong .storage-choice-copy{background:linear-gradient(180deg,#914a32ee,#54281ef5)}
 @media(max-width:620px){.storage-choice{min-height:170px;padding:0 5px 8px;background-size:100% 100%,300% 100%}.storage-choice-copy{padding:8px 3px}.storage-choice-copy strong{font-size:.78rem}}
+
+/* Storybook cellar scene styling */
+.cellar-game-body{background:#29251e url('/static/minigame2-storage-scenes.svg?v=cellar-scenes-v1') center top/cover fixed no-repeat;color:#f8e8c2}
+.cellar-game-body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,#21180dbb,#382618aa 45%,#17140fdd)}
+.cellar-layout{width:min(1500px,calc(100% - 24px));margin:18px auto;gap:18px}
+.cellar-header{background:linear-gradient(180deg,#5c351c,#2d1c12);border:4px solid #a9773d;border-bottom:7px solid #20140c;box-shadow:inset 0 0 0 2px #e2b66d,0 8px 0 #1b120b;color:#ffedc4;border-radius:8px;padding:12px 20px}
+.cellar-header .minigame-header-title span{color:#edc77d}.cellar-header .minigame-header-title strong{color:#fff0c8;text-shadow:0 3px #2b170b}
+.cellar-header .logout-link{color:#ffe9b5;background:#52331d;border:2px solid #c28e4d}
+.cellar-hero,.cellar-welcome,.cellar-board,.cellar-leaderboard,.cellar-rules-card{background:linear-gradient(145deg,#f5dfaa,#caa064);border:5px solid #59351c;border-radius:13px;box-shadow:inset 0 0 0 3px #eac783,0 7px 0 #21150c,0 15px 28px #120d08aa}
+.cellar-hero{display:grid;grid-template-columns:1fr;overflow:hidden}.cellar-hero-copy{background:linear-gradient(135deg,#f7e6bc,#d7ad6d);padding:20px 24px}.cellar-hero h1{color:#58321a;text-shadow:0 1px #fff0c4}.cellar-hero p{color:#533c27}
+.cellar-hero .mini-rules-strip span{background:#57361f;color:#ffedc5;border:2px solid #c28e4d}
+.cellar-art-frame{padding:0 12px 12px;background:linear-gradient(180deg,#6b482b,#382319)}.cellar-art-frame:before{display:none}.cellar-illustration{max-height:245px;border:4px solid #d0a15b;border-radius:7px;object-fit:cover}.cellar-art-caption{color:#ffe8b3}.cellar-art-caption strong{color:#fff1cb}
+.cellar-board{background:linear-gradient(145deg,#f3dfb0,#c9a064);padding:16px}
+.cellar-scorebar .score-pill,.cellar-scorebar .level-pill,.cellar-scorebar .phase-pill{background:linear-gradient(180deg,#603b20,#352114);color:#ffe8b7;border:2px solid #c49352;box-shadow:inset 0 0 0 2px #80552d}.cellar-scorebar small,.cellar-scorebar strong{color:#ffe8b7}
+.cellar-timer-track{background:#49301d;border:2px solid #c18b48}
+.cellar-room-status{background:linear-gradient(180deg,#654329,#382519);border:4px solid #b98545;box-shadow:inset 0 0 0 2px #e6bf78}.cellar-room-heading,.cellar-room-heading strong{color:#ffe7b2}
+.cellar-room-bin{background:linear-gradient(180deg,#b8874b,#704322);border:3px solid #e0b16a;color:#fff0c8;box-shadow:inset 0 0 0 2px #6d421f}.cellar-room-bin strong,.cellar-room-bin small,.cellar-room-bin b{color:#fff0c8}.cellar-room-bin .bin-art{background:transparent;border:0;box-shadow:none}
+.cellar-neighbor-warning{background:repeating-linear-gradient(135deg,#f9e7bd 0 14px,#edcf94 14px 28px);border:3px solid #b57b3e;color:#61351b}
+.produce-question-label{background:linear-gradient(180deg,#6d4827,#3b2515);border:3px solid #c8944c;color:#ffe9b8;box-shadow:0 4px 0 #21140b}
+.produce-card{min-height:205px;background:linear-gradient(145deg,#f9e9c1,#d8ad69);border:5px solid #58351c;box-shadow:inset 0 0 0 3px #eac47a,0 7px 0 #24160d}.produce-icon{width:120px;height:120px;background:radial-gradient(circle at 35% 25%,#fff2bf,#d1a15a);border:5px solid #704321}.produce-name{color:#31572e;text-shadow:0 1px #fff1c5}.produce-note{color:#694526}
+.cellar-feedback{background:linear-gradient(180deg,#f8e9c5,#e0bd7e);border:3px solid #ad7b3d;color:#52683d}
+.cellar-sidebar .leaderboard-card{background:linear-gradient(145deg,#f3dfb0,#c9a064)}.cellar-sidebar .leaderboard-heading h2,.cellar-sidebar .leaderboard-intro{color:#56371f}
+@media(max-width:800px){.cellar-layout{width:calc(100% - 12px);margin:8px auto}.cellar-room-bins{grid-template-columns:1fr}.storage-choice{min-height:150px}.cellar-header{padding:8px}}
