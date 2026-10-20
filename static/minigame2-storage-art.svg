@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs>
+ <linearGradient id="oak" x2=".2" y2="1"><stop stop-color="#d6a05d"/><stop offset=".5" stop-color="#9b6336"/><stop offset="1" stop-color="#633b21"/></linearGradient>
+ <linearGradient id="straw" x2="0" y2="1"><stop stop-color="#f0d18a"/><stop offset="1" stop-color="#b98243"/></linearGradient>
+ <linearGradient id="stone" x2="0" y2="1"><stop stop-color="#85806a"/><stop offset="1" stop-color="#403d34"/></linearGradient>
+ <filter id="shade" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#291a10" flood-opacity=".45"/></filter>
+</defs>
+<symbol id="root-cellar" viewBox="0 0 512 512">
+ <g filter="url(#shade)">
+  <path d="M105 205Q256 155 407 205L379 365Q256 425 133 365Z" fill="url(#straw)" stroke="#744523" stroke-width="15"/>
+  <path d="M105 205Q256 260 407 205M125 253Q256 310 389 253M136 302Q256 356 376 302" fill="none" stroke="#f7dda0" stroke-width="13"/>
+  <path d="M105 205L379 365M150 188L394 331M407 205L133 365M363 188L118 331" fill="none" stroke="#a36b39" stroke-width="10"/>
+  <path d="M145 202Q121 88 215 98Q256 101 256 159Q256 99 300 98Q392 91 367 202" fill="none" stroke="#9a6334" stroke-width="22" stroke-linecap="round"/>
+  <path d="M145 202Q121 88 215 98Q256 101 256 159Q256 99 300 98Q392 91 367 202" fill="none" stroke="#e8bd72" stroke-width="8" stroke-linecap="round"/>
+ </g>
+</symbol>
+<symbol id="airy-shelf" viewBox="0 0 512 512">
+ <g filter="url(#shade)">
+  <path d="M80 100H432V145H80ZM80 230H432V275H80ZM80 360H432V405H80Z" fill="url(#oak)" stroke="#59351e" stroke-width="12"/>
+  <path d="M103 145V360M409 145V360" stroke="#754724" stroke-width="24"/>
+  <path d="M92 109H420M92 239H420M92 369H420" stroke="#edc47d" stroke-width="8" opacity=".7"/>
+  <path d="M160 205Q141 172 170 159Q197 148 210 178L216 229L160 229Z" fill="#b98b61" stroke="#754b35" stroke-width="8"/>
+  <path d="M250 205Q231 172 260 159Q287 148 300 178L306 229L250 229Z" fill="#d3ad79" stroke="#754b35" stroke-width="8"/>
+  <path d="M337 205Q318 172 347 159Q374 148 387 178L393 229L337 229Z" fill="#9d714b" stroke="#754b35" stroke-width="8"/>
+  <path d="M160 335Q141 302 170 289Q197 278 210 308L216 359L160 359Z" fill="#b98b61" stroke="#754b35" stroke-width="8"/>
+  <path d="M250 335Q231 302 260 289Q287 278 300 308L306 359L250 359Z" fill="#d3ad79" stroke="#754b35" stroke-width="8"/>
+ </g>
+</symbol>
+<symbol id="dark-cellar" viewBox="0 0 512 512">
+ <g filter="url(#shade)">
+  <path d="M77 405V181Q77 89 168 89H344Q435 89 435 181V405Z" fill="url(#stone)" stroke="#4a3827" stroke-width="16"/>
+  <path d="M116 405V185Q116 128 173 128H339Q396 128 396 185V405Z" fill="#292d27" stroke="#b38a52" stroke-width="12"/>
+  <path d="M110 250H402M110 335H402" stroke="#8e6942" stroke-width="18"/>
+  <path d="M125 258H387M125 343H387" stroke="#d3a363" stroke-width="6"/>
+  <path d="M150 220Q139 185 171 175Q201 165 210 202L214 242H150Z" fill="#9c7149" stroke="#d3ad73" stroke-width="7"/>
+  <path d="M246 220Q235 185 267 175Q297 165 306 202L310 242H246Z" fill="#9c7149" stroke="#d3ad73" stroke-width="7"/>
+  <path d="M342 220Q331 185 363 175Q393 165 402 202L406 242H342Z" fill="#9c7149" stroke="#d3ad73" stroke-width="7"/>
+  <path d="M164 319Q151 283 182 275Q210 267 220 300L224 329H164Z" fill="#b58b58" stroke="#d3ad73" stroke-width="7"/>
+  <path d="M263 319Q250 283 281 275Q309 267 319 300L323 329H263Z" fill="#b58b58" stroke="#d3ad73" stroke-width="7"/>
+ </g>
+</symbol>
+</svg>
