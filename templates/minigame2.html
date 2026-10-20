@@ -43,13 +43,13 @@
         <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div>
         <div class="avatar-epithet-chip">🌱 {{ current_avatar_name }}</div>
         <h2>Jak se to hraje?</h2>
-        <p>Ve sklepě se pomíchala úroda! Tři komory, 45 sekund a skutečné skladovací chytáky. Dýně například potřebuje sucho a dobré větrání, ne vlhký písek. Rozhoduj rychle, drž sérii a zachraň úrodu.</p>
+        <p>Ve sklepě se pomíchala úroda! Tři komory, 45 sekund, záludné situace a stále těžší rozhodnutí. Nestačí poznat plodinu — musíš vyhodnotit její stav, podmínky i rizikové sousedy.</p>
         <div class="cellar-howto" aria-label="Tři pravidla skladování">
           <div><span aria-hidden="true">🧺</span><p><strong>1. Kořenová komora</strong><small>Vlhký písek, chlad a stabilní prostředí.</small></p></div>
           <div><span aria-hidden="true">🍎</span><p><strong>2. Větraná police</strong><small>Odděleně od brambor a citlivé úrody.</small></p></div>
           <div><span aria-hidden="true">🥔</span><p><strong>3. Tmavá komora</strong><small>Bez světla, v chladu a mimo zdroje etylenu.</small></p></div>
         </div>
-        <p class="cellar-simple-scoring"><strong>Výzva:</strong> Co nejvíce rozhodnutí za 45 sekund. Správně +1, chyba −1, pět správných za sebou přidá +2. Zkus překonat vlastní rekord — zlaťáky ani pozici na plánu se nemění.</p>
+        <p class="cellar-simple-scoring"><strong>Výzva:</strong> Co nejvíce rozhodnutí za 45 sekund. Přijdou situační rébusy, postupně ubývá čas na volbu. Správně +1, chyba −1, pět správných za sebou přidá +2. Zkus překonat vlastní rekord — zlaťáky ani pozici na plánu se nemění.</p>
         {% if best_score is not none %}
           <p class="personal-best-line">Tvůj rekord: <strong>{{ best_score }} bodů</strong> · nejlepší série {{ best_level or 1 }}</p>
         {% else %}
@@ -189,7 +189,15 @@
     {name:'Brambora',icon:'🥔',category:'potato',note:'Brambory potřebují tmu a chlad. Světlo podporuje zelenání a jablka mohou ovlivnit jejich skladování.'},
     {name:'Pytel brambor',icon:'🧺',category:'potato',note:'Brambory ukládej do tmy a chladu, mimo ovoce produkující etylen. Dýně patří na suché, dobře větrané místo.'}
   ];
-  let score=0,combo=0,bestCombo=0,remaining=45,startedAt=0,running=false,current=null,placed=0,bonusRound=false,eventText='';
+  const riddles=[
+    {name:'Zimní zásoba: mrkev bez natě',icon:'🥕',category:'roots',note:'Kořenovou zeleninu uchovávej v chladu a mírné vlhkosti. Odstranění natě omezuje ztrátu vody.',prompt:'SITUACE · PŘIPRAVUJEŠ ZIMNÍ ZÁSOBY'},
+    {name:'Dýně s tvrdou, nepoškozenou slupkou',icon:'🎃',category:'ethylene',note:'Zralou, nepoškozenou dýni skladuj v suchu a dobrém větrání. Pravidelně kontroluj známky hniloby.',prompt:'RÉBUS · KTERÉ PROSTŘEDÍ JÍ PROSPĚJE?'},
+    {name:'Brambory začínají zelenat',icon:'🥔',category:'potato',note:'Světlo podporuje zelenání. Brambory skladuj v temnu a chladu; výrazně zelené nebo hořké kusy nejez.',prompt:'RÉBUS · ZÁSOBY SE MĚNÍ'},
+    {name:'Cibule po sklizni ještě vlhne',icon:'🧅',category:'ethylene',note:'Cibule se musí nejprve důkladně dosušit. Vlhké skladování podporuje hnilobu; zajisti suché místo a proudění vzduchu.',prompt:'SITUACE · SKLIZEŇ NENÍ JEŠTĚ SUCHÁ'},
+    {name:'Jablka a brambory v jedné bedně',icon:'🍎🥔',category:'ethylene',note:'Běžné doporučení je skladovat je odděleně: etylen z ovoce může ovlivnit klíčení brambor.',prompt:'RÉBUS · ŠPATNÍ SKLEPNÍ SOUSEDÉ'},
+    {name:'Česnek v chladném, vlhkém písku',icon:'🧄',category:'ethylene',note:'Česnek potřebuje suché a vzdušné skladování. Vlhký písek zvyšuje riziko plesnivění a hniloby.',prompt:'RÉBUS · ZDÁNLIVĚ DOBRÁ RADA'}
+  ];
+  let score=0,combo=0,bestCombo=0,remaining=45,startedAt=0,running=false,current=null,placed=0,bonusRound=false,eventText='',riddleIndex=0,decisionStarted=0,decisionLimit=0;
   const binCounts={roots:0,ethylene:0,potato:0};
   let timerInterval=null,nextItemTimer=null,lastName='';
   function setPhase(text,mode){phaseMessage.textContent=text;phaseMessage.className='phase-pill'+(mode?' '+mode:'');}
@@ -205,44 +213,45 @@
     document.getElementById('roomMessage').textContent=placed+' rozhodnutí za tebou · vydrž co nejdéle';
   }
   function chooseProduce(){
-    
     bonusRound=(placed>0 && (placed+1)%4===0);
-    eventText='';
-    if(bonusRound){eventText='✨ ZLATÁ PLODNINA! Správná volba má dvojnásobnou odměnu.';}
-    else if(placed>0 && (placed+1)%7===0){eventText='🧠 Pozor na skladovací chyták — ne každá úroda chce chlad a vlhko.';}
-    const pool=produce.filter(p=>p.name!==lastName);
-    current=pool[Math.floor(Math.random()*pool.length)]||produce[0];lastName=current.name;
-    produceCard.classList.remove('is-correct','is-wrong','is-entering');
-    void produceCard.offsetWidth;
-    produceCard.classList.add('is-entering');
-    produceIcon.textContent=bonusRound?'✨ '+current.icon:current.icon;produceName.textContent=bonusRound?'Zlatá úroda: '+current.name:current.name;produceNote.textContent=eventText||('Rozhodnutí '+(placed+1)+' · pozor, sklep může překvapit!');
+    const isRiddle=placed>0 && (placed+1)%4===0;
+    let pool=produce.filter(p=>p.name!==lastName);
+    if(isRiddle){
+      current=riddles[riddleIndex%riddles.length];riddleIndex++;
+      eventText=current.prompt+' · POZOR, TADY ROZHODUJÍ PODMÍNKY';
+    }else{current=pool[Math.floor(Math.random()*pool.length)]||produce[0];eventText='';}
+    lastName=current.name;decisionStarted=performance.now();
+    decisionLimit=Math.max(2.8,6.5-Math.floor(placed/6)*0.65-(isRiddle?0.6:0));
+    produceCard.classList.remove('is-correct','is-wrong','is-entering');void produceCard.offsetWidth;produceCard.classList.add('is-entering');
+    produceIcon.textContent=bonusRound?'✨ '+current.icon:current.icon;
+    produceName.textContent=isRiddle?'⚠️ '+current.name:(bonusRound?'Zlatá úroda: '+current.name:current.name);
+    produceNote.textContent=isRiddle?eventText:('Rozhodnutí '+(placed+1)+' · vyhodnoť podmínky a vyber bezpečné místo.');
+    document.querySelector('.produce-question-label').textContent=isRiddle?'SKLEPNÍ RÉBUS · VYBER NEJBEZPEČNĚJŠÍ ŘEŠENÍ':'SKŘÍTEK PŘINÁŠÍ DALŠÍ PLODINU · KAM S NÍ?';
     choices.forEach(c=>{c.disabled=false;c.classList.remove('is-correct','is-wrong');});
-    feedback.textContent='Rychle se rozhodni — která komora ji udrží v bezpečí?';feedback.className='cellar-feedback';
+    feedback.textContent='Máš '+decisionLimit.toFixed(1).replace('.',',')+' s na rozhodnutí. Vysvětlení se ukáže až po volbě.';
+    feedback.className='cellar-feedback';
   }
   function answer(category,button){
     if(!running||!current||button.disabled)return;
     choices.forEach(c=>c.disabled=true);
     const correct=category===current.category;
-    placed+=1;
-    if(correct)binCounts[current.category]+=1;
+    const responseTime=(performance.now()-decisionStarted)/1000;
+    const isRiddle=!!current.prompt;
+    placed+=1;if(correct)binCounts[current.category]+=1;
     if(correct){
-      score+=bonusRound?2:1;combo+=1;bestCombo=Math.max(bestCombo,combo);
+      const speedBonus=responseTime<=decisionLimit*0.45?1:0;
+      score+=(bonusRound?2:1)+speedBonus;combo+=1;bestCombo=Math.max(bestCombo,combo);
       produceCard.classList.add('is-correct');button.classList.add('is-correct');
-      if(combo>0&&combo%5===0){score+=2;setPhase('🌟 Série '+combo+' · bonus +2','phase-success');feedback.textContent='Skvěle! Pět bezpečně uložených plodin v řadě — bonus +2.';}
-      else{setPhase(bonusRound?'✨ Zlatá úroda zachráněna!':'✅ Správné místo','phase-success');feedback.textContent=(bonusRound?'Bonusová plodina! +2 body. ':'Ano! ')+(current.category==='roots'?'Kořenová komora. ':current.category==='ethylene'?'Větraná police — mimo brambory. ':'Tmavá komora. ')+current.note;}
+      if(combo>0&&combo%5===0){score+=2;setPhase('🌟 Série '+combo+' · bonus +2','phase-success');feedback.textContent='Pět správných v řadě! Bonus +2. '+current.note;}
+      else{setPhase(isRiddle?'🧠 Rébus vyřešen':'✅ Správné místo','phase-success');feedback.textContent=(bonusRound?'Zlatá úroda! ':'Správně! ')+(speedBonus?'Rychlá odpověď +1. ':'')+current.note;}
     }else{
-      score=Math.max(0,score-1);combo=0;
-      if(remaining>4){remaining=Math.max(0,remaining-2);startedAt+=2000;}
-      produceCard.classList.add('is-wrong');button.classList.add('is-wrong');
-      setPhase('⚠️ Špatná volba','phase-error');
-      const correctPlace = current.category==='roots' ? 'Správně: bedna s pískem.' : current.category==='ethylene' ? 'Správně: oddělená police, mimo brambory.' : 'Správně: tmavý a chladný kout.';
-      feedback.textContent='Sklepní alarm! Ztrácíš 1 bod a 2 sekundy. '+correctPlace+' '+current.note;
-      const correctButton=choices.find(c=>c.dataset.category===current.category);
-      if(correctButton)correctButton.classList.add('is-correct');
+      score=Math.max(0,score-1);combo=0;if(remaining>4){remaining=Math.max(0,remaining-2);startedAt+=2000;}
+      produceCard.classList.add('is-wrong');button.classList.add('is-wrong');setPhase(isRiddle?'🧩 Rébus nevyšel':'⚠️ Špatná volba','phase-error');
+      const correctPlace=current.category==='roots'?'Správně: kořenová komora s chladem a mírnou vlhkostí.':current.category==='ethylene'?'Správně: suchá, dobře větraná police.':'Správně: tmavá a chladná komora.';
+      feedback.textContent='−1 bod a −2 sekundy. '+correctPlace+' '+current.note;
+      const correctButton=choices.find(c=>c.dataset.category===current.category);if(correctButton)correctButton.classList.add('is-correct');
     }
-    paintScore();paintRoom();
-    
-    nextItemTimer=window.setTimeout(()=>{if(running)chooseProduce();},1050);
+    paintScore();paintRoom();nextItemTimer=window.setTimeout(()=>{if(running)chooseProduce();},isRiddle?1700:1050);
   }
   function updateTime(){
     remaining=Math.max(0,45-(performance.now()-startedAt)/1000);
@@ -253,7 +262,7 @@
   }
   function startGame(){
     document.body.classList.add('cellar-playing');
-    clearTimers();score=0;combo=0;bestCombo=0;remaining=45;placed=0;binCounts.roots=0;binCounts.ethylene=0;binCounts.potato=0;running=true;startedAt=performance.now();lastName='';
+    clearTimers();score=0;combo=0;bestCombo=0;remaining=45;placed=0;riddleIndex=0;binCounts.roots=0;binCounts.ethylene=0;binCounts.potato=0;running=true;startedAt=performance.now();lastName='';
     paintScore();paintRoom();timeValue.textContent='45';timerBar.style.width='100%';timerBar.classList.remove('is-low');
     welcomePanel.hidden=true;gamePanel.hidden=false;gameOverPanel.hidden=true;
     choices.forEach(c=>{c.disabled=false;c.classList.remove('is-correct','is-wrong');});
