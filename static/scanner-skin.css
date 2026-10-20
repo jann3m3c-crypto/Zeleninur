@@ -1317,3 +1317,14 @@ body.scanner-standalone{
 }
 .scanner-standalone .scanner-garden-frame .skanner-grid{width:min(72vh,68vw,650px)!important;max-width:100%!important}
 @media(max-width:759px){.scanner-standalone .scanner-garden-frame .skanner-grid{width:min(78vw,56vh,480px)!important;max-width:100%!important}}
+
+
+/* On compact displays, put the shared leaderboard before the game board. */
+@media(max-width:1000px){
+  .scanner-game-body .minigame-sidebar{
+    order:-1!important;
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  .scanner-game-body .minigame-sidebar .leaderboard-card{order:-1!important}
+}
