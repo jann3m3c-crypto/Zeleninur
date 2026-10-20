@@ -1,4 +1,7 @@
-<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zeleninur</title><link rel="stylesheet" href="{{url_for('static',filename='style.css',v='avatars-woodrim-v34')}}"></head>
+<!doctype html><html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zeleninur</title><link rel="stylesheet" href="{{url_for('static',filename='style.css',v='avatars-woodrim-v34')}}>
+<style>
+#minigameOverlay{display:none;position:fixed;inset:0;z-index:10000;background:rgba(14,30,18,.88);padding:clamp(0px,1.2vw,14px);box-sizing:border-box}#minigameOverlay.is-open{display:block}#minigameOverlay .minigame-overlay-frame{position:relative;width:100%;height:100%;background:#f5f0df;border:1px solid rgba(255,255,255,.35);border-radius:14px;overflow:hidden;box-shadow:0 20px 80px rgba(0,0,0,.45)}#minigameOverlay iframe{display:block;width:100%;height:100%;border:0;background:#f5f0df}#minigameOverlay .minigame-overlay-close{position:absolute;right:12px;top:12px;z-index:3;width:44px;height:44px;border:1px solid rgba(255,255,255,.6);border-radius:50%;background:#244b2c;color:#fff;font-size:28px;line-height:1;cursor:pointer;box-shadow:0 3px 14px rgba(0,0,0,.25)}#minigameOverlay .minigame-overlay-close:hover{background:#18391f}@media(max-width:600px){#minigameOverlay{padding:0}#minigameOverlay .minigame-overlay-frame{border-radius:0;border:0}#minigameOverlay .minigame-overlay-close{right:8px;top:8px;width:40px;height:40px}}
+</style></head>
 <body class="game-body">
 <header class="game-header">
  <a class="brand-link" href="{{url_for('home')}}" aria-label="Zeleninur – domů"><img src="{{url_for('static',filename='zeleninur-logo.png')}}" alt="Zeleninur" class="header-logo"></a>
@@ -48,7 +51,7 @@
     {% elif featured_item and featured_item["eligible"] %}<div class="status">Toto je tvůj nejstarší nevyřízený úkol. Až ho dokončíš, otevře se další.</div>
     {% endif %}
     <button class="primary-button" type="button" onclick="openTaskModal({{task['id']}})">{% if featured_item and featured_item["can_buy"] %}Vyhodnocení a postup →{% elif submission and submission["status"]=="pending" %}Zobrazit odevzdanou odpověď{% elif submission and submission["status"]=="approved" %}Prohlédnout splněný úkol{% else %}Otevřít zadání úkolu{% endif %}</button>
-    {% if minigame_unlocked %}<a class="secondary-button minigame-quicklink" href="{{ url_for('minigame',round_number=1,standalone=1) }}" target="_blank" rel="noopener" onclick="return openMiniGameWindow(event,this)">🔎 Hrát Záhonový skener · osobní rekord {{ minigame_best_score if minigame_best_score is not none else 'zatím žádný' }}</a>{% endif %}
+    {% if minigame_unlocked %}<a class="secondary-button minigame-quicklink" href="{{ url_for('minigame',round_number=1,standalone=1) }}" onclick="return openMiniGameOverlay(event,this)">🔎 Hrát Záhonový skener · osobní rekord {{ minigame_best_score if minigame_best_score is not none else 'zatím žádný' }}</a>{% endif %}
   {% else %}<h2>Úkol se připravuje</h2><p class="task-description">Správce zatím nezveřejnil první týdenní úkol. Jakmile ho aktivuje, objeví se zde a všichni hráči dostanou stejné zadání.</p>{% endif %}
 </section>
 
@@ -153,25 +156,33 @@
 </section></div>
 {% endfor %}
 
+<div id="minigameOverlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Minihra Zeleninur">
+ <div class="minigame-overlay-frame">
+  <button id="minigameOverlayClose" class="minigame-overlay-close" type="button" onclick="closeMiniGameOverlay()" aria-label="Zavřít minihru" title="Zpět do zahrady">×</button>
+  <iframe id="minigameFrame" title="Minihra Zeleninur" src="about:blank" allow="fullscreen; autoplay" referrerpolicy="same-origin"></iframe>
+ </div>
+</div>
 <script>
-function openMiniGameWindow(event,link){
-  if(!event||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return true;
-  if(!window.matchMedia||!window.matchMedia('(min-width: 760px)').matches)return true;
-  const screenW=(window.screen&&window.screen.availWidth)||1240;
-  const screenH=(window.screen&&window.screen.availHeight)||900;
-  // Open the minigame in a near-maximized desktop window so the shared leaderboard is visible.
-  const width=Math.max(820,screenW-16);
-  const height=Math.max(600,screenH-48);
-  const features='popup=yes,width='+width+',height='+height+',left=0,top=0,resizable=yes,scrollbars=yes';
-  const gameWindow=window.open(link.href,'ZeleninurMiniGame',features);
-  if(!gameWindow)return true;
-  try{
-    gameWindow.moveTo(0,0);
-    gameWindow.resizeTo(screenW,screenH);
-    gameWindow.focus();
-  }catch(_e){}
-  event.preventDefault();
+function openMiniGameOverlay(event,link){
+  if(event){event.preventDefault();}
+  const overlay=document.getElementById('minigameOverlay');
+  const frame=document.getElementById('minigameFrame');
+  if(!overlay||!frame||!link)return false;
+  frame.src=link.href;
+  overlay.classList.add('is-open');
+  overlay.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  document.getElementById('minigameOverlayClose').focus();
   return false;
+}
+function closeMiniGameOverlay(){
+  const overlay=document.getElementById('minigameOverlay');
+  const frame=document.getElementById('minigameFrame');
+  if(!overlay)return;
+  overlay.classList.remove('is-open');
+  overlay.setAttribute('aria-hidden','true');
+  if(frame)frame.src='about:blank';
+  if(!document.querySelector('.modal-backdrop.is-open'))document.body.classList.remove('modal-open');
 }
 const SPACE_PLAYERS = {{spaces_data|tojson}};
 function openModal(id){const m=document.getElementById(id);if(!m)return;m.classList.add('is-open');m.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');}
@@ -203,7 +214,7 @@ document.querySelectorAll('.filter-chip').forEach(function(button){button.addEve
   const category=button.dataset.filter;
   document.querySelectorAll('.avatar-option').forEach(function(option){option.hidden=category!=='all'&&option.dataset.category!==category;});
 });});
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-backdrop.is-open').forEach(m=>closeModal(m.id));}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeMiniGameOverlay();document.querySelectorAll('.modal-backdrop.is-open').forEach(m=>closeModal(m.id));}});
 document.querySelectorAll('.modal-backdrop').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)closeModal(m.id);});});
 </script>
 </body></html>
