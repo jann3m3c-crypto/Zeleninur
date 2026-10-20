@@ -165,3 +165,105 @@
 @media(max-width:650px){
   .scanner-game-body .scanner-hero-art{height:190px!important;max-height:190px!important}
 }
+
+
+/* Simplified scanner UI: prioritize the actual game over decorative scenery. */
+.scanner-game-body{
+  background:linear-gradient(180deg,#edf3df 0%,#dce8cf 100%)!important;
+}
+.scanner-game-body .minigame-header{
+  min-height:72px!important;
+  background:#f8f3e5!important;
+  border:0!important;
+  border-bottom:2px solid #c9d7b7!important;
+  border-radius:0!important;
+  box-shadow:0 2px 8px #28452b18!important;
+}
+.scanner-game-body .minigame-header-title{padding:4px 10px!important}
+.scanner-game-body .minigame-header-title:before{display:none!important}
+.scanner-game-body .minigame-header-title span{color:#657b4f!important;text-shadow:none!important}
+.scanner-game-body .minigame-header-title strong{color:#2e6038!important;text-shadow:none!important}
+.scanner-game-body .wood-card,
+.scanner-game-body .minigame-sidebar .leaderboard-card,
+.scanner-game-body .minigame-sidebar .leaderboard-rules-card{
+  border:1px solid #d3dcbc!important;
+  border-radius:14px!important;
+  background:#fffdf5!important;
+  box-shadow:0 3px 12px #263e2412!important;
+}
+.scanner-game-body .wood-card:before{display:none!important}
+.scanner-game-body .minigame-hero.scanner-hero{padding:20px 22px!important;background:#fffdf5!important}
+.scanner-game-body .scanner-hero-copy{
+  background:none!important;
+  padding:0!important;
+}
+.scanner-game-body .minigame-hero h1{
+  font-size:clamp(1.45rem,2.4vw,2rem)!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+  text-shadow:none!important;
+}
+.scanner-game-body .scanner-hero-art{display:none!important}
+.scanner-game-body .mini-rules-strip span{
+  border:1px solid #d8dfc8!important;
+  border-radius:8px!important;
+  background:#f3f6e9!important;
+  box-shadow:none!important;
+  color:#405a36!important;
+}
+.scanner-game-body .minigame-welcome,
+.scanner-game-body .minigame-board{
+  background:#fffdf5!important;
+}
+.scanner-game-body .minigame-start-button{
+  border:0!important;
+  border-radius:9px!important;
+  background:#397a43!important;
+  box-shadow:0 3px 0 #285d32!important;
+  text-shadow:none!important;
+  font-family:inherit!important;
+}
+.scanner-game-body .scanner-board-overline{
+  border:1px solid #d3dcbc!important;
+  border-radius:8px!important;
+  background:#f3f6e9!important;
+  box-shadow:none!important;
+}
+.scanner-game-body .skanner-grid-wrap{
+  border:2px solid #b3c39d!important;
+  border-radius:12px!important;
+  padding:10px!important;
+  background:#dfe8d4!important;
+  box-shadow:none!important;
+}
+.scanner-game-body .skanner-grid{
+  border:0!important;
+  border-radius:8px!important;
+  background:#c7d6b7!important;
+  box-shadow:none!important;
+}
+.scanner-game-body .skanner-cell{
+  border-radius:8px!important;
+  box-shadow:0 1px 3px #233b2420!important;
+}
+.scanner-game-body .skanner-cell.is-bed,
+.scanner-game-body .skanner-cell.is-found{
+  box-shadow:0 0 0 2px #a7ca77!important;
+}
+.scanner-game-body .minigame-memory-countdown,
+.scanner-game-body .scanner-memory-countdown,
+.scanner-game-body .game-over-panel{
+  border:1px solid #d3dcbc!important;
+  border-radius:10px!important;
+  background:#f8f8ec!important;
+  box-shadow:none!important;
+}
+.scanner-game-body .minigame-sidebar .leaderboard-card,
+.scanner-game-body .minigame-sidebar .leaderboard-rules-card{padding:16px!important}
+.scanner-game-body .minigame-leaderboard thead th{background:#edf2df!important}
+.scanner-game-body .minigame-leaderboard tbody tr.my-leaderboard-row{background:#edf6df!important}
+.scanner-game-body .minigame-footer{color:#53684a!important;text-shadow:none!important}
+@media(max-width:650px){
+  .scanner-game-body .minigame-hero{padding:16px 14px!important}
+  .scanner-game-body .skanner-grid-wrap{padding:6px!important}
+}
