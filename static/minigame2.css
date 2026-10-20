@@ -154,3 +154,145 @@ body.cellar-standalone{
  .cellar-room-bin b{font-size:.59rem}
  .cellar-neighbor-warning{font-size:.69rem;padding:7px}
 }
+
+
+/* ZELENINUR ART PASS — carved timber, botanical ornaments and illustrated game pieces */
+.cellar-game-body{
+  background:
+    radial-gradient(ellipse at 50% 0%,#e2e9c7 0%,#9caf7e 34%,#526d45 72%,#2d4930 100%);
+}
+.cellar-header{
+  position:relative;
+  border-bottom:5px solid #70421f;
+  box-shadow:inset 0 -2px 0 #f1d28a,0 5px 0 #b88443,0 9px 20px #233d2633;
+}
+.cellar-header:after{
+  content:"✦  ❧  ✦";
+  position:absolute;left:50%;bottom:-17px;transform:translateX(-50%);
+  padding:0 14px;background:#e5d0a0;color:#7a4c27;font-size:13px;letter-spacing:.45em;
+}
+.cellar-hero,.cellar-welcome,.cellar-board,.cellar-leaderboard,.cellar-rules-card{
+  position:relative;border:3px solid #73451f!important;border-radius:17px!important;
+  box-shadow:inset 0 0 0 2px #f4d994,inset 0 0 0 5px #b47c3b,0 6px 0 #54351f,0 12px 24px #263c2533!important;
+}
+.cellar-hero:before,.cellar-welcome:before,.cellar-board:before,.cellar-leaderboard:before,.cellar-rules-card:before{
+  content:"";position:absolute;inset:8px;pointer-events:none;border:1px solid #c49a56;border-radius:9px;z-index:2;
+}
+.cellar-hero-copy{background:linear-gradient(135deg,#fff9e7,#f0dfb7 72%,#e3c88f)}
+.cellar-hero h1{font-family:Georgia,"Times New Roman",serif;letter-spacing:.015em}
+.cellar-hero .minigame-eyebrow,.cellar-welcome .minigame-eyebrow,.cellar-board .minigame-eyebrow{
+  color:#93602a;text-shadow:0 1px #fff4d3;letter-spacing:.18em;
+}
+.cellar-art-frame{
+  background:repeating-linear-gradient(90deg,#d8b475 0,#d8b475 16px,#c89e5d 17px,#e4c58b 20px);
+  border-top:2px solid #a06a32;
+}
+.cellar-art-frame:after{
+  content:"";position:absolute;left:20px;right:20px;bottom:5px;height:5px;border-radius:50%;
+  background:#68411f55;filter:blur(4px);
+}
+.cellar-illustration{
+  border:5px solid #70421f;outline:2px solid #e5c47d;outline-offset:-9px;
+  box-shadow:0 4px 0 #57351c, inset 0 0 20px #38241544;
+}
+.cellar-art-caption{font-family:Georgia,"Times New Roman",serif}
+.cellar-art-caption:before{content:"❧";color:#6e8b45;font-size:1.4rem}
+.cellar-board{
+  background:
+    radial-gradient(ellipse at 50% 0%,#fff9e8 0%,#f0dfb7 60%,#e2c78e 100%);
+}
+.cellar-scorebar .score-pill,.cellar-scorebar .level-pill,.cellar-scorebar .phase-pill{
+  border:2px solid #8a5a2c;border-radius:12px;
+  box-shadow:inset 0 0 0 2px #f6df9e,0 3px 0 #9b6a35;
+}
+.cellar-timer-track{height:16px;border-width:3px;border-radius:6px;background:#b99054}
+.cellar-timer-bar{border-radius:3px;background:repeating-linear-gradient(90deg,#709d4c 0,#709d4c 14px,#81ad57 15px,#81ad57 19px)}
+.cellar-room-status{
+  position:relative;border:5px solid #71431f;border-radius:14px;
+  background:
+    repeating-linear-gradient(0deg,#d9b477 0,#d9b477 24px,#c89e5f 25px,#c89e5f 27px);
+  box-shadow:inset 0 0 0 3px #f1d18b,inset 0 0 0 7px #9a642f,0 6px 0 #56371f;
+}
+.cellar-room-status:before,.cellar-room-status:after{
+  content:"✦";position:absolute;top:8px;color:#f6d993;font-size:13px;text-shadow:0 1px #70421f;
+}
+.cellar-room-status:before{left:13px}.cellar-room-status:after{right:13px}
+.cellar-room-heading{padding:4px 15px 0}
+.cellar-room-bin{
+  position:relative;border:3px solid #79502b;border-radius:9px;
+  background:linear-gradient(180deg,#fff7dc,#e8cb8c);
+  box-shadow:inset 0 0 0 2px #f9e6b5,0 3px 0 #815329;
+}
+.cellar-room-bin:before{
+  content:"";position:absolute;inset:5px;border:1px dashed #bd9251;border-radius:5px;pointer-events:none;
+}
+.cellar-room-bin .bin-art{
+  width:58px;height:52px;border:3px solid #9a6b36;border-radius:50%;
+  background:radial-gradient(circle at 35% 20%,#fff9df,#d6b06b);
+  box-shadow:inset 0 0 0 2px #f5df9c,0 3px 0 #8a592d;
+}
+.cellar-neighbor-warning{
+  border:2px solid #ad6b36;border-radius:7px;
+  background:repeating-linear-gradient(135deg,#fff0d0,#fff0d0 12px,#f8e4b8 12px,#f8e4b8 24px);
+  box-shadow:inset 0 0 0 2px #fff8df;
+}
+.produce-question-label{
+  display:inline-block;padding:7px 15px;margin-bottom:12px;
+  border:2px solid #825127;border-radius:5px;
+  background:linear-gradient(180deg,#dcb978,#b98547);
+  color:#fff1c9;box-shadow:inset 0 0 0 2px #f3d48d,0 3px 0 #68411f;
+  text-shadow:0 1px 2px #543419;letter-spacing:.12em;
+}
+.produce-card{
+  border:6px solid #75451f;border-radius:13px;
+  background:
+    radial-gradient(ellipse at 50% 15%,#fffbe9 0%,#f3e1b5 65%,#dfc184 100%);
+  box-shadow:inset 0 0 0 3px #f4d68e,inset 0 0 0 7px #b27a3c,0 7px 0 #56351e,0 12px 20px #51371c30;
+}
+.produce-card:before,.produce-card:after{width:58px;height:58px;border:3px double #b78343;opacity:.5}
+.produce-icon{
+  width:98px;height:98px;border:4px solid #8b5a2a;border-radius:50%;
+  background:radial-gradient(circle at 32% 23%,#fff8d7,#e6c47c 76%,#c4974c);
+  box-shadow:inset 0 0 0 3px #f8e6a8,inset 0 0 0 6px #c69a51,0 5px 0 #71451f,0 8px 14px #54391f35;
+  font-size:4rem;
+}
+.produce-name{font-family:Georgia,"Times New Roman",serif;font-size:1.55rem}
+.storage-choice{
+  border:4px solid #68401f;border-radius:9px;
+  background:
+    repeating-linear-gradient(0deg,#b67d3e 0,#b67d3e 17px,#c9914d 18px,#c9914d 21px);
+  box-shadow:inset 0 0 0 3px #f0cd7f,inset 0 0 0 6px #8b572b,inset 0 -7px 0 #5b351a,0 6px 0 #4f321d,0 10px 16px #39281925;
+}
+.storage-choice:before{inset:9px;border:2px dashed #f5d998a8;border-radius:4px}
+.storage-choice-icon{
+  width:67px;height:67px;border:3px solid #70421f;border-radius:50%;
+  background:radial-gradient(circle at 35% 20%,#fff8d6,#d6ae69 80%);
+  box-shadow:inset 0 0 0 3px #f4d58c,0 4px 0 #54351e;font-size:2.3rem;
+}
+.storage-choice-copy strong{font-family:Georgia,"Times New Roman",serif;font-size:1rem;color:#fff4cd}
+.storage-choice.is-correct{
+  background:repeating-linear-gradient(0deg,#668b42 0,#668b42 17px,#7ca352 18px,#7ca352 21px);
+  box-shadow:inset 0 0 0 3px #e3f0b8,inset 0 0 0 6px #4d7737,inset 0 -7px 0 #31502a,0 6px 0 #31502a;
+}
+.storage-choice.is-wrong{
+  background:repeating-linear-gradient(0deg,#a95736 0,#a95736 17px,#bf7046 18px,#bf7046 21px);
+  box-shadow:inset 0 0 0 3px #f5d0a5,inset 0 0 0 6px #91452c,inset 0 -7px 0 #68321f,0 6px 0 #68321f;
+}
+.cellar-feedback{
+  border:3px solid #a5783e;border-radius:7px;
+  background:linear-gradient(180deg,#fff9e6,#e9d5a5);
+  box-shadow:inset 0 0 0 2px #f9e9bb,0 3px 0 #c6a064;
+}
+.cellar-leaderboard .leaderboard-heading h2,.cellar-rules-card h3{
+  font-family:Georgia,"Times New Roman",serif;color:#315932;
+}
+.cellar-leaderboard .leaderboard-heading{border-bottom:2px solid #d0ae70;padding-bottom:10px}
+.cellar-rules-card p{background:#fff5d9;border-radius:0 7px 7px 0;padding:9px 10px}
+@media(max-width:620px){
+  .cellar-header:after{display:none}
+  .cellar-room-bin .bin-art{width:36px;height:35px;border-width:2px;font-size:1.4rem}
+  .produce-icon{width:72px;height:72px;font-size:3rem}
+  .storage-choice{border-width:3px}
+  .storage-choice-icon{width:45px;height:45px;font-size:1.7rem}
+  .produce-question-label{font-size:.55rem;padding:6px 8px;letter-spacing:.07em}
+}
