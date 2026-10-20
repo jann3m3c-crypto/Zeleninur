@@ -159,14 +159,17 @@ function openMiniGameWindow(event,link){
   if(!window.matchMedia||!window.matchMedia('(min-width: 760px)').matches)return true;
   const screenW=(window.screen&&window.screen.availWidth)||1240;
   const screenH=(window.screen&&window.screen.availHeight)||900;
-  const width=Math.min(1240,Math.max(820,screenW-60));
-  const height=Math.min(940,Math.max(600,screenH-60));
-  const left=Math.max(0,Math.round((screenW-width)/2));
-  const top=Math.max(0,Math.round((screenH-height)/2));
-  const features='popup=yes,width='+width+',height='+height+',left='+left+',top='+top+',resizable=yes,scrollbars=yes';
+  // Open the minigame in a near-maximized desktop window so the shared leaderboard is visible.
+  const width=Math.max(820,screenW-16);
+  const height=Math.max(600,screenH-48);
+  const features='popup=yes,width='+width+',height='+height+',left=0,top=0,resizable=yes,scrollbars=yes';
   const gameWindow=window.open(link.href,'ZeleninurMiniGame',features);
   if(!gameWindow)return true;
-  try{gameWindow.focus();}catch(_e){}
+  try{
+    gameWindow.moveTo(0,0);
+    gameWindow.resizeTo(screenW,screenH);
+    gameWindow.focus();
+  }catch(_e){}
   event.preventDefault();
   return false;
 }
