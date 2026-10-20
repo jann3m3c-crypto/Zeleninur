@@ -296,3 +296,62 @@ body.cellar-standalone{
   .storage-choice-icon{width:45px;height:45px;font-size:1.7rem}
   .produce-question-label{font-size:.55rem;padding:6px 8px;letter-spacing:.07em}
 }
+
+
+/* Illustrated harvest pass v7: match the hand-painted Zeleninur garden world. */
+.cellar-game-body{
+ background:
+  radial-gradient(ellipse at 50% 8%,#7c8e5a 0%,#344a32 56%,#1e3024 100%);
+ background-attachment:fixed;
+}
+.cellar-header{
+ background:linear-gradient(180deg,#6d492b,#3b291d);
+ border-bottom:5px solid #c49350;
+ box-shadow:inset 0 0 0 2px #dfbb78,0 6px 0 #241a12;
+}
+.cellar-header .minigame-header-title span{color:#e7c987}
+.cellar-header .minigame-header-title strong{color:#fff0c9;text-shadow:0 2px #25170d}
+.cellar-hero,.cellar-welcome,.cellar-board,.cellar-leaderboard,.cellar-rules-card{
+ background:linear-gradient(145deg,#f7e6bd,#d3b17a);
+ border:4px solid #59381f;
+ box-shadow:inset 0 0 0 3px #edce8d,0 6px 0 #2d2015,0 12px 22px #17221955;
+}
+.cellar-hero-copy{background:linear-gradient(145deg,#fff1ce,#e8cb91)}
+.cellar-hero h1,.cellar-leaderboard .leaderboard-heading h2,.cellar-rules-card h3{color:#31552d}
+.cellar-art-frame{background:linear-gradient(180deg,#4c3421,#281e16);padding:12px}
+.cellar-art-frame:before{inset:5px;border:3px double #e2b76d;border-radius:8px}
+.cellar-illustration{
+ max-height:260px;object-fit:contain;object-position:center;
+ background:radial-gradient(ellipse at 50% 30%,#8a9960,#334531 75%);
+ border:3px solid #704421;border-radius:8px;
+}
+.cellar-art-caption{color:#f5dfa7;padding:10px 4px 1px}
+.cellar-art-caption strong{color:#fff0c6}
+.produce-card{
+ background:
+  radial-gradient(ellipse at 50% 0%,#fff6dc,#e7ca8f 75%,#b98a4d);
+ border:5px solid #5d3920;
+ box-shadow:inset 0 0 0 3px #f3d18b,inset 0 0 0 7px #b17c3f,0 6px 0 #2d1d12,0 12px 20px #33231355;
+}
+.produce-icon{
+ background:radial-gradient(circle at 30% 20%,#fff6d1,#d6b36e 72%,#91612e);
+ border:4px solid #67401f;
+ box-shadow:inset 0 0 0 3px #f5d99a,0 5px 0 #342215;
+}
+.storage-choice{
+ background:linear-gradient(180deg,#936337,#59381f);
+ border:4px solid #4a2d19;
+ box-shadow:inset 0 0 0 3px #d5a45e,inset 0 0 0 6px #86552d,0 6px 0 #24180f,0 10px 15px #24180f55;
+}
+.storage-choice:before{border:2px dashed #f3d49a99}
+.storage-choice-icon{
+ background:radial-gradient(circle at 30% 20%,#fff2bf,#cda15b 76%);
+ border-color:#69411f;
+ box-shadow:inset 0 0 0 3px #f4d18b,0 4px 0 #291a10;
+}
+.cellar-room-status{background:linear-gradient(145deg,#e9d09a,#9c713e);border-color:#4b2e19;box-shadow:inset 0 0 0 3px #e7c27b,0 5px 0 #2a1b10}
+.cellar-room-bin{background:linear-gradient(180deg,#f9e9bf,#c99d5b);border-color:#76502a;box-shadow:inset 0 0 0 2px #f8d995,0 3px 0 #51331b}
+.cellar-room-bin .bin-art{background:#ead19a;border-color:#8d6030}
+.cellar-neighbor-warning{background:repeating-linear-gradient(135deg,#fff0cf 0 12px,#f3dfb4 12px 24px);border:2px solid #a86a34;color:#744122}
+.cellar-feedback{background:linear-gradient(180deg,#fff1ce,#e0c38a);border-color:#9a6a32;box-shadow:inset 0 0 0 2px #f5d99c,0 4px 0 #68411f}
+@media(max-width:620px){.cellar-illustration{max-height:155px}}
