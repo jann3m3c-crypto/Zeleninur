@@ -182,11 +182,21 @@
     {name:'Zralé rajče',icon:'🍅',category:'ethylene',note:'Zralá rajčata také produkují etylen.'},
     {name:'Brambora',icon:'🥔',category:'potato',note:'Potřebuje tmu a chlad. Jablka vedle ní nepatří.'}
   ];
-  let score=0,combo=0,bestCombo=0,remaining=45,startedAt=0,running=false,current=null,placed=0;\n  const binCounts={roots:0,ethylene:0,potato:0};
+  let score=0,combo=0,bestCombo=0,remaining=45,startedAt=0,running=false,current=null,placed=0;
+  const binCounts={roots:0,ethylene:0,potato:0};
   let timerInterval=null,nextItemTimer=null,lastName='';
   function setPhase(text,mode){phaseMessage.textContent=text;phaseMessage.className='phase-pill'+(mode?' '+mode:'');}
   function clearTimers(){if(timerInterval!==null)clearInterval(timerInterval);if(nextItemTimer!==null)clearTimeout(nextItemTimer);timerInterval=null;nextItemTimer=null;}
-  function paintScore(){scoreValue.textContent=String(score);comboValue.textContent=String(combo);}\n  function paintRoom(){\n    const total=Math.max(1,placed);\n    document.getElementById('goalValue').textContent=placed+' / 10 plodin';\n    document.getElementById('countRoots').textContent=binCounts.roots+' uloženo';\n    document.getElementById('countEthylene').textContent=binCounts.ethylene+' uloženo';\n    document.getElementById('countPotato').textContent=binCounts.potato+' uloženo';\n    ['roots','ethylene','potato'].forEach(k=>{document.getElementById('fill'+(k==='roots'?'Roots':k==='ethylene'?'Ethylene':'Potato')).style.width=(binCounts[k]/10*100)+'%';});\n    document.getElementById('roomMessage').textContent=placed>=10?'Všech 10 plodin má své místo!':placed+' z 10 plodin bezpečně roztříděno';\n  }
+  function paintScore(){scoreValue.textContent=String(score);comboValue.textContent=String(combo);}
+  function paintRoom(){
+    const total=Math.max(1,placed);
+    document.getElementById('goalValue').textContent=placed+' / 10 plodin';
+    document.getElementById('countRoots').textContent=binCounts.roots+' uloženo';
+    document.getElementById('countEthylene').textContent=binCounts.ethylene+' uloženo';
+    document.getElementById('countPotato').textContent=binCounts.potato+' uloženo';
+    ['roots','ethylene','potato'].forEach(k=>{document.getElementById('fill'+(k==='roots'?'Roots':k==='ethylene'?'Ethylene':'Potato')).style.width=(binCounts[k]/10*100)+'%';});
+    document.getElementById('roomMessage').textContent=placed>=10?'Všech 10 plodin má své místo!':placed+' z 10 plodin bezpečně roztříděno';
+  }
   function chooseProduce(){
     const pool=produce.filter(p=>p.name!==lastName);
     current=pool[Math.floor(Math.random()*pool.length)]||produce[0];lastName=current.name;
