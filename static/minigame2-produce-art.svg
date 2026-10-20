@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220">
+<title>Ilustrovaná úroda Zeleninuru</title>
+<defs>
+ <linearGradient id="wood" x2="0" y2="1"><stop stop-color="#b98248"/><stop offset=".5" stop-color="#754522"/><stop offset="1" stop-color="#3e281a"/></linearGradient>
+ <linearGradient id="pump" x2=".8" y2="1"><stop stop-color="#ffbf59"/><stop offset=".5" stop-color="#ed7628"/><stop offset="1" stop-color="#a83d1e"/></linearGradient>
+ <linearGradient id="apple" x2=".8" y2="1"><stop stop-color="#ff7c59"/><stop offset=".6" stop-color="#c92c2b"/><stop offset="1" stop-color="#79231f"/></linearGradient>
+ <linearGradient id="potato" x2=".5" y2="1"><stop stop-color="#d8b77d"/><stop offset="1" stop-color="#86613c"/></linearGradient>
+ <linearGradient id="carrot" x2=".8" y2="1"><stop stop-color="#ffb54c"/><stop offset="1" stop-color="#d84c1c"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#24160d" flood-opacity=".55"/></filter>
+ <pattern id="grain" width="50" height="14" patternUnits="userSpaceOnUse"><path d="M0 5Q14 1 28 6T50 5" fill="none" stroke="#f0c17b" stroke-opacity=".22" stroke-width="2"/></pattern>
+</defs>
+<rect width="640" height="220" rx="14" fill="#29382b"/>
+<path d="M0 0H640V220H0Z" fill="#4c4632"/>
+<path d="M0 0H640V28H0Z" fill="url(#wood)"/><path d="M0 4H640V27H0Z" fill="url(#grain)"/>
+<g fill="#6c6b4e" stroke="#b3a17b" stroke-opacity=".45" stroke-width="2">
+<path d="M0 35H125L140 65H0Z"/><path d="M145 35H288L278 65H151Z"/><path d="M300 35H455L444 65H305Z"/><path d="M470 35H640V65H480Z"/>
+<path d="M0 75H95L105 107H0Z"/><path d="M115 75H250L238 107H125Z"/><path d="M265 75H410L400 107H270Z"/><path d="M425 75H565L555 107H435Z"/><path d="M575 75H640V107H580Z"/>
+</g>
+<!-- timber produce crates -->
+<g filter="url(#shadow)">
+<path d="M18 139H205V204H18Z" fill="url(#wood)" stroke="#d5a767" stroke-width="4"/><path d="M18 139H205V204H18Z" fill="url(#grain)"/><path d="M18 158H205M18 180H205" stroke="#e2b979" stroke-width="5"/>
+<path d="M225 139H414V204H225Z" fill="url(#wood)" stroke="#d5a767" stroke-width="4"/><path d="M225 139H414V204H225Z" fill="url(#grain)"/><path d="M225 158H414M225 180H414" stroke="#e2b979" stroke-width="5"/>
+<path d="M434 139H622V204H434Z" fill="url(#wood)" stroke="#d5a767" stroke-width="4"/><path d="M434 139H622V204H434Z" fill="url(#grain)"/><path d="M434 158H622M434 180H622" stroke="#e2b979" stroke-width="5"/>
+</g>
+<!-- pumpkin, hand-painted segmented -->
+<g filter="url(#shadow)" stroke="#8e3d20" stroke-width="3" stroke-linejoin="round">
+<path d="M110 70Q94 44 111 34Q126 29 129 50Q151 24 166 39Q180 50 164 69" fill="#648d42" stroke="#34562e"/>
+<path d="M117 65C81 37 49 65 55 97C57 123 80 134 105 119C125 139 153 132 166 111C191 127 215 108 209 83C204 55 173 46 151 66C139 55 126 56 117 65Z" fill="url(#pump)"/>
+<path d="M117 65C91 77 96 111 105 119M117 65C109 85 118 113 126 128M151 66C168 80 162 113 151 129M151 66C181 74 184 102 166 111" fill="none" stroke="#ffca73" stroke-width="5"/>
+<path d="M126 57Q132 47 139 53L145 66L132 72Z" fill="#5f7936"/>
+</g>
+<!-- apples -->
+<g filter="url(#shadow)" stroke="#762c20" stroke-width="3">
+<path d="M286 82Q266 60 251 77Q233 99 254 119Q272 139 289 125Q309 141 326 119Q344 91 322 77Q306 65 286 82Z" fill="url(#apple)"/><path d="M285 81Q289 66 302 59" fill="none" stroke="#654024" stroke-width="5"/><path d="M296 64Q317 48 326 63Q315 78 296 64Z" fill="#83a94b" stroke="#365d2c"/><ellipse cx="263" cy="91" rx="5" ry="12" fill="#ffb18a" stroke="none"/>
+<path d="M359 89Q343 70 330 85Q316 106 337 124Q354 139 368 126Q388 138 402 116Q416 92 397 81Q381 71 359 89Z" fill="url(#apple)"/><path d="M359 87Q363 70 373 64" fill="none" stroke="#654024" stroke-width="5"/><path d="M369 67Q389 51 399 66Q387 81 369 67Z" fill="#83a94b" stroke="#365d2c"/>
+</g>
+<!-- potato sack with individually drawn tubers -->
+<g filter="url(#shadow)">
+<path d="M460 117Q470 98 492 108L557 108Q580 98 590 120L602 137L590 147V193Q527 209 466 193V147L451 137Z" fill="#b89a68" stroke="#664a2c" stroke-width="4"/>
+<path d="M461 124Q526 139 591 124M466 145Q527 159 590 145M468 171Q528 185 589 171" fill="none" stroke="#e5c58c" stroke-width="3" opacity=".7"/>
+<g fill="url(#potato)" stroke="#755332" stroke-width="3"><path d="M482 143Q473 125 491 122Q509 118 515 135Q523 151 504 157Q489 160 482 143Z"/><path d="M523 137Q516 121 534 119Q554 118 557 136Q558 151 541 155Q528 153 523 137Z"/><path d="M555 161Q545 145 564 141Q582 140 584 158Q582 175 567 175Q558 173 555 161Z"/><path d="M490 178Q482 160 501 158Q519 157 522 175Q521 190 504 191Q493 190 490 178Z"/></g>
+<g fill="#59432c"><ellipse cx="495" cy="134" rx="2.5" ry="3"/><ellipse cx="538" cy="131" rx="2.5" ry="3"/><ellipse cx="570" cy="154" rx="2.5" ry="3"/><ellipse cx="506" cy="175" rx="2.5" ry="3"/></g>
+</g>
+<!-- carrots and greens -->
+<g filter="url(#shadow)" stroke-linejoin="round">
+<path d="M62 121Q43 98 49 86Q62 82 72 106Q82 83 93 88Q98 103 78 120" fill="#6f9a47" stroke="#365e2d" stroke-width="3"/>
+<path d="M63 111Q42 125 54 145L76 181Q82 190 87 179L91 140Q88 121 63 111Z" fill="url(#carrot)" stroke="#9a4a1e" stroke-width="3"/>
+<path d="M62 133L75 138M68 150L80 154M74 166L82 169" stroke="#ffd181" stroke-width="3"/>
+<path d="M150 123Q130 101 138 89Q151 85 160 107Q173 85 183 92Q188 107 165 123" fill="#6f9a47" stroke="#365e2d" stroke-width="3"/>
+<path d="M151 114Q132 126 143 146L163 181Q168 190 173 179L178 143Q177 124 151 114Z" fill="url(#carrot)" stroke="#9a4a1e" stroke-width="3"/>
+</g>
+</svg>
