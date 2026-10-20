@@ -371,3 +371,31 @@ body.cellar-standalone{
 .storage-choice-icon svg{display:block;width:100%;height:100%;filter:drop-shadow(0 3px 2px #29190d55)}
 .cellar-room-bin .bin-art{display:flex;align-items:center;justify-content:center;overflow:hidden;padding:2px}
 .cellar-room-bin .bin-art svg{width:100%;height:100%;display:block}
+
+
+/* Scenic cellar choices: each button is a cropped painted room, not an icon tile. */
+.storage-choices{gap:14px}
+.storage-choice{
+ position:relative;min-height:245px;padding:0 8px 14px;
+ display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;
+ overflow:hidden;border:5px solid #5a351d;border-radius:13px;
+ background-color:#473528;
+ background-image:linear-gradient(180deg,transparent 35%,rgba(24,17,12,.1) 50%,rgba(24,17,12,.92) 100%),url('/static/minigame2-storage-scenes.svg?v=cellar-scenes-v1');
+ background-repeat:no-repeat;background-size:100% 100%,300% 100%;
+ box-shadow:inset 0 0 0 3px #e6bd78,0 6px 0 #2d1b10,0 10px 16px #2a1a0f55;
+ transition:transform .15s,filter .15s;
+}
+.storage-choice.storage-sand{background-position:center,0% center}
+.storage-choice.storage-ethylene{background-position:center,50% center}
+.storage-choice.storage-potato{background-position:center,100% center}
+.storage-choice:before{inset:8px;border:2px solid #e8c986aa;border-radius:7px;z-index:1;pointer-events:none}
+.storage-choice:hover:not(:disabled){transform:translateY(-3px);filter:brightness(1.08)}
+.storage-choice-icon{display:none!important}
+.storage-choice-copy{position:relative;z-index:2;display:block;width:100%;padding:12px 5px 10px;background:linear-gradient(180deg,#5b381fdd,#2b1b12f5);border:2px solid #c99a56;border-radius:6px;box-shadow:0 3px 0 #1d120b}
+.storage-choice-copy strong{font-family:Georgia,"Times New Roman",serif;font-size:clamp(.9rem,1.3vw,1.2rem);color:#ffedc4;text-shadow:0 2px 2px #1c1008;line-height:1.2}
+.storage-choice-check{position:absolute;right:15px;top:14px;z-index:3;background:#315c34;color:#fff2c5;border:2px solid #e8c47b;border-radius:50%;width:30px;height:30px;display:none;align-items:center;justify-content:center}
+.storage-choice.is-correct{background-color:#34532f;outline:3px solid #8dbb65}
+.storage-choice.is-wrong{background-color:#713b2b;outline:3px solid #c86d4d}
+.storage-choice.is-correct .storage-choice-copy{background:linear-gradient(180deg,#3f7336ee,#244323f5)}
+.storage-choice.is-wrong .storage-choice-copy{background:linear-gradient(180deg,#914a32ee,#54281ef5)}
+@media(max-width:620px){.storage-choice{min-height:170px;padding:0 5px 8px;background-size:100% 100%,300% 100%}.storage-choice-copy{padding:8px 3px}.storage-choice-copy strong{font-size:.78rem}}
