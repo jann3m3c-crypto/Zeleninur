@@ -43,7 +43,7 @@
         <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div>
         <div class="avatar-epithet-chip">🌱 {{ current_avatar_name }}</div>
         <h2>Jak se to hraje?</h2>
-        <p>Ve sklepě řádí myšák Zrzek a skřítek potřebuje tvou pomoc! Tři komory, 45 sekund, nečekané události a bonusové plodiny. Hra končí až po vypršení času. Rozhoduj rychle, drž sérii a zachraň úrodu před zmatkem.</p>
+        <p>Ve sklepě se pomíchala úroda! Tři komory, 45 sekund a skutečné skladovací chytáky. Dýně například potřebuje sucho a dobré větrání, ne vlhký písek. Rozhoduj rychle, drž sérii a zachraň úrodu.</p>
         <div class="cellar-howto" aria-label="Tři pravidla skladování">
           <div><span aria-hidden="true">🧺</span><p><strong>1. Kořenová komora</strong><small>Vlhký písek, chlad a stabilní prostředí.</small></p></div>
           <div><span aria-hidden="true">🍎</span><p><strong>2. Větraná police</strong><small>Odděleně od brambor a citlivé úrody.</small></p></div>
@@ -73,7 +73,7 @@
           <div class="cellar-room-bin bin-ethylene"><span class="bin-art">🍎</span><strong>Větraná police</strong><small>Oddělené skladování</small><b id="countEthylene">0 uloženo</b><div class="bin-fill"><i id="fillEthylene"></i></div></div>
           <div class="cellar-room-bin bin-potato"><span class="bin-art">🥔</span><strong>Tmavá komora</strong><small>Tma · chlad</small><b id="countPotato">0 uloženo</b><div class="bin-fill"><i id="fillPotato"></i></div></div>
         </div>
-        <div class="cellar-neighbor-warning"><span aria-hidden="true">⚠️</span><span><strong>Pozor na špatné sousedy!</strong> Jablka drž dál od brambor. Etylen může urychlit zrání okolních plodin.</span></div>
+        <div class="cellar-neighbor-warning"><span aria-hidden="true">⚠️</span><span><strong>Pozor na špatné sousedy!</strong> Jablka drž dál od brambor. Dýně naopak potřebuje suché a dobře větrané místo.</span></div>
       </section>
 
       <section class="produce-question" aria-live="polite">
@@ -183,8 +183,11 @@
     {name:'Banán',icon:'🍌',category:'ethylene',note:'Uvolňuje etylen a urychluje zrání okolní úrody. Skladuj odděleně.'},
     {name:'Zralé rajče',icon:'🍅',category:'ethylene',note:'Zralá rajčata produkují etylen. Drž je mimo brambory.'},
     {name:'Hruška',icon:'🍐',category:'ethylene',note:'Dozrávající ovoce může uvolňovat etylen, proto ho drž odděleně.'},
+    {name:'Dýně',icon:'🎃',category:'ethylene',note:'Skutečný chyták! Dýni skladuj v suchu, dobře větranou a spíše v mírném teple. Vlhký písek a studený vlhký sklep jí nesvědčí.'},
+    {name:'Česnek',icon:'🧄',category:'ethylene',note:'Česnek potřebuje suché, vzdušné místo. Vlhký sklep podporuje plísně a hnilobu.'},
+    {name:'Cibule',icon:'🧅',category:'ethylene',note:'Cibule se nejlépe uchovává v suchu a proudícím vzduchu, ne ve vlhkém písku.'},
     {name:'Brambora',icon:'🥔',category:'potato',note:'Brambory potřebují tmu a chlad. Světlo podporuje zelenání a jablka mohou ovlivnit jejich skladování.'},
-    {name:'Pytel brambor',icon:'🧺',category:'potato',note:'Brambory ukládej do tmy a chladu, mimo ovoce produkující etylen.'}
+    {name:'Pytel brambor',icon:'🧺',category:'potato',note:'Brambory ukládej do tmy a chladu, mimo ovoce produkující etylen. Dýně patří na suché, dobře větrané místo.'}
   ];
   let score=0,combo=0,bestCombo=0,remaining=45,startedAt=0,running=false,current=null,placed=0,bonusRound=false,eventText='';
   const binCounts={roots:0,ethylene:0,potato:0};
@@ -206,8 +209,7 @@
     bonusRound=(placed>0 && (placed+1)%4===0);
     eventText='';
     if(bonusRound){eventText='✨ ZLATÁ PLODNINA! Správná volba má dvojnásobnou odměnu.';}
-    else if(placed>0 && (placed+1)%3===0){eventText='🐭 Myšák Zrzek běhá po sklepě! Zvládneš další volbu bez chyby?';}
-    else if(placed>0 && (placed+1)%7===0){eventText='🕸️ Pavučiny zakryly cedule! Spolehni se na paměť a podmínky.';}
+    else if(placed>0 && (placed+1)%7===0){eventText='🧠 Pozor na skladovací chyták — ne každá úroda chce chlad a vlhko.';}
     const pool=produce.filter(p=>p.name!==lastName);
     current=pool[Math.floor(Math.random()*pool.length)]||produce[0];lastName=current.name;
     produceCard.classList.remove('is-correct','is-wrong','is-entering');
@@ -255,7 +257,7 @@
     paintScore();paintRoom();timeValue.textContent='45';timerBar.style.width='100%';timerBar.classList.remove('is-low');
     welcomePanel.hidden=true;gamePanel.hidden=false;gameOverPanel.hidden=true;
     choices.forEach(c=>{c.disabled=false;c.classList.remove('is-correct','is-wrong');});
-    setPhase('🐭 Zachraň úrodu před Zrzkem!','phase-success');chooseProduce();
+    setPhase('🎃 Poznej správné podmínky skladování','phase-success');chooseProduce();
     timerInterval=setInterval(updateTime,100);
   }
   async function finishGame(completed=false){
