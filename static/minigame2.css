@@ -120,3 +120,37 @@ body.cellar-standalone{
 .cellar-howto p small{color:#6f5a39;font-size:.78rem;line-height:1.35}
 .cellar-simple-scoring{margin:8px 0 0;padding:10px 12px;border-left:4px solid #83a45c;border-radius:0 8px 8px 0;background:#eaf0d9;color:#405b37;font-size:.84rem;line-height:1.45}
 @media(max-width:620px){.cellar-howto{grid-template-columns:1fr}.cellar-howto>div{align-items:center}.cellar-howto p{font-size:.9rem}}
+
+/* Sklep jako živá herní plocha: úroda se ukládá do viditelných částí místnosti. */
+.cellar-goal{margin-left:12px;padding:5px 9px;border:1px solid #c8a15e;border-radius:999px;background:#fff3cf;color:#365d32;font-size:.75rem;font-weight:1000;white-space:nowrap}
+.cellar-room-status{max-width:900px;margin:0 auto 18px;padding:13px;border:3px solid #805024;border-radius:16px;background:linear-gradient(145deg,#f8e9c4,#d6b477);box-shadow:inset 0 0 0 2px #f8df9e,0 4px 0 #67401f}
+.cellar-room-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px;color:#315b32}
+.cellar-room-heading span{font-size:.67rem;font-weight:1000;letter-spacing:.13em}
+.cellar-room-heading strong{font-size:.78rem;text-align:right}
+.cellar-room-bins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.cellar-room-bin{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;padding:10px 7px 9px;border:2px solid #9a6a35;border-radius:12px;background:linear-gradient(180deg,#fff4d3,#e7c98d);text-align:center;box-shadow:inset 0 0 0 2px #fff0c3}
+.cellar-room-bin .bin-art{display:grid;place-items:center;width:48px;height:44px;border-radius:10px;background:#fff2c8;border:1px solid #d2ac65;font-size:1.8rem}
+.cellar-room-bin strong{color:#315b32;font-size:.8rem;line-height:1.2}
+.cellar-room-bin small{color:#725333;font-size:.68rem;line-height:1.25}
+.cellar-room-bin b{color:#795024;font-size:.68rem}
+.bin-fill{width:100%;height:7px;overflow:hidden;border:1px solid #a27b43;border-radius:99px;background:#d4b67b}
+.bin-fill i{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,#9ac16b,#477c3d);transition:width .25s ease}
+.bin-ethylene .bin-fill i{background:linear-gradient(90deg,#e7a64d,#bc6134)}
+.bin-potato .bin-fill i{background:linear-gradient(90deg,#9e9b69,#4e613b)}
+.cellar-neighbor-warning{display:flex;align-items:center;gap:9px;margin-top:10px;padding:9px 11px;border:1px solid #d29a55;border-radius:10px;background:#fff0d1;color:#7c4527;font-size:.77rem;line-height:1.4}
+.cellar-neighbor-warning>span:first-child{font-size:1.25rem}
+.cellar-neighbor-warning strong{color:#8a3824}
+.cellar-feedback{transition:background .2s,border-color .2s}
+@media(max-width:620px){
+ .cellar-goal{margin-left:3px;padding:4px 6px;font-size:.62rem}
+ .cellar-room-status{padding:8px;margin-bottom:12px}
+ .cellar-room-heading{align-items:flex-start;flex-direction:column;gap:4px}
+ .cellar-room-heading strong{text-align:left;font-size:.72rem}
+ .cellar-room-bins{gap:5px}
+ .cellar-room-bin{padding:7px 4px;gap:4px}
+ .cellar-room-bin .bin-art{width:35px;height:34px;font-size:1.4rem}
+ .cellar-room-bin strong{font-size:.67rem}
+ .cellar-room-bin small{font-size:.58rem}
+ .cellar-room-bin b{font-size:.59rem}
+ .cellar-neighbor-warning{font-size:.69rem;padding:7px}
+}
