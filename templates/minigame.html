@@ -15,7 +15,7 @@
   <div class="minigame-header-title"><span>ZAHRADNÍ VÝZVA · 1. KOLO</span><strong>🍂 Záhonový skener</strong></div>
   <div class="header-right header-right-minimal"><a class="logout-link minigame-back" href="{{ url_for('home') }}"{% if request.args.get('standalone') == '1' %} onclick="if(window.opener&&!window.opener.closed){window.close();return false;}" title="Zavřít minihru a vrátit se na plán"{% endif %}>{% if request.args.get('standalone') == '1' %}✕ Zavřít minihru{% else %}← Herní plán{% endif %}</a></div>
 </header>
-<main class="minigame-layout" id="minigameApp" data-leaderboard-url="{{ url_for('minigame_leaderboard_api',round_number=round_number) }}" data-score-url="{{ url_for('minigame_score_api',round_number=round_number) }}">
+<main class="minigame-layout" id="minigameApp" data-leaderboard-url="{{ url_for('minigame_leaderboard_api',round_number=round_number,admin_preview=1 if admin_preview else None) }}" data-score-url="{{ url_for('minigame_score_api',round_number=round_number,admin_preview=1 if admin_preview else None) }}">
   <section class="minigame-main-column">
     <section class="minigame-hero wood-card scanner-hero">
       <div class="scanner-hero-copy">
