@@ -245,7 +245,7 @@
   async function refreshLeaderboard(){try{const response=await fetch(leaderboardUrl,{headers:{'Accept':'application/json'},cache:'no-store'});if(!response.ok)return;const data=await response.json();renderLeaderboard(data.leaderboard||[]);}catch(_e){}}
   choices.forEach(button=>button.addEventListener('click',()=>answer(button.dataset.category,button)));
   startButton.addEventListener('click',startGame);replayButton.addEventListener('click',startGame);
-  window.setInterval(refreshLeaderboard,5000);
+  refreshLeaderboard();window.setInterval(refreshLeaderboard,5000);
 })();
 </script>
 </body>
