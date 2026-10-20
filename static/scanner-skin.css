@@ -111,3 +111,37 @@
  .scanner-game-body .skanner-cell{border-width:3px!important}
  .scanner-game-body .wood-card{border-width:5px!important}
 }
+
+/* Dedicated illustrated assets extracted into reusable, live game pieces. */
+.scanner-game-body .minigame-header-title{position:relative;isolation:isolate;padding:12px 24px;min-width:0}
+.scanner-game-body .minigame-header-title:before{content:"";position:absolute;z-index:-1;inset:0;background:url("/static/scanner-wood-plaque.svg") center/100% 100% no-repeat;filter:drop-shadow(0 3px 2px #24180f75)}
+.scanner-game-body .minigame-header-title span{color:#ffe6ad!important;text-shadow:0 1px 2px #321b0d}
+.scanner-game-body .minigame-header-title strong{color:#fff0c4!important;text-shadow:0 2px 2px #3a210f,0 0 3px #3a210f!important}
+.scanner-game-body .skanner-cell{
+ background-image:url("/static/scanner-bed-tile.svg")!important;
+ background-size:100% 100%!important;background-position:center!important;background-repeat:no-repeat!important;
+ border:0!important;border-radius:5px!important;box-shadow:0 3px 3px #21170e75!important;
+}
+.scanner-game-body .skanner-cell.is-bed,.scanner-game-body .skanner-cell.is-found{
+ background-image:url("/static/scanner-bed-tile.svg")!important;
+ border:0!important;box-shadow:0 3px 3px #21170e75,0 0 0 2px #d5e79a!important;
+}
+.scanner-game-body .skanner-cell.is-wrong{
+ background-image:url("/static/scanner-bed-tile.svg")!important;
+ border:0!important;box-shadow:0 0 0 3px #d64b35,0 3px 3px #21170e75!important;
+}
+.scanner-game-body .scanner-cell-illustration{
+ width:76%!important;height:76%!important;object-fit:contain!important;pointer-events:none;filter:drop-shadow(0 3px 2px #20140c88)!important;
+}
+.scanner-game-body .scanner-sprout-illustration{content:url("/static/scanner-sprout.svg")}
+.scanner-game-body .scanner-stone-illustration{width:68%!important;height:68%!important}
+.scanner-game-body .skanner-cell.is-revealed{box-shadow:0 0 0 2px #d3e68f!important}
+.scanner-game-body .scanner-hero-art{position:relative}
+.scanner-game-body .scanner-hero-art:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#1a2a1800 50%,#1a2a1888)}
+.scanner-game-body .scanner-hero-art img{position:relative;z-index:0}
+.scanner-game-body .scanner-art-label{position:relative;z-index:1}
+@media(max-width:650px){
+ .scanner-game-body .minigame-header-title{padding:8px 12px}
+ .scanner-game-body .skanner-cell{border-radius:4px!important}
+ .scanner-game-body .scanner-cell-illustration{width:82%!important;height:82%!important}
+}
