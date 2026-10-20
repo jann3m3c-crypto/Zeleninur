@@ -16,8 +16,8 @@
 </header>
 
 <main class="minigame-layout minigame2-layout cellar-layout" id="minigameApp"
-  data-leaderboard-url="{{ url_for('minigame_leaderboard_api',round_number=2) }}"
-  data-score-url="{{ url_for('minigame_score_api',round_number=2) }}">
+  data-leaderboard-url="{{ url_for('minigame_leaderboard_api',round_number=2,admin_preview=1 if admin_preview else None) }}"
+  data-score-url="{{ url_for('minigame_score_api',round_number=2,admin_preview=1 if admin_preview else None) }}">
   <section class="minigame-main-column">
     <section class="minigame-hero wood-card cellar-hero">
       <div class="cellar-hero-copy">
