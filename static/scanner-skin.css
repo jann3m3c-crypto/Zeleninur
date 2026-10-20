@@ -297,3 +297,56 @@
 .scanner-game-body .minigame-layout{align-items:start!important}
 .scanner-game-body .minigame-main-column{gap:14px!important}
 .scanner-game-body .minigame-sidebar{gap:14px!important}
+
+
+/* Harmonize scanner header with the garden background: remove the pale empty band. */
+.scanner-game-body .minigame-header{
+  background:linear-gradient(180deg,rgba(255,248,222,.96),rgba(232,211,159,.94))!important;
+  border:0!important;
+  border-bottom:3px solid #9d6a35!important;
+  box-shadow:0 3px 10px #172a1655!important;
+}
+.scanner-game-body .header-logo{
+  max-height:82px!important;
+  filter:drop-shadow(0 2px 2px #24180f70)!important;
+}
+.scanner-game-body .minigame-header-title{
+  align-self:center!important;
+  padding:8px 24px!important;
+  border:2px solid #a9793e!important;
+  border-radius:10px!important;
+  background:linear-gradient(180deg,#fff0c6,#e2bd76)!important;
+  box-shadow:inset 0 0 0 2px #fff7df,0 3px 0 #754821!important;
+}
+.scanner-game-body .minigame-header-title:before{display:none!important}
+.scanner-game-body .minigame-header-title span{color:#795127!important}
+.scanner-game-body .minigame-header-title strong{color:#2e6038!important}
+.scanner-game-body .minigame-back{
+  border:2px solid #8a5727!important;
+  border-radius:10px!important;
+  background:linear-gradient(#fff1c7,#dfb66c)!important;
+  box-shadow:0 3px 0 #71451f!important;
+}
+.scanner-game-body .minigame-layout{
+  margin-top:16px!important;
+}
+.scanner-game-body .minigame-hero{
+  border:1px solid #cdb47a!important;
+  background:linear-gradient(145deg,#fff7df,#f1e1b8)!important;
+  box-shadow:0 4px 0 #8a592d,0 7px 16px #172b1740!important;
+}
+.scanner-game-body .minigame-board{
+  border:1px solid #cdb47a!important;
+  background:linear-gradient(145deg,#fff7df,#f1e1b8)!important;
+  box-shadow:0 4px 0 #8a592d,0 7px 16px #172b1740!important;
+}
+.scanner-game-body .minigame-sidebar .leaderboard-card,
+.scanner-game-body .minigame-sidebar .leaderboard-rules-card{
+  border:1px solid #cdb47a!important;
+  background:linear-gradient(145deg,#fff7df,#f1e1b8)!important;
+  box-shadow:0 4px 0 #8a592d,0 7px 16px #172b1740!important;
+}
+.scanner-game-body .scanner-board-overline{
+  background:#f7f4e5!important;
+  border-color:#d5c18e!important;
+}
