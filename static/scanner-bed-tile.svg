@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="Dřevěně orámované políčko s hlínou">
+<defs>
+ <linearGradient id="wood" x2="0" y2="1"><stop stop-color="#e7c17a"/><stop offset=".22" stop-color="#b87d40"/><stop offset=".55" stop-color="#8a552d"/><stop offset="1" stop-color="#5d351d"/></linearGradient>
+ <linearGradient id="soil" x2=".2" y2="1"><stop stop-color="#805533"/><stop offset=".45" stop-color="#57371f"/><stop offset="1" stop-color="#382317"/></linearGradient>
+ <pattern id="grain" width="65" height="24" patternUnits="userSpaceOnUse"><path d="M0 7 Q17 1 34 7 T70 7 M-4 18 Q17 12 38 18 T70 17" fill="none" stroke="#f2ca83" stroke-opacity=".35" stroke-width="2"/></pattern>
+ <pattern id="earth" width="37" height="29" patternUnits="userSpaceOnUse"><ellipse cx="8" cy="9" rx="3" ry="2" fill="#c49258" opacity=".65"/><circle cx="26" cy="21" r="2" fill="#20140e" opacity=".55"/><path d="M14 26l5-3" stroke="#c49258" stroke-opacity=".5" stroke-width="2"/></pattern>
+ <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#20150c" flood-opacity=".55"/></filter>
+</defs>
+<g filter="url(#shadow)">
+ <rect x="8" y="8" width="284" height="284" rx="13" fill="#452a18" stroke="#412516" stroke-width="5"/>
+ <rect x="13" y="13" width="274" height="274" rx="10" fill="url(#wood)" stroke="#f1ce8b" stroke-width="3"/>
+ <rect x="23" y="23" width="254" height="254" rx="7" fill="url(#soil)" stroke="#4a2b17" stroke-width="8"/>
+ <rect x="29" y="29" width="242" height="242" rx="4" fill="url(#earth)"/>
+ <path d="M35 67 Q82 56 130 66 T265 64 M35 123 Q95 112 143 123 T265 120 M35 181 Q90 169 145 180 T265 178 M35 234 Q92 224 146 234 T265 231" fill="none" stroke="#a87744" stroke-opacity=".5" stroke-width="5" stroke-linecap="round"/>
+ <rect x="17" y="17" width="266" height="266" rx="8" fill="none" stroke="url(#grain)" stroke-width="9"/>
+ <g fill="#d7aa69" stroke="#56341e" stroke-width="2"><circle cx="26" cy="26" r="3"/><circle cx="274" cy="26" r="3"/><circle cx="26" cy="274" r="3"/><circle cx="274" cy="274" r="3"/></g>
+</g>
+</svg>
