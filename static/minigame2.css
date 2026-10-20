@@ -364,3 +364,10 @@ body.cellar-standalone{
 .produce-icon .crop-bonus-sparkle{position:absolute;right:7px;top:1px;color:#f3c65d;font-size:1.6rem;text-shadow:0 2px #75461d;z-index:2}
 .produce-icon:has(.crop-illustration:nth-of-type(2)) .crop-illustration{width:48%;height:78%;margin:0 -4%}
 @media(max-width:620px){.produce-icon .crop-illustration{width:88%;height:88%}}
+
+
+/* Hand-painted storage illustrations in the live round and cellar counters. */
+.storage-choice-icon{display:flex;align-items:center;justify-content:center;overflow:hidden;padding:3px}
+.storage-choice-icon svg{display:block;width:100%;height:100%;filter:drop-shadow(0 3px 2px #29190d55)}
+.cellar-room-bin .bin-art{display:flex;align-items:center;justify-content:center;overflow:hidden;padding:2px}
+.cellar-room-bin .bin-art svg{width:100%;height:100%;display:block}
