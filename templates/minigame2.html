@@ -69,9 +69,9 @@
       <section class="cellar-room-status" aria-label="Stav sklepa">
         <div class="cellar-room-heading"><span>🪵 SKLEP SE PLNÍ</span><strong id="roomMessage">Najdi každé plodině bezpečný domov.</strong></div>
         <div class="cellar-room-bins">
-          <div class="cellar-room-bin bin-roots"><span class="bin-art">🧺</span><strong>Kořenová komora</strong><small>Chlad · mírná vlhkost</small><b id="countRoots">0 uloženo</b><div class="bin-fill"><i id="fillRoots"></i></div></div>
-          <div class="cellar-room-bin bin-ethylene"><span class="bin-art">🍎</span><strong>Suchá, větraná police</strong><small>Oddělené skladování</small><b id="countEthylene">0 uloženo</b><div class="bin-fill"><i id="fillEthylene"></i></div></div>
-          <div class="cellar-room-bin bin-potato"><span class="bin-art">🥔</span><strong>Tmavá komora</strong><small>Tma · chlad</small><b id="countPotato">0 uloženo</b><div class="bin-fill"><i id="fillPotato"></i></div></div>
+          <div class="cellar-room-bin bin-roots"><span class="bin-art"><svg viewBox="0 0 512 512" aria-hidden="true"><use href="/static/minigame2-storage-art.svg?v=storage-art-v1#root-cellar"></use></svg></span><strong>Kořenová komora</strong><small>Chlad · mírná vlhkost</small><b id="countRoots">0 uloženo</b><div class="bin-fill"><i id="fillRoots"></i></div></div>
+          <div class="cellar-room-bin bin-ethylene"><span class="bin-art"><svg viewBox="0 0 512 512" aria-hidden="true"><use href="/static/minigame2-storage-art.svg?v=storage-art-v1#airy-shelf"></use></svg></span><strong>Suchá, větraná police</strong><small>Oddělené skladování</small><b id="countEthylene">0 uloženo</b><div class="bin-fill"><i id="fillEthylene"></i></div></div>
+          <div class="cellar-room-bin bin-potato"><span class="bin-art"><svg viewBox="0 0 512 512" aria-hidden="true"><use href="/static/minigame2-storage-art.svg?v=storage-art-v1#dark-cellar"></use></svg></span><strong>Tmavá komora</strong><small>Tma · chlad</small><b id="countPotato">0 uloženo</b><div class="bin-fill"><i id="fillPotato"></i></div></div>
         </div>
         <div class="cellar-neighbor-warning"><span aria-hidden="true">⚠️</span><span><strong>Pozor na špatné sousedy!</strong> Jablka drž dál od brambor. Dýně naopak potřebuje suché a dobře větrané místo.</span></div>
       </section>
@@ -87,17 +87,17 @@
 
       <div class="storage-choices" id="storageChoices" aria-label="Vyber správné skladovací místo">
         <button class="storage-choice storage-sand" type="button" data-category="roots">
-          <span class="storage-choice-icon" aria-hidden="true">🧺</span>
+          <span class="storage-choice-icon" aria-hidden="true"><svg viewBox="0 0 512 512"><use href="/static/minigame2-storage-art.svg?v=storage-art-v1#root-cellar"></use></svg></span>
           <span class="storage-choice-copy"><strong>Kořenová komora</strong></span>
           <span class="storage-choice-check" aria-hidden="true">✓</span>
         </button>
         <button class="storage-choice storage-ethylene" type="button" data-category="ethylene">
-          <span class="storage-choice-icon" aria-hidden="true">🪵</span>
+          <span class="storage-choice-icon" aria-hidden="true"><svg viewBox="0 0 512 512"><use href="/static/minigame2-storage-art.svg?v=storage-art-v1#airy-shelf"></use></svg></span>
           <span class="storage-choice-copy"><strong>Suchá, větraná police</strong></span>
           <span class="storage-choice-check" aria-hidden="true">✓</span>
         </button>
         <button class="storage-choice storage-potato" type="button" data-category="potato">
-          <span class="storage-choice-icon" aria-hidden="true">🥔</span>
+          <span class="storage-choice-icon" aria-hidden="true"><svg viewBox="0 0 512 512"><use href="/static/minigame2-storage-art.svg?v=storage-art-v1#dark-cellar"></use></svg></span>
           <span class="storage-choice-copy"><strong>Tmavá komora</strong></span>
           <span class="storage-choice-check" aria-hidden="true">✓</span>
         </button>
