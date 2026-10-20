@@ -350,3 +350,31 @@
   background:#f7f4e5!important;
   border-color:#d5c18e!important;
 }
+
+
+/* Transparent scanner panels so the shared Zeleninur garden background shows through. */
+.scanner-game-body{
+  background:transparent!important;
+}
+.scanner-game-body .minigame-layout,
+.scanner-game-body .minigame-main-column,
+.scanner-game-body .minigame-sidebar{
+  background:transparent!important;
+}
+.scanner-game-body .minigame-hero,
+.scanner-game-body .minigame-welcome,
+.scanner-game-body .minigame-board,
+.scanner-game-body .minigame-sidebar .leaderboard-card,
+.scanner-game-body .minigame-sidebar .leaderboard-rules-card{
+  background:rgba(255,247,222,.88)!important;
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+}
+.scanner-game-body .minigame-header{
+  background:rgba(248,237,202,.86)!important;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+.scanner-game-body .minigame-footer{
+  background:transparent!important;
+}
