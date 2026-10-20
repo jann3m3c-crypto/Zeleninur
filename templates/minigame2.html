@@ -23,7 +23,7 @@
       <div class="cellar-hero-copy">
         <div class="minigame-eyebrow">SKLEPNÍ VÝZVA · TÝDEN 2</div>
         <h1>🍎 Toxické spojenectví</h1>
-        <p>Sklep je plný úrody, ale ne každá plodina chce bydlet se sousedem. Během 30 sekund rozděl plodiny na správná místa: kořenovou zeleninu do písku, plodiny uvolňující etylen stranou a brambory do tmy.</p>
+        <p>Na obrazovce se objeví jedna plodina. Rozhodni, kam ji uložit: kořenovou zeleninu do písku, jablka a podobné plody na oddělenou polici a brambory do tmy a chladu.</p>
         <div class="mini-rules-strip">
           <span>⏱️ 30 sekund</span>
           <span>✅ +1 za správné uložení</span>
@@ -42,8 +42,14 @@
       <div class="welcome-copy">
         <div class="minigame-eyebrow">PŘIPRAV SE, {{ user['display_name']|upper }}</div>
         <div class="avatar-epithet-chip">🌱 {{ current_avatar_name }}</div>
-        <h2>Ulož úrodu dřív, než se zkazí</h2>
-        <p>Vytáhne se jedna plodina. Vyber bednu, kam patří. Celer, petržel a mrkev tvoří bezpečnou kořenovou trojici. Jablka a další plody produkující etylen drž dál od brambor.</p>
+        <h2>Jak se to hraje?</h2>
+        <p>Po stisknutí tlačítka se ukáže plodina. Klikni na jedno ze tří skladovacích míst. Máš 30 sekund — nemusíš nic přetahovat.</p>
+        <div class="cellar-howto" aria-label="Tři pravidla skladování">
+          <div><span aria-hidden="true">🧺</span><p><strong>1. Bedna s pískem</strong><small>Mrkev, petržel a celer.</small></p></div>
+          <div><span aria-hidden="true">🍎</span><p><strong>2. Oddělená police</strong><small>Jablka, banány a zralá rajčata. Drž je dál od brambor.</small></p></div>
+          <div><span aria-hidden="true">🥔</span><p><strong>3. Tmavý a chladný kout</strong><small>Brambory — bez světla a mimo jablka.</small></p></div>
+        </div>
+        <p class="cellar-simple-scoring"><strong>Body:</strong> správně +1, chyba −1 (nejméně 0), pět správných za sebou = bonus +2. Je to jen trénink — zlaťáky ani pozici na plánu to nezmění.</p>
         {% if best_score is not none %}
           <p class="personal-best-line">Tvůj rekord: <strong>{{ best_score }} bodů</strong> · nejlepší série {{ best_level or 1 }}</p>
         {% else %}
@@ -62,7 +68,7 @@
       <div class="cellar-timer-wrap"><div class="cellar-timer-track"><div id="timerBar" class="cellar-timer-bar"></div></div><strong id="timeValue">30</strong><span>s</span></div>
 
       <section class="produce-question" aria-live="polite">
-        <div class="produce-question-label">KAM PATŘÍ TATO PLODNA?</div>
+        <div class="produce-question-label">KAM ULOŽIT TUTO PLODINU?</div>
         <div id="produceCard" class="produce-card">
           <span class="produce-icon" id="produceIcon" aria-hidden="true">🥕</span>
           <div class="produce-name" id="produceName">Mrkev</div>
@@ -78,7 +84,7 @@
         </button>
         <button class="storage-choice storage-ethylene" type="button" data-category="ethylene">
           <span class="storage-choice-icon" aria-hidden="true">🍎</span>
-          <span class="storage-choice-copy"><strong>Oddělit od brambor</strong><small>Jablka · banány · zralá rajčata</small><em>Plodiny, které podporují zrání</em></span>
+          <span class="storage-choice-copy"><strong>Na oddělenou polici</strong><small>Jablka · banány · zralá rajčata</small><em>Nedávat vedle brambor</em></span>
           <span class="storage-choice-check" aria-hidden="true">✓</span>
         </button>
         <button class="storage-choice storage-potato" type="button" data-category="potato">
@@ -87,7 +93,7 @@
           <span class="storage-choice-check" aria-hidden="true">✓</span>
         </button>
       </div>
-      <div class="cellar-feedback" id="cellarFeedback" role="status">Čekám na první plodinu.</div>
+      <div class="cellar-feedback" id="cellarFeedback" role="status">Vyber jedno ze tří míst. Po každé volbě uvidíš vysvětlení.</div>
       <div class="game-over-panel cellar-game-over" id="gameOverPanel" hidden>
         <div class="game-over-icon" aria-hidden="true">🏆</div>
         <div>
@@ -98,7 +104,7 @@
           <button class="primary-button minigame-start-button" id="replayButton" type="button">↻ Třídit znovu</button>
         </div>
       </div>
-      <p class="round-hint cellar-hint">Pamatuj: celer, petržel a mrkev dobře drží pohromadě v bedně s pískem. Jablka uvolňují etylen, který může podpořit klíčení brambor. Minihra nemění zlaťáky ani pozici na plánu.</p>
+      <p class="round-hint cellar-hint"><strong>Pomůcka:</strong> Mrkev, petržel, celer → písek. Jablka, banány, zralá rajčata → oddělená police. Brambory → tma a chlad. Minihra nemění zlaťáky ani pozici na plánu.</p>
     </section>
   </section>
 
@@ -125,7 +131,7 @@
     <section class="wood-card cellar-rules-card leaderboard-rules-card">
       <h3>📜 Pravidla skladování</h3>
       <p><strong>🥕 Kořenová trojice</strong><br>Celer, petržel a mrkev mohou být v jedné bedně s pískem.</p>
-      <p><strong>🍎 Etylen</strong><br>Jablka mohou urychlit klíčení brambor, proto je neskladuj vedle sebe.</p>
+      <p><strong>🍎 Oddělená police</strong><br>Jablka, banány a zralá rajčata ulož stranou; některé uvolňují etylen, který může ovlivnit sousední úrodu.</p>
       <p><strong>🥔 Brambory</strong><br>Patří do tmavého a chladného místa.</p>
       <p><strong>🪙 Zlaťáky</strong><br>Minihra žádné nepřidává ani neodečítá.</p>
     </section>
@@ -190,12 +196,15 @@
       score+=1;combo+=1;bestCombo=Math.max(bestCombo,combo);
       produceCard.classList.add('is-correct');button.classList.add('is-correct');
       if(combo>0&&combo%5===0){score+=2;setPhase('🌟 Série '+combo+' · bonus +2','phase-success');feedback.textContent='Skvěle! Pět bezpečně uložených plodin v řadě — bonus +2.';}
-      else{setPhase('✅ Správné místo','phase-success');feedback.textContent=current.note;}
+      else{setPhase('✅ Správné místo','phase-success');feedback.textContent='Ano! '+(current.category==='roots'?'Bedna s pískem. ':current.category==='ethylene'?'Oddělená police — mimo brambory. ':'Tmavý a chladný kout. ')+current.note;}
     }else{
       score=Math.max(0,score-1);combo=0;
       produceCard.classList.add('is-wrong');button.classList.add('is-wrong');
-      setPhase('⚠️ Špatná bedna','phase-error');
-      feedback.textContent=current.note;
+      setPhase('⚠️ Špatná volba','phase-error');
+      const correctPlace = current.category==='roots' ? 'Správně: bedna s pískem.' : current.category==='ethylene' ? 'Správně: oddělená police, mimo brambory.' : 'Správně: tmavý a chladný kout.';
+      feedback.textContent='Zkus to znovu zapamatovat. '+correctPlace+' '+current.note;
+      const correctButton=choices.find(c=>c.dataset.category===current.category);
+      if(correctButton)correctButton.classList.add('is-correct');
     }
     paintScore();
     nextItemTimer=window.setTimeout(()=>{if(running)chooseProduce();},720);
